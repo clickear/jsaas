@@ -1,0 +1,52 @@
+/*basecss*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,p{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img,object{border:0 none;}
+img{-ms-interpolation-mode: bicubic;}
+ol,ul{list-style:none}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+input,textarea,select,button{font-family:inherit;font-size:inherit;font-weight:inherit;color: #333;*font-size:100%;vertical-align: middle;}
+.fl{float:left;}
+.fr{float:right;}
+.tc{text-align:center;}
+.vm{vertical-align: middle;}
+.rel{position:relative;}
+.abs{position:absolute;}
+.none{display:none;}
+.center{margin: auto;}
+em{ font-style: normal;}
+body{ font-family: Microsoft yahei; width: 100%; font-size: 12px; background: #f8f8f8;}
+.container{width:96%; height: auto; margin: 0px auto; overflow: hidden;}
+.container .webposition{width: 100%; height: 50px; line-height: 50px;}
+.container .webposition .home{ background: url("../image/index/h.png") no-repeat; width: 18px; height: 18px; float: left; margin: 16px 0px 16px 0px;}
+.container .webposition em{ margin: 0px 10px;}
+.container .webposition button{ border: none 0px;height: 26px; margin: 12px 5px; outline: none; cursor: pointer;}
+.container .webposition .conpra1{ background: url("../image/index/bc.png") no-repeat; width: 60px; }
+.container .webposition .conpra2{ background: url("../image/index/sz.png") no-repeat; width: 82px; }
+.container .webposition .conpra3{ background: url("../image/index/sx.png") no-repeat; width: 60px;  }
+
+
+.container .wrap{width:100%; height: auto; overflow: hidden;}
+.container .wrap .leftside{width: 26%; height: auto; overflow: hidden; float: left;}
+.container .wrap .centerpart{ width: 46%; height: auto; overflow: hidden; margin: 0px 1%; float: left;}
+.container .wrap .rightside{width: 26%;height: auto; overflow: hidden; float: right;}
+
+.panel{width: 99.3%; height: auto; overflow: hidden; border: 1px solid #d1d1d1; margin:0px 0px 15px 0px; background: #fff;}
+.panel .panel-head{width:100%; height: 40px; line-height: 40px; border-bottom: 1px solid #d1d1d1;}
+.panel .panel-head h3{float: left; font-weight: 500; font-size: 14px; border-bottom: 2px solid #47bbf9; line-height: 38px; padding: 0px 10px; margin-left: 10px;}
+.panel .panel-head .tool{ margin-top:12px;}
+.panel .panel-head .tool .more{background: url("../image/index/contenticon.png") no-repeat 0px -95px; width: 40px; height: 15px; display: block; float: left; margin-right: 10px;}
+.panel .panel-head .tool .selected{background: url("../image/index/contenticon.png") no-repeat -56px -95px; width: 15px; height: 15px; display: block; float: left;margin-right: 10px;}
+.panel .panel-head .tool .renovate{background: url("../image/index/contenticon.png") no-repeat -82px -95px; width: 15px; height: 15px; display: block; float: left;margin-right: 10px;}
+.panel .panel-body{width:100%; height: auto; overflow: hidden;}
+.panel .panel-body ul{width:100%; height: auto; overflow: hidden; margin: 10px 0px;}
+.panel .panel-body ul li{width:100%; height: 30px; line-height: 30px; overflow: hidden; background: url("../image/index/dian.png") no-repeat 10px center; }
+.panel .panel-body ul li p{float: left; padding-left: 20px;}
+.panel .panel-body ul li span{float: right; padding-right: 10px;}
+
+
+.footer{ width: 100%; height: 30px; line-height: 30px; text-align: center;}
+.footer a{padding: 0px 20px; text-decoration: none; color: #333;}
+
+
+

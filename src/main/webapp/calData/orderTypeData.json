@@ -1,0 +1,20 @@
+[
+	{"orderType","电路租用",
+	 "count":"30"
+	},
+	{"orderType","统一Centrex",
+	 "count":"60"
+	},
+	{"orderType","集团WLAN",
+	 "count":"84"
+	},
+	{"orderType","互联网接入",
+	 "count":"200"
+	},
+	{"orderType","普通语音专线",
+	 "count":"110"
+	},
+	{"orderType","IPVPN",
+	 "count":"116"
+	}
+]

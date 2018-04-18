@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.bo.entity.SysBoDef">
+	<resultMap id="SysBoDef" type="com.redxun.sys.bo.entity.SysBoDef">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="alais" column="ALAIS_" jdbcType="VARCHAR"/>
+		<result property="comment" column="COMMENT_" jdbcType="VARCHAR"/>
+		<result property="supportDb" column="SUPPORT_DB_" jdbcType="VARCHAR"/>
+		<result property="genMode" column="GEN_MODE_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="opinionDef" column="OPINION_DEF_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.bo.entity.SysBoDef">
+		INSERT INTO SYS_BO_DEFINITION
+		(ID_,NAME_,ALAIS_,COMMENT_,SUPPORT_DB_,GEN_MODE_,TREE_ID_,TENANT_ID_,CREATE_BY_,
+		CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,OPINION_DEF_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alais,jdbcType=VARCHAR}, 
+		#{comment,jdbcType=VARCHAR}, #{supportDb,jdbcType=VARCHAR}, #{genMode,jdbcType=VARCHAR}, 
+		#{treeId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
+		 #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+		 #{opinionDef,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysBoDef">
+		SELECT * FROM SYS_BO_DEFINITION 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysBoDef">
+		SELECT * FROM SYS_BO_DEFINITION
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.bo.entity.SysBoDef">
+		UPDATE SYS_BO_DEFINITION SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		ALAIS_=#{alais,jdbcType=VARCHAR},
+		COMMENT_=#{comment,jdbcType=VARCHAR},
+		SUPPORT_DB_=#{supportDb,jdbcType=VARCHAR},
+		GEN_MODE_=#{genMode,jdbcType=VARCHAR},
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		OPINION_DEF_=#{opinionDef,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_BO_DEFINITION  WHERE ID_=#{id}
+	</delete>
+	
+	<select id="getCountByAlias" resultType="java.lang.Integer">
+		select count(*) from SYS_BO_DEFINITION where ALAIS_=#{alias,jdbcType=VARCHAR}
+		and TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		<if test="@Ognl@isNotEmpty(id)">
+			and ID_!=#{id}
+		</if>
+	
+	</select>
+	
+	<select id="getByAlias" resultMap="SysBoDef">
+		select * from SYS_BO_DEFINITION where ALAIS_=#{alias,jdbcType=VARCHAR}
+		and TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+	</select>
+	
+	
+</mapper>

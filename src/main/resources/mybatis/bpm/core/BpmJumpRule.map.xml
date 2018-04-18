@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmJumpRule">
+	<resultMap id="BpmJumpRule" type="com.redxun.bpm.core.entity.BpmJumpRule">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="actdefId" column="ACTDEF_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+		<result property="target" column="TARGET_" jdbcType="VARCHAR"/>
+		<result property="targetName" column="TARGET_NAME_" jdbcType="VARCHAR"/>
+		<result property="rule" column="RULE_" jdbcType="VARCHAR"/>
+		<result property="sn" column="SN_" jdbcType="NUMERIC"/>
+		<result property="type" column="TYPE_" jdbcType="NUMERIC"/>
+		<result property="description" column="DESCRIPTION_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmJumpRule">
+		INSERT INTO BPM_JUMP_RULE
+		(ID_,NAME_,SOL_ID_,ACTDEF_ID_,NODE_ID_,NODE_NAME_,TARGET_,TARGET_NAME_,RULE_,SN_,TYPE_,DESCRIPTION_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR}, #{actdefId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, #{targetName,jdbcType=VARCHAR}, #{rule,jdbcType=VARCHAR}, #{sn,jdbcType=NUMERIC}, #{type,jdbcType=NUMERIC}, #{description,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmJumpRule">
+		SELECT * FROM BPM_JUMP_RULE 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmJumpRule">
+		SELECT * FROM BPM_JUMP_RULE
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmJumpRule">
+		UPDATE BPM_JUMP_RULE SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		ACTDEF_ID_=#{actdefId,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		NODE_NAME_=#{nodeName,jdbcType=VARCHAR},
+		TARGET_=#{target,jdbcType=VARCHAR},
+		TARGET_NAME_=#{targetName,jdbcType=VARCHAR},
+		RULE_=#{rule,jdbcType=VARCHAR},
+		SN_=#{sn,jdbcType=NUMERIC},
+		TYPE_=#{type,jdbcType=NUMERIC},
+		DESCRIPTION_=#{description,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_JUMP_RULE 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+	
+	<select id="getBySolNodeId"    resultMap="BpmJumpRule">
+		SELECT * FROM BPM_JUMP_RULE  WHERE SOL_ID_=#{solId,jdbcType=VARCHAR} 
+		and ACTDEF_ID_=#{actdefId,jdbcType=VARCHAR}
+		and  NODE_ID_=#{nodeId,jdbcType=VARCHAR} order by SN_ asc
+	</select>
+	
+</mapper>

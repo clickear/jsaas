@@ -1,0 +1,18 @@
+<div style="display:none;" id="relatedSolutionTemplate">
+	<script type="text/html;" id="relatedInstanceScript">
+		<ul  style="padding-left: 0px;">
+		<#
+			for(var i=0;i<list.length;i++){
+				var file=list[i];
+		#>
+			<li id="li_<#=file.instId#>">
+				<a target="_blank" href="<#=ctxPath#>/bpm/core/bpmInst/inform.do?instId=<#=file.instId#>"><#=file.subject#></a>
+				<#if(write) { #>
+				<a name="removeInstance" class="mini-button" iconCls="icon-remove" >删除</a>
+				<#}#>				
+			</li>
+		 <#}#>
+		</ul>
+	</script>
+	
+</div>

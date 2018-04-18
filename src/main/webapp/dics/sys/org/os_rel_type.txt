@@ -1,0 +1,14 @@
+[
+	{
+		id:'USER-USER',
+		text:'用户-用户'
+	},
+	{
+		id:'GROUP-GROUP',
+		text:'用户组-用户组'
+	},
+	{
+		id:'GROUP-USER',
+		text:'用户组-用户'
+	}
+]

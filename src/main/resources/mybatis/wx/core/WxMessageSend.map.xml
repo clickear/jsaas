@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.core.entity.WxMessageSend">
+	<resultMap id="WxMessageSend" type="com.redxun.wx.core.entity.WxMessageSend">
+		<id property="ID" column="ID" jdbcType="VARCHAR"/>
+		<result property="pubId" column="PUB_ID_" jdbcType="VARCHAR"/>
+		<result property="msgType" column="MSG_TYPE_" jdbcType="VARCHAR"/>
+		<result property="sendType" column="SEND_TYPE_" jdbcType="VARCHAR"/>
+		<result property="receiver" column="RECEIVER_" jdbcType="VARCHAR"/>
+		<result property="content" column="CONTENT_" jdbcType="CLOB"/>
+		<result property="sendState" column="SEND_STATE_" jdbcType="VARCHAR"/>
+		<result property="config" column="CONFIG_" jdbcType="CLOB"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.core.entity.WxMessageSend">
+		INSERT INTO WX_MESSAGE_SEND
+		(ID,PUB_ID_,MSG_TYPE_,SEND_TYPE_,RECEIVER_,CONTENT_,SEND_STATE_,CONFIG_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{ID,jdbcType=VARCHAR}, #{pubId,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, #{sendType,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{content,jdbcType=CLOB}, #{sendState,jdbcType=VARCHAR}, #{config,jdbcType=CLOB}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxMessageSend">
+		SELECT * FROM WX_MESSAGE_SEND 
+		WHERE 
+		ID=#{ID}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxMessageSend">
+		SELECT * FROM WX_MESSAGE_SEND
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.core.entity.WxMessageSend">
+		UPDATE WX_MESSAGE_SEND SET
+		PUB_ID_=#{pubId,jdbcType=VARCHAR},
+		MSG_TYPE_=#{msgType,jdbcType=VARCHAR},
+		SEND_TYPE_=#{sendType,jdbcType=VARCHAR},
+		RECEIVER_=#{receiver,jdbcType=VARCHAR},
+		CONTENT_=#{content,jdbcType=CLOB},
+		SEND_STATE_=#{sendState,jdbcType=VARCHAR},
+		CONFIG_=#{config,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM WX_MESSAGE_SEND 
+		WHERE
+		ID=#{ID}
+	</delete>
+	
+	
+</mapper>

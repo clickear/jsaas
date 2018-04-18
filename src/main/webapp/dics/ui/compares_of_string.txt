@@ -1,0 +1,6 @@
+[
+    {'fieldOp':'like','fieldOpLabel':'%模糊匹配%'},
+    {'fieldOp':'left-like','fieldOpLabel':'%左模糊匹配'},
+    {'fieldOp':'=','fieldOpLabel':'等于'},
+    {'fieldOp':'right-like','fieldOpLabel':'右模糊匹配%'}
+]

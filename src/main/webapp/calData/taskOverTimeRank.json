@@ -1,0 +1,42 @@
+[
+	{"rank":"1",
+	 "refBusOpen":"50",
+	 "busOepnPoint":"N5 数支中心 提供楼宇编码、可视化关联截图",
+	 "refSurveyForm":"21",
+	 "surveyFormPoint":"N2 专线审批人  审核勘察单",
+	 "surveyFormAvgOverTime":"78",
+	 "busOepnAvgOverTime":"124"	 
+	},
+	{"rank":"2",
+	 "refBusOpen":"43",
+	 "busOepnPoint":"N3 施工队 外线施工，进入物业施工并将进场情况反馈",
+	 "refSurveyForm":"15",
+	 "surveyFormPoint":"N6 客户经理  重新协调确认上门时间",
+	 "surveyFormAvgOverTime":"96",
+	 "busOepnAvgOverTime":"78"	 
+	},
+	{"rank":"3",
+	 "refBusOpen":"33",
+	 "busOepnPoint":"N11 客户经理  确认商务验收及开通时间",
+	 "refSurveyForm":"10",
+	 "surveyFormPoint":"N12 客户经理  反馈报价给客户并反馈客户结果到订单中心（确认客户是否能签约）",
+	 "surveyFormAvgOverTime":"356",
+	 "busOepnAvgOverTime":"24"	 
+	},
+	{"rank":"4",
+	 "refBusOpen":"22",
+	 "busOepnPoint":"N2 分公司网络部  通知施工队施工",
+	 "refSurveyForm":"8",
+	 "surveyFormPoint":"N13 订单中心负责人  评估商机转换是否成功",
+	 "surveyFormAvgOverTime":"55",
+	 "busOepnAvgOverTime":"66"	 
+	},
+	{"rank":"5",
+	 "refBusOpen":"10",
+	 "busOepnPoint":"N12 订单中心  开展满意度调查",
+	 "refSurveyForm":"2",
+	 "surveyFormPoint":"N9  数字化业务支撑中心  提供技术方案支持",
+	 "surveyFormAvgOverTime":"89",
+	 "busOepnAvgOverTime":"33"	 
+	}
+]

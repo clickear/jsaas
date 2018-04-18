@@ -1,0 +1,78 @@
+@charset "utf-8";
+/*ie8单独样式表*/
+.p_top{
+	box-sizing: border-box;
+}
+
+.card ul li:hover,
+.card_msg ul li:hover,
+.modularBox > .p_top:hover{
+	border: 1px solid #ececec;
+}
+
+.card ul li{
+	width:188px;
+}
+
+.cardmini ul li{
+	width:261px;
+}
+
+#cardUl{
+	margin-bottom: 20px;
+}
+
+.card_msg ul li{
+	width:190px;
+}
+
+.modularBox{
+	width:100%;
+	padding:0;
+}
+
+.modularBox>dd>span{
+	text-align: center;
+	padding-left:2%;
+	color:#000;
+	display: block;
+	text-indent: 6px;
+	margin-left: 0 ;
+}
+
+.modularBox>dd>span a{
+	width:100%;
+	display: block;
+	text-align: center;
+	color: #000;
+	text-indent: 6px;
+}
+
+
+	/*小于1600*/
+.winW1600 .cardmini ul li{
+	height:220px;
+}
+.winW1600 .cardmini ul li{
+	height:auto;
+}
+
+	/*小于1400*/
+
+	/*小于1260*/
+
+
+	/*小于1190*/
+
+
+	/*小于1000*/
+
+
+
+
+
+
+
+
+
+

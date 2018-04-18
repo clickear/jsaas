@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsPortalDef">
+	<resultMap id="InsPortalDef" type="com.redxun.oa.info.entity.InsPortalDef">
+		<id property="portId" column="PORT_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="isDefault" column="IS_DEFAULT_" jdbcType="VARCHAR"/>
+		<result property="userId" column="USER_ID_" jdbcType="VARCHAR"/>
+		<result property="priority" column="PRIORITY_" jdbcType="VARCHAR"/>
+		<result property="layoutHtml" column="LAYOUT_HTML_" jdbcType="VARCHAR"/>
+		<result property="editHtml" column="EDIT_HTML_" jdbcType="CLOB"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsPortalDef">
+		INSERT INTO ins_portal_def
+		(PORT_ID_,NAME_,KEY_,IS_DEFAULT_,USER_ID_,LAYOUT_HTML_,EDIT_HTML_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,PRIORITY_)
+		VALUES 
+		(#{portId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{layoutHtml,jdbcType=VARCHAR}, #{editHtml,jdbcType=CLOB},#{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{priority,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InsPortalDef">
+		SELECT * FROM ins_portal_def 
+		WHERE 
+		PORT_ID_=#{portId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InsPortalDef">
+		SELECT * FROM ins_portal_def
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY PORT_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsPortalDef">
+		UPDATE ins_portal_def SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		KEY_=#{key,jdbcType=VARCHAR},
+		IS_DEFAULT_=#{isDefault,jdbcType=VARCHAR},
+		USER_ID_=#{userId,jdbcType=VARCHAR},
+		LAYOUT_HTML_=#{layoutHtml,jdbcType=VARCHAR},
+		EDIT_HTML_=#{editHtml,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		PRIORITY_=#{priority,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		PORT_ID_=#{portId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM ins_portal_def 
+		WHERE
+		PORT_ID_=#{portId}
+	</delete>
+	
+	
+</mapper>

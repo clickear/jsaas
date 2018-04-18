@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+.daohang{width:98%;height:auto;overflow:hidden;border-bottom:#ececec thin solid;margin:0px auto;color:#199bf8;font-weight:600;line-height:40px;}
+.daohang img{margin-right:20px;padding-bottom:5px;vertical-align:middle;}
+.more{display:block;float:right; width: 40px; height: 15px;margin-top:16px;;padding-left:10px; background: url("../images/index/contenticon.png") no-repeat 0px -95px;}
+.zuixin, .zuire{width:95%;height:280px;margin:30px auto;background:#FFF;border:#eeeeee  thin solid;position:relative;overflow:hidden;}
+
+
+.rollBox{width:90%; height: auto; overflow:hidden;margin:0 auto;}
+.rollBox .Cont{width:100%; height: 210px; overflow:hidden;margin:20px auto 0px; position: relative;}
+.rollBox .ScrCont{height: 210px; position: absolute; top: 0px; left: 0px;}
+.rollBox .Cont .pic{width:235px;;float:left;text-align:center;}
+.rollBox .Cont .pic p{ text-align: center; font-size: 14px;}
+*+html .rollBox .Cont .pic{width:235px;float:left;text-align:center;padding-right:12px;}
+.rollBox .Cont .pic img{padding:10px;display:block;margin:0 auto; width: 215px; height: 160px;}
+.rollBox .Cont .pic p{line-height:26px;color:#505050;}
+.rollBox .Cont a:link,.rollBox .Cont a:visited{color:#626466;text-decoration:none;}
+.rollBox .Cont a:hover{color:#f00;text-decoration:underline;}
+.rollBox #List1,.rollBox #List2{float:left;}
+.img1{float:left;margin:76px 0px;position:absolute;left:-19px;}
+.img2{float:right;margin:76px 0px;position:absolute;right:-19px;}
+
+/*footer*/
+.footer{ width: 100%; height: 60px; text-align: center;}
+.footer a{padding: 0px 20px; text-decoration: none; color: #333;}
+

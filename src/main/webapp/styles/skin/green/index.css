@@ -1,0 +1,40 @@
+#top{background-color:#499300;}
+#tabsbox{background-color:#5BB700;}
+#fr{background-color:#499300;}
+#fr #skin{background:#499300;z-index: 1000;}
+#fr #skin a:hover{background:rgba(255,255,255,0.2);z-index:1000; cursor: pointer;}
+#fr #skin div:hover{background:rgba(255,255,255,0.2);}
+#sidemenu .firstmenu.active>p{ background:linear-gradient(to right, #499300 4px, rgba(246,246,246,0.3) 4px); background:-webkit-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -ms-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -moz-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);  color:#20273D;}
+#sidemenu .firstmenu:hover>p{ background:linear-gradient(to right, #499300 4px, rgba(246,246,246,0.3) 0px);background:-webkit-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -ms-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -moz-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);   color:#20273D;}
+#sidemenu .firstmenu p:before{color:#499300;}
+#sidemenu .secondmenu>li>p.active{color:#499300;}
+#sidemenu .secondmenu>li>p:before{content: "\e6cd";color: #666;margin-right:10px; font-size: 12px;font-weight: 600;} 
+#sidemenu .secondmenu>li>p.active:before{content: "\e76c";color: #499300;} 
+.mini-window .mini-panel-header{background:#499300 !important;}
+#form1 .table-detail > tbody > tr > th{background:#dff0d8;}
+#tabs1 .table-detail > tbody > tr > th{background:#dff0d8;}
+.form-outer .table-detail > tbody > tr > th{background:#dff0d8;}
+#grantForm .table-detail > tbody > tr > th{background:#dff0d8;}
+#uploadForm .table-detail > tbody > tr > th{background:#dff0d8;}
+#zipForm .table-detail > tbody > tr > th{background:#dff0d8;}
+#miniForm .table-detail > tbody > tr > th{background:#dff0d8;}
+#resetForm .table-detail > tbody > tr > th{background:#dff0d8;}
+body tr.mini-grid-row-hover{background:#e8f6e2;}
+#picker .webuploader-pick{background:#499300;}
+body a:hover.mini-button{border:1px solid #499300;}
+body .mini-textbox-focus .mini-textbox-border,
+body .mini-buttonedit-focus .mini-buttonedit-border,
+body .mini-buttonedit-popup .mini-buttonedit-border{
+    border-color:#499300;
+}
+
+
+
+
+
+
+
+
+
+
+

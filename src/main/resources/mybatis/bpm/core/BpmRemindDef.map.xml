@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmRemindDef">
+	<resultMap id="BpmRemindDef" type="com.redxun.bpm.core.entity.BpmRemindDef">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="action" column="ACTION_" jdbcType="VARCHAR"/>
+		<result property="relNode" column="REL_NODE_" jdbcType="VARCHAR"/>
+		<result property="event" column="EVENT_" jdbcType="VARCHAR"/>
+		<result property="dateType" column="DATE_TYPE_" jdbcType="VARCHAR"/>
+		<result property="expireDate" column="EXPIRE_DATE_" jdbcType="VARCHAR"/>
+		<result property="condition" column="CONDITION_" jdbcType="VARCHAR"/>
+		<result property="script" column="SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="notifyType" column="NOTIFY_TYPE_" jdbcType="VARCHAR"/>
+		<result property="timeToSend" column="TIME_TO_SEND_" jdbcType="VARCHAR"/>
+		<result property="sendTimes" column="SEND_TIMES_" jdbcType="NUMERIC"/>
+		<result property="sendInterval" column="SEND_INTERVAL_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="solutionName" column="SOLUTION_NAME_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmRemindDef">
+		INSERT INTO BPM_REMIND_DEF
+		(ID_,SOL_ID_,ACT_DEF_ID_,NODE_ID_,NAME_,ACTION_,REL_NODE_,EVENT_,DATE_TYPE_,EXPIRE_DATE_,CONDITION_,SCRIPT_,NOTIFY_TYPE_,TIME_TO_SEND_,SEND_TIMES_,
+		SEND_INTERVAL_,TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR},#{actDefId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{relNode,jdbcType=VARCHAR}, #{event,jdbcType=VARCHAR}, #{dateType,jdbcType=VARCHAR}, #{expireDate,jdbcType=VARCHAR}, #{condition,jdbcType=VARCHAR}, #{script,jdbcType=VARCHAR}, #{notifyType,jdbcType=VARCHAR},  #{timeToSend,jdbcType=VARCHAR}, #{sendTimes,jdbcType=NUMERIC}, #{sendInterval,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmRemindDef">
+		SELECT * FROM BPM_REMIND_DEF 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmRemindDef">
+		SELECT * FROM BPM_REMIND_DEF
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmRemindDef">
+		UPDATE BPM_REMIND_DEF SET
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		ACTION_=#{action,jdbcType=VARCHAR},
+		REL_NODE_=#{relNode,jdbcType=VARCHAR},
+		EVENT_=#{event,jdbcType=VARCHAR},
+		DATE_TYPE_=#{dateType,jdbcType=VARCHAR},
+		EXPIRE_DATE_=#{expireDate,jdbcType=VARCHAR},
+		CONDITION_=#{condition,jdbcType=VARCHAR},
+		SCRIPT_=#{script,jdbcType=VARCHAR},
+		NOTIFY_TYPE_=#{notifyType,jdbcType=VARCHAR},
+		
+		TIME_TO_SEND_=#{timeToSend,jdbcType=VARCHAR},
+		SEND_TIMES_=#{sendTimes,jdbcType=NUMERIC},
+		SEND_INTERVAL_=#{sendInterval,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_REMIND_DEF 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="getBySolNode"   parameterType="java.lang.String" resultMap="BpmRemindDef">
+		SELECT * FROM BPM_REMIND_DEF 
+		WHERE SOL_ID_=#{solId} and ACT_DEF_ID_=#{actDefId} and NODE_ID_=#{nodeId}
+	</select>
+	
+	<select id="getBySolId"   parameterType="java.lang.String" resultMap="BpmRemindDef">
+		SELECT * FROM BPM_REMIND_DEF WHERE SOL_ID_=#{solId} and ACT_DEF_ID_=#{actDefId}
+	</select>
+	
+</mapper>

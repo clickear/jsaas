@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmGroupScript">
+	<resultMap id="BpmGroupScript" type="com.redxun.bpm.core.entity.BpmGroupScript">
+		<id property="scriptId" column="SCRIPT_ID_" jdbcType="VARCHAR"/>
+		<result property="className" column="CLASS_NAME_" jdbcType="VARCHAR"/>
+		<result property="classInsName" column="CLASS_INS_NAME_" jdbcType="VARCHAR"/>
+		<result property="methodName" column="METHOD_NAME_" jdbcType="VARCHAR"/>
+		<result property="methodDesc" column="METHOD_DESC_" jdbcType="VARCHAR"/>
+		<result property="returnType" column="RETURN_TYPE_" jdbcType="VARCHAR"/>
+		<result property="argument" column="ARGUMENT_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="DATE"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="DATE"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmGroupScript">
+		INSERT INTO BPM_GROUP_SCRIPT
+		(SCRIPT_ID_,CLASS_NAME_,CLASS_INS_NAME_,METHOD_NAME_,METHOD_DESC_,RETURN_TYPE_,ARGUMENT_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{scriptId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, #{classInsName,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}, #{methodDesc,jdbcType=VARCHAR}, #{returnType,jdbcType=VARCHAR}, #{argument,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmGroupScript">
+		SELECT * FROM BPM_GROUP_SCRIPT 
+		WHERE 
+		SCRIPT_ID_=#{scriptId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmGroupScript">
+		SELECT * FROM BPM_GROUP_SCRIPT
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY SCRIPT_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmGroupScript">
+		UPDATE BPM_GROUP_SCRIPT SET
+		CLASS_NAME_=#{className,jdbcType=VARCHAR},
+		CLASS_INS_NAME_=#{classInsName,jdbcType=VARCHAR},
+		METHOD_NAME_=#{methodName,jdbcType=VARCHAR},
+		METHOD_DESC_=#{methodDesc,jdbcType=VARCHAR},
+		RETURN_TYPE_=#{returnType,jdbcType=VARCHAR},
+		ARGUMENT_=#{argument,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=DATE},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=DATE}
+		WHERE
+		SCRIPT_ID_=#{scriptId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_GROUP_SCRIPT 
+		WHERE
+		SCRIPT_ID_=#{scriptId}
+	</delete>
+	
+	<select id="getAllClass" parameterType="java.lang.String">
+		SELECT * FROM BPM_GROUP_SCRIPT 
+		WHERE 
+		TENANT_ID_=#{scriptId}
+	</select>
+	
+</mapper>

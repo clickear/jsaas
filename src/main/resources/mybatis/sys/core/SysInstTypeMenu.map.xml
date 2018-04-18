@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysInstTypeMenu">
+	<resultMap id="SysInstTypeMenu" type="com.redxun.sys.core.entity.SysInstTypeMenu">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="instTypeId" column="INST_TYPE_ID_" jdbcType="VARCHAR"/>
+		<result property="sysId" column="SYS_ID_" jdbcType="VARCHAR"/>
+		<result property="menuId" column="MENU_ID_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysInstTypeMenu">
+		INSERT INTO SYS_INST_TYPE_MENU
+		(ID_,INST_TYPE_ID_,SYS_ID_,MENU_ID_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{instTypeId,jdbcType=VARCHAR}, #{sysId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysInstTypeMenu">
+		SELECT * FROM SYS_INST_TYPE_MENU 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysInstTypeMenu">
+		SELECT * FROM SYS_INST_TYPE_MENU
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysInstTypeMenu">
+		UPDATE SYS_INST_TYPE_MENU SET
+		INST_TYPE_ID_=#{instTypeId,jdbcType=VARCHAR},
+		SYS_ID_=#{sysId,jdbcType=VARCHAR},
+		MENU_ID_=#{menuId,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_INST_TYPE_MENU 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="deleteByInstTypeId">
+	    DELETE FROM SYS_INST_TYPE_MENU 
+		WHERE
+		INST_TYPE_ID_=#{typeId}
+	</delete>
+	
+	
+</mapper>

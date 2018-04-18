@@ -1,0 +1,146 @@
+ /*重置样式*/
+  body,h1,p,dl,dd{margin: 0}
+  h1,h2,h3,h4,h5{margin:0;font-size:16px;font-weight:normal;}
+  ul{margin: 0;padding: 0;}
+  li{list-style: none;}
+  a{text-decoration: none;outline:none;}
+  input{margin:0;padding:0;border:none;background-color:transparent;outline:none;}
+  input,button {-webkit-appearance: none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);border-radius: 0;}
+
+  /*通用*/
+  .clearfix{clear: both;}
+  *{font-family: "微软雅黑"}
+
+ 
+
+  #LoginBox{
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   	background-image:linear-gradient( 0deg, rgb(79,172,254) 0%, rgb(0,242,254) 100%);
+  }
+
+	.loginContent{
+		background: #fff;
+		border-radius: .2rem;
+		width: 85%;
+		margin-top: -2rem;
+		padding: .5rem 0;
+		box-shadow: 0px 11px 21px 0px rgba(128, 128, 128, 0.1);
+	}
+  
+  #logo{
+    width:40%;
+    margin:0 auto;
+  }
+
+  #logo img{
+    width:100%;
+    display: block;
+  }
+
+  #login-content{
+    width:70%;
+    margin:0.5rem auto 0 auto;
+  }
+
+  #login-content dd{
+    width:calc(100% - 2px);
+    border: 1px solid #cccccc;
+    border-radius: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  #login-content dd h5{
+    float: left;
+    padding: 0;
+    margin-left: 0.2rem;
+    line-height: 0.75rem;
+    font-size: 0.5rem;
+    color:#22a9f6;
+  }
+
+  #login-content dd input{
+    float: left;
+    margin-left: 0.2rem;
+    color:#666 !important;
+    font-size: 0.28rem;
+    line-height: 0.75rem;
+  }
+
+  #PINinp{
+    width:1.8rem;
+  }
+
+
+  #PIN{
+    float: right;
+    width:1rem;
+    margin:0.175rem 0.32rem 0 0;
+  }
+
+  #PIN img{
+    float:left;
+    width:100%;
+  }
+
+  #btnLogin{
+    width:70%;
+    border-radius: 1rem;
+    height: 0.8rem;
+    background: #22a9f6;
+    display: block;
+    margin: 0.7rem auto 0 auto;
+    font-size: 0.468rem;
+    color: #ffffff;
+  }
+
+  #forgetBox{
+    width:62%;
+    margin: 0.268rem auto 0 auto;;
+  }
+
+  #forget{
+    font-size: 0.18rem;
+    float: right;
+    color: #808080;
+    line-height: 0.32rem;
+  }
+
+	#LoginBottom{
+		position: relative;
+		width: 100%;
+	}
+	
+  #copyright{
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 0.2rem;
+    color: #fff;
+    z-index: 10;
+    line-height: .8rem;
+  }
+
+  #loginBg{
+  	left: 0;
+    width:100%;
+    position:absolute;
+    bottom: 0;
+  }
+
+  .information{
+    width: 2.8rem;
+  }
+  
+  
+  .loginInDiv{
+  	margin-top: .8rem;
+  }
+  
+  

@@ -1,0 +1,336 @@
+h1,h2,h3,h4,h5,h6{
+	font-weight: normal;
+}
+
+.g-fix-ios-overflow-scrolling-bug {
+	-webkit-overflow-scrolling: auto !important;
+}
+
+input,button {
+	-webkit-appearance: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	border-radius: 0;
+	border: none;
+	margin:0;
+	padding:0;
+	background-color:transparent;
+	outline:none;
+}
+
+
+@font-face {
+    font-family: "appfont";
+    src:url('font/iconfont.ttf?t=1500604419828') format('truetype') 
+}
+[class*=" yd-icon-"]:before,[class^=yd-icon-]:before {
+    font-family: "appfont" !important;
+    font-size: inherit;
+    font-weight: normal;
+}
+
+i{
+    font-family: "appfont" !important;
+    font-size: inherit;
+    font-weight: normal;
+}
+
+
+.clearfix {
+	clear:both;
+}
+
+.yd-back-icon:before {
+	font-family: "appfont" !important;
+	content: "\e67a" !important;
+	font-size: .4rem !important;
+}
+
+.yd-icon-my-tolist:before {
+	content:"\e677";
+}
+.yd-icon-approve:before {
+	content:"\e691";
+}
+.yd-icon-cancel:before {
+	content:"\e61f";
+}
+.yd-icon-approve-history:before {
+	content:"\e690";
+}
+.yd-icon-already-flow:before {
+	content:"\e672";
+}
+.yd-icon-history:before {
+	content:"\e66a";
+}
+.yd-icon-flow-img:before {
+	content:"\e888";
+}
+.yd-icon-schedule:before {
+	content:"\e600";
+}
+.yd-icon-meeting:before {
+	content:"\e602";
+}
+.yd-icon-message:before {
+	content:"\e668";
+}
+.yd-icon-message1:before {
+	content:"\e688";
+}
+.yd-icon-mysolutions:before {
+	content:"\e66d";
+}
+.yd-icon-check-work:before {
+	content:"\e671";
+}
+.yd-icon-check-work1:before {
+	content:"\e680";
+}
+.yd-icon-email:before {
+	content:"\e66e";
+}
+.yd-icon-email1:before {
+	content:"\e68d";
+}
+.yd-icon-notice:before {
+	content:"\e65f";
+}
+.yd-icon-notice1:before {
+	content:"\e67c";
+}
+.yd-icon-add:before {
+	content:"\e8fc";
+	font-size:0.8rem !important;
+}
+.yd-icon-remove:before {
+	content:"\e612";
+	font-size:0.8rem !important;
+}
+.yd-icon-account:before {
+	content:"\e7ea";
+}
+.yd-icon-account1:before {
+	content:"\e698";
+}
+.yd-icon-password:before {
+	content:"\e7e6";
+}
+.yd-icon-validcode:before {
+	content:"\e7ec";
+}
+.yd-icon-index:before {
+	content:"\e614";
+}
+.yd-icon-addrbook:before {
+	content:"\e624";
+}
+.yd-icon-logout:before {
+	content:"\e639";
+	color:#999;
+}
+.yd-icon-locale:before {
+	content:"\e6d6";
+}
+.yd-icon-sousuo:before {
+	content:"\e620";
+}
+.yd-icon-all:before {
+	content:"\e60c";
+}
+.yd-icon-group:before {
+	content:"\e616";
+}
+.yd-icon-sync:before {
+	content:"\e601";
+}
+.yd-icon-title:before {
+	content:"\e603";
+}
+.yd-icon-subject:before {
+	content:"\e6c9";
+}
+.yd-icon-watched:before {
+	content:"\e62d";
+}
+.yd-icon-unread:before {
+	content:"\e696";
+}
+.yd-icon-unread1:before {
+	content:"\e694";
+}
+.yd-icon-readed:before {
+	content:"\e682";
+}
+.yd-icon-sendMsg:before {
+	content:"\e625";
+}
+.yd-icon-sended:before {
+	content:"\e697";
+}
+.yd-icon-sended1:before {
+	content:"\e695";
+}
+.yd-icon-recieve:before {
+	content:"\e617";
+}
+.yd-icon-sendMail:before {
+	content:"\e615";
+}
+.yd-icon-draft:before {
+	content:"\e618";
+}
+.yd-icon-recycl:before {
+	content:"\e6cc";
+}
+.yd-icon-mobile:before {
+	content:"\e621";
+}
+.yd-icon-department:before {
+	content:"\e664";
+}
+.yd-icon-department1:before {
+	content:"\e67f";
+}
+.yd-icon-qq:before {
+	content:"\e62a";
+}
+.yd-icon-name:before {
+	content:"\e62e";
+}
+.yd-icon-workspace:before {
+	content:"\e652";
+}
+.yd-icon-workspace1:before {
+	content:"\e67d";
+}
+.yd-icon-passwordCell:before {
+	content:"\e63a";
+	color:#ff8292;
+}
+.yd-icon-about:before {
+	content:"\e693";
+	color:#fa8c35;
+}
+.yd-icon-accountCell:before {
+	content:"\e686";
+	color:#41c4f9;
+}
+.yd-icon-reply:before {
+	content:"\e6a7";
+}
+.yd-icon-trash:before {
+	content:"\e63d";
+}
+.yd-icon-moreOpt:before {
+	content:"\e630";
+}
+.yd-icon-transmit:before {
+	content:"\e64a";
+}
+.yd-icon-edit:before {
+	content:"\e605";
+}
+.yd-icon-nodata:before {
+	content:"\e619";
+}
+.yd-icon-add-user:before {
+	content:"\e81f";
+}
+.yd-icon-manager:before {
+	content:"\e63c";
+}
+.yd-icon-partner:before {
+	content:"\e61a";
+}
+.yd-icon-editMail:before {
+	content:"\e60e";
+}
+.yd-icon-readedPoint:before {
+	content:"\e60f";
+	color:#44cef6
+}
+.yd-icon-add-addr:before {
+	content:"\e651";
+}
+.yd-icon-save:before {
+	content:"\e865";
+}
+.yd-icon-mydrafts:before {
+	content:"\e65d";
+}
+.yd-icon-close:before {
+	content:"\e660";
+}
+.yd-icon-ok:before {
+	content:"\e6bf";
+}
+.yd-icon-video:before {
+	content:"\e6f8";
+}
+.yd-icon-agency:before {
+	content:"\e677";
+}
+.yd-icon-right:before {
+	content:"\e679";
+	color:#999;
+}
+.yd-icon-left:before {
+	content:"\e67a";
+	color:#999;
+}
+.yd-icon-must:before {
+	content:"\e8ac";
+	color:#F23030;
+	font-size:.2rem !important;
+}
+.yd-icon-must {
+	/*position:absolute;
+	top:50%;
+	margin-top:-.16rem;
+	right:.12rem;
+	*/
+}
+
+.yd-spinner>a:first-child:after{
+	content:"\e68f" !important;
+	font-family: "appfont" !important;
+}
+
+.yd-spinner>a:last-child:after{
+	content:"\e68e" !important;
+	font-family: "appfont" !important;
+}
+
+
+
+.yd-icon-addlist:before {
+	content:"\e61c";
+}
+.icon-close:before {
+	content:"\e61c";
+	transform:rotate(45deg);
+	display: block;
+	color: rgb(92, 92, 92);
+	font-size: .4rem;
+}
+
+.yd-icon-nodata:before {
+	font-size:1.5rem !important;
+	color:#A9A9A9
+}
+.yd-icon-daily:before {
+	content:'\e689';
+}
+.yd-icon-left1:before {
+	content:'\e8fd';
+}
+.yd-icon-addUser:before {
+	content:'\e692';
+}
+
+.yd-next-icon:before{
+	content:"\e679" !important;
+    font-family: "appfont" !important;
+}
+

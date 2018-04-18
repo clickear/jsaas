@@ -1,0 +1,75 @@
+body {
+	margin: 10px 10px 0 10px;
+	padding: 0;
+	background: #f7f7f7;
+}
+
+.container-fluid {
+	padding-bottom: 20px;
+}
+
+.row-fluid::after{
+	content:'';
+	display: block;
+	clear: both;
+}
+
+.row-fluid {
+	
+}
+
+.row-fluid>div {
+	float: left;
+}
+
+.row-fluid .span2 {
+	margin: 0 10px;
+	width: calc(100%/ 6 - 20px);
+}
+
+.row-fluid .span3 {
+	margin: 0 10px;
+	width: calc(25% - 20px);
+}
+
+.row-fluid .span4 {
+	margin: 0 10px;
+	width: calc(100%/ 3 - 20px);
+}
+
+.row-fluid .span5 {
+	margin: 0 10px;
+	width: calc(100%/ 2.4 - 20px);
+}
+
+.row-fluid .span6 {
+	margin: 0 10px;
+	width: calc(100%/ 2 - 20px);
+}
+
+.row-fluid .span8 {
+	margin: 0 10px;
+	width: calc(100%/ 1.5 - 20px);
+}
+
+.row-fluid .span9 {
+	margin: 0 10px;
+	width: calc(75% - 20px);
+}
+
+.row-fluid .span10 {
+	margin: 0 10px;
+	width: calc(100%/ 1.2 - 20px);
+}
+
+.row-fluid .span12{
+	width:100%;
+}
+
+#examine{
+	color:red;
+	font-size: 20px;
+	font-weight:bold;
+}
+
+

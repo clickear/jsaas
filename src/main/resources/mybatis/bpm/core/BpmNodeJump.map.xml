@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmNodeJump">
+	<resultMap id="BpmNodeJump" type="com.redxun.bpm.core.entity.BpmNodeJump">
+		<id property="jumpId" column="JUMP_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="actInstId" column="ACT_INST_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="taskId" column="TASK_ID_" jdbcType="VARCHAR"/>
+		<result property="completeTime" column="COMPLETE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="duration" column="DURATION_" jdbcType="NUMERIC"/>
+		<result property="durationVal" column="DURATION_VAL_" jdbcType="NUMERIC"/>
+		<result property="ownerId" column="OWNER_ID_" jdbcType="VARCHAR"/>
+		<result property="handlerId" column="HANDLER_ID_" jdbcType="VARCHAR"/>
+		<result property="agentUserId" column="AGENT_USER_ID_" jdbcType="VARCHAR"/>
+		<result property="checkStatus" column="CHECK_STATUS_" jdbcType="VARCHAR"/>
+		<result property="jumpType" column="JUMP_TYPE_" jdbcType="VARCHAR"/>
+		<result property="remark" column="REMARK_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="enableMobile" column="ENABLE_MOBILE_" jdbcType="NUMERIC"/>
+		<result property="opinionName" column="OPINION_NAME_" jdbcType="VARCHAR"/>
+		<result property="handleDepId" column="HANDLE_DEP_ID_" jdbcType="VARCHAR"/>
+		<result property="handleDepFull" column="HANDLE_DEP_FULL_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap id="BpmNodeJumpExt" type="com.redxun.bpm.core.entity.BpmNodeJump" extends="BpmNodeJump">
+		<result property="subject" column="SUBJECT_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmNodeJump">
+		INSERT INTO bpm_node_jump
+		(JUMP_ID_,ACT_DEF_ID_,ACT_INST_ID_,NODE_NAME_,NODE_ID_,TASK_ID_,COMPLETE_TIME_,DURATION_,DURATION_VAL_,
+		OWNER_ID_,HANDLER_ID_,AGENT_USER_ID_,CHECK_STATUS_,JUMP_TYPE_,REMARK_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,
+		UPDATE_BY_,UPDATE_TIME_,ENABLE_MOBILE_,OPINION_NAME_,HANDLE_DEP_ID_,HANDLE_DEP_FULL_)
+		VALUES 
+		(#{jumpId,jdbcType=VARCHAR}, #{actDefId,jdbcType=VARCHAR}, #{actInstId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, 
+		#{nodeId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{completeTime,jdbcType=TIMESTAMP}, #{duration,jdbcType=NUMERIC}, 
+		#{durationVal,jdbcType=NUMERIC}, #{ownerId,jdbcType=VARCHAR}, #{handlerId,jdbcType=VARCHAR}, #{agentUserId,jdbcType=VARCHAR}, 
+		#{checkStatus,jdbcType=VARCHAR}, #{jumpType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, 
+		#{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+		#{enableMobile,jdbcType=NUMERIC},#{opinionName,jdbcType=VARCHAR},#{startDepId,jdbcType=VARCHAR},#{startDepFull,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmNodeJump">
+		SELECT * FROM bpm_node_jump 
+		WHERE 
+		JUMP_ID_=#{jumpId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmNodeJump">
+		SELECT * FROM bpm_node_jump
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY JUMP_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmNodeJump">
+		UPDATE bpm_node_jump SET
+		ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR},
+		ACT_INST_ID_=#{actInstId,jdbcType=VARCHAR},
+		NODE_NAME_=#{nodeName,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		TASK_ID_=#{taskId,jdbcType=VARCHAR},
+		COMPLETE_TIME_=#{completeTime,jdbcType=TIMESTAMP},
+		DURATION_=#{duration,jdbcType=NUMERIC},
+		DURATION_VAL_=#{durationVal,jdbcType=NUMERIC},
+		OWNER_ID_=#{ownerId,jdbcType=VARCHAR},
+		HANDLER_ID_=#{handlerId,jdbcType=VARCHAR},
+		AGENT_USER_ID_=#{agentUserId,jdbcType=VARCHAR},
+		CHECK_STATUS_=#{checkStatus,jdbcType=VARCHAR},
+		JUMP_TYPE_=#{jumpType,jdbcType=VARCHAR},
+		REMARK_=#{remark,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		ENABLE_MOBILE_=#{enableMobile,jdbcType=NUMERIC},
+		OPINION_NAME_=#{opinionName,jdbcType=NUMERIC},
+		HANDLE_DEP_ID_=#{handleDepId,jdbcType=VARCHAR},
+		HANDLE_DEP_FULL_=#{handleDepFull,jdbcType=VARCHAR}
+		WHERE
+		JUMP_ID_=#{jumpId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_node_jump 
+		WHERE
+		JUMP_ID_=#{jumpId}
+	</delete>
+	
+	
+	<select id="getMyCheckInst" parameterType="java.util.Map" resultMap="BpmNodeJumpExt">
+		SELECT
+			c.*, b.SUBJECT_,b.STATUS_,bs.NAME_
+		FROM
+			bpm_inst b
+		LEFT JOIN bpm_node_jump c ON b.ACT_INST_ID_ = c.ACT_INST_ID_
+		LEFT JOIN bpm_solution bs on b.SOL_ID_ = bs.SOL_ID_
+		WHERE HANDLER_ID_=#{userId}
+		<if test="subject!=null">
+			and b.subject_ like #{subject}
+		</if>
+		<if test="status!=null">
+			and b.status_ =#{status}
+		</if>
+		<if test="enableMobile!=null">
+			and c.ENABLE_MOBILE_ =1
+		</if>
+		<if test="createtime1!=null">
+			and b.CREATE_TIME_ &gt;= #{createtime1}
+		</if>
+		<if test="createtime2!=null">
+			and b.CREATE_TIME_ &lt;= #{createtime2}
+		</if>
+		<if test="createtime3!=null">
+			and c.CREATE_TIME_ &gt;= #{createtime3}
+		</if>
+		<if test="ccreatetime4!=null">
+			and c.CREATE_TIME_ &lt;= #{createtime4}
+		</if>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY b.CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	
+	<select id="getLastByInstNode" parameterType="java.util.Map" resultMap="BpmNodeJump">
+		SELECT jump.* FROM bpm_node_jump jump,bpm_inst inst where jump.ACT_INST_ID_=inst.ACT_INST_ID_ AND inst.inst_id_=#{instId}
+		and  NODE_ID_=#{nodeId} order by CREATE_TIME_ desc
+	</select>
+	
+	<delete id="removeByActInst" parameterType="java.lang.String">
+		DELETE FROM bpm_node_jump 
+		WHERE ACT_INST_ID_=#{actInstId}
+	</delete>
+	
+</mapper>

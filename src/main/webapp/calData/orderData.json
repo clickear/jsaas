@@ -1,0 +1,12 @@
+[
+	{"orderType":"开通单",
+		"newOrder":"600",
+	 	"finishOrder":"586",
+	    "finishRate" : "97.67%"		
+	},
+  	{"orderType":"勘察单",
+		"newOrder":"150",
+	 	"finishOrder":"132",
+	    "finishRate" : "88.00%"		
+	}
+]

@@ -1,0 +1,138 @@
+.webuploader-container {
+	position: relative;
+}
+.webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+	font-size: 14px;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	background: #ebeef5;
+	color: #95a6c2;
+	border: 2px dashed #00034F;
+	text-align: center;
+	border-radius: 3px;
+	overflow: hidden; 
+	width: 50px;
+	margin-left:10px;
+	margin-top:2px;
+	height: 50px;
+	font-size: 42px;
+	font-weight: bold;
+	padding-left: 0px;
+    padding-right: 0px;
+    line-height: 50px;
+}
+
+.webuploader-pick-hover {
+	 color: #9BCD9B;
+}
+
+.webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}
+
+.file_close{
+	color:red;font-size:15px;margin-left:100px;width:15px;
+}
+
+/*demo样式*/
+#picker {
+    display: inline-block;
+    line-height: 1.028571429;
+    vertical-align: middle;
+    margin: 0 12px 0 0;
+}
+#picker .webuploader-pick {
+    padding: 6px  0px;
+    display: block;
+}
+
+
+#uploader-demo .thumbnail {
+    width: 110px;
+    height: 110px;
+}
+#uploader-demo .thumbnail img {
+    width: 100%;
+}
+.uploader-list {
+    width: 100%;
+    overflow: hidden;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 0px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+
+.btn-default {
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    background-repeat: repeat-x;
+    border-color: #dbdbdb;
+    border-color: #ccc;
+}
+
+.btn-default:hover, .btn-default:focus {
+    background-color: #e0e0e0;
+    background-position: 0 -15px;
+    color: #333;
+    border-color: #adadad;
+}
+.Select-upload{
+	margin:10px 0px 0px 10px;
+}
+.mini-toolbar-footer a{display:inline-block; width:70px; height:30px; border:1px solid #ccc; line-height:30px; margin-right:30px; }
+.mini-toolbar-footer{margin-bottom:20px; z-index: 100;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

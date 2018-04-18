@@ -1,0 +1,65 @@
+.maincolor{background: #378cc6;}
+.sidecolor{background: #2f4051;}
+.sidemenucolor{background: #293847;}
+
+
+/*basecss*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,p{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img,object{border:0 none;}
+img{-ms-interpolation-mode: bicubic;}
+ol,ul{list-style:none}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+input,textarea,select,button{font-family:inherit;font-size:inherit;font-weight:inherit;color: #333;*font-size:100%;vertical-align: middle;}
+.fl{float:left;}
+.fr{float:right;}
+.tc{text-align:center;}
+.vm{vertical-align: middle;}
+.rel{position:relative;}
+.abs{position:absolute;}
+.none{display:none;}
+.center{margin: auto;}
+em{ font-style: normal;}
+a{text-decoration: none;}
+
+body{ font-family: Microsoft yahei; width: 100%; height:100%; overflow: hidden; font-size: 12px;}
+
+.nav{width: 100%; height: 45px;}
+.nav ul{width: 600px; height: 45px; margin: 0px auto;}
+.nav ul li{ line-height: 35px; height: 35px; color: #fff; font-size: 16px;float: left; margin:5px 30px 0px;}
+.nav ul li.active{ border-bottom: 2px solid #fff;}
+
+
+.container .side .linkbtn{width:100%; height: auto; overflow: hidden; margin-top: 20px;}
+.container .side .linkbtn a{width: 44%; height: 35px; display: block; border: 1px solid #47aff9; border-radius: 3px; text-decoration: none; line-height: 35px; text-indent: 35px; color: #333;}
+.container .side .linkbtn a.fl{ margin-left: 2%; background: url("../images/knowl/aa.png") no-repeat 10px center;}
+.container .side .linkbtn a.fr{ margin-right: 2%; background: url("../images/knowl/aa.png") no-repeat -118px center;}
+/*排名*/
+.container .side .rank{width: 100%; height: auto; overflow: hidden; margin-top: 50px;}
+.container .side .rank ul{width: 100%;  overflow: hidden; height: 40px; border: 1px solid #d1d1d1; border-width: 1px 0px;}
+.container .side .rank ul li{float: left; font-size: 14px; line-height: 37px; margin-left: 20px; padding: 0px 5px; cursor: pointer;}
+.container .side .rank ul li.active{ border-bottom: 3px solid #47aff9; color: #47aff9;}
+.container .side .rank .wrap{width: 96%; height: auto; overflow: hidden;  margin: 10px auto 0px;}
+.container .side .rank .wrap table{width: 100%; height: auto; overflow: hidden; text-align: center; display: none;}
+.container .side .rank .wrap table thead tr{height: 30px; background: #f8f8f8;}
+.container .side .rank .wrap table tbody tr{ height: 40px; border-bottom: 1px solid #d1d1d1;}
+
+
+
+.container .main{float: left; height: 100%; overflow-y: auto; background: #f8f8f8;}
+
+
+.container{width: 100%; height: auto; overflow: hidden;}
+.container .side{ width: 239px; height: 100%; overflow: visible;float: left; border-right: 1px solid #d1d1d1;}
+.container .side .menu{width: 100%; height: auto; overflow:visible; margin-top: 40px;}
+.container .side .menu>div{ width: 100%; height: 40px; line-height: 40px; font-size: 16px; background: url("../images/knowl/arrow3.png") no-repeat 220px center; position: relative;}
+.container .side .menu>div:hover{ background:url("../images/knowl/arrow4.png") no-repeat 220px center #f8f8f8; cursor: pointer;}
+.container .side .menu>div.active{ background:url("../images/knowl/arrow4.png") no-repeat 220px center #f8f8f8;}
+.container .side .menu>div:hover{background:url("../images/knowl/arrow4.png") no-repeat 220px center #f8f8f8;}
+.container .side .menu>div.active p{ width: 101%; height: 40px;background:url("../images/knowl/arrow4.png") no-repeat 220px center #f8f8f8; position: relative; z-index: 99999;}
+.container .side .menu>div.active .secondmenu{display: block;}
+.container .side .menu>div img{ float: left; margin: 10px 10px 0px 30px;}
+.container .side .menu .secondmenu{ position: absolute; left: 100%; top: -1px; display: none; width: 500px; height: auto; overflow: hidden; padding-bottom: 10px;  background: #f8f8f8; border: 1px solid #d1d1d1; z-index: 9999;}
+.container .side .menu .secondmenu .cate{ text-indent:20px;}
+.container .side .menu .secondmenu ul{ width: 480px; height: auto; overflow: hidden;  margin-left: 10px;}
+.container .side .menu .secondmenu ul li{ float: left; margin: 0px 10px; line-height: 25px; font-size: 14px; color: #378cc6;}

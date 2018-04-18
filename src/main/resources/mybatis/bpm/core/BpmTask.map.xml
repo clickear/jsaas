@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmTask">
+	<resultMap id="BpmTask" type="com.redxun.bpm.core.entity.BpmTask">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="rev" column="REV_" jdbcType="NUMERIC"/>
+		<result property="executionId" column="EXECUTION_ID_" jdbcType="VARCHAR"/>
+		<result property="procInstId" column="PROC_INST_ID_" jdbcType="VARCHAR"/>
+		<result property="procDefId" column="PROC_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="parentTaskId" column="PARENT_TASK_ID_" jdbcType="VARCHAR"/>
+		<result property="description" column="DESCRIPTION_" jdbcType="VARCHAR"/>
+		<result property="taskDefKey" column="TASK_DEF_KEY_" jdbcType="VARCHAR"/>
+		<result property="owner" column="OWNER_" jdbcType="VARCHAR"/>
+		<result property="assignee" column="ASSIGNEE_" jdbcType="VARCHAR"/>
+		<result property="delegation" column="DELEGATION_" jdbcType="VARCHAR"/>
+		<result property="priority" column="PRIORITY_" jdbcType="NUMERIC"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="dueDate" column="DUE_DATE_" jdbcType="TIMESTAMP"/>
+		<result property="category" column="CATEGORY_" jdbcType="VARCHAR"/>
+		<result property="suspensionState" column="SUSPENSION_STATE_" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="formKey" column="FORM_KEY_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="agentUserId" column="AGENT_USER_ID_" jdbcType="VARCHAR"/>
+		<result property="token" column="TOKEN_" jdbcType="VARCHAR"/>
+		<result property="urgentTimes" column="URGENT_TIMES_" jdbcType="NUMERIC"/>
+		<result property="overtime" column="OVERTIME_" jdbcType="CLOB"/>
+	</resultMap>
+	
+	
+	<resultMap id="BpmTaskExt" type="com.redxun.bpm.core.entity.BpmTask" extends="BpmTask">	    
+		<result property="bpmTypeName" column="BPM_TYPE_NAME_" jdbcType="VARCHAR"/>		    
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>		    	    
+	</resultMap>
+	
+	
+	
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmTask">
+		INSERT INTO act_ru_task
+		(ID_,REV_,EXECUTION_ID_,PROC_INST_ID_,PROC_DEF_ID_,NAME_,PARENT_TASK_ID_,DESCRIPTION_,TASK_DEF_KEY_,OWNER_,ASSIGNEE_,DELEGATION_,PRIORITY_,CREATE_TIME_,DUE_DATE_,CATEGORY_,SUSPENSION_STATE_,TENANT_ID_,FORM_KEY_,CREATE_BY_,UPDATE_BY_,UPDATE_TIME_,SOL_ID_,AGENT_USER_ID_,CM_LEVEL_,TASK_TYPE_,token_,urgent_times_,ENABLE_MOBILE_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{rev,jdbcType=NUMERIC}, #{executionId,jdbcType=VARCHAR}, #{procInstId,jdbcType=VARCHAR}, #{procDefId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentTaskId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{taskDefKey,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{assignee,jdbcType=VARCHAR}, #{delegation,jdbcType=VARCHAR}, #{priority,jdbcType=NUMERIC}, #{createTime,jdbcType=TIMESTAMP}, #{dueDate,jdbcType=TIMESTAMP}, #{category,jdbcType=VARCHAR}, #{suspensionState,jdbcType=NUMERIC}, #{tenantId,jdbcType=VARCHAR}, #{formKey,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{solId,jdbcType=VARCHAR}, #{agentUserId,jdbcType=VARCHAR},  #{cmLevel,jdbcType=NUMERIC},  #{taskType,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{urgentTimes,jdbcType=NUMERIC}, #{enableMobile,jdbcType=NUMERIC})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmTask">
+		SELECT * FROM ACT_RU_TASK 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<!-- 管理任务列表 -->
+	<select id="query" parameterType="java.util.Map" resultMap="BpmTask">
+		SELECT * FROM ACT_RU_TASK
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderByClause!=null">
+			ORDER BY ${orderByClause}
+		</if>
+		<if test="orderByClause==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	
+	<select id="getTaskCountsByUserId" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT count(*) FROM (
+		    SELECT INST.STATUS_,BS.NAME_ BPM_TYPE_NAME_,T.* FROM ACT_RU_TASK T LEFT JOIN BPM_SOLUTION BS ON T.SOL_ID_ = BS.SOL_ID_ LEFT JOIN BPM_INST INST ON T.PROC_INST_ID_ = INST.ACT_INST_ID_ WHERE T.ASSIGNEE_=#{userId}
+			UNION 
+			SELECT INST.STATUS_,BS.NAME_ BPM_TYPE_NAME_,T.* FROM ACT_RU_TASK T LEFT JOIN ACT_RU_IDENTITYLINK I ON T.ID_=I.TASK_ID_ LEFT JOIN BPM_SOLUTION BS ON T.SOL_ID_ = BS.SOL_ID_ LEFT JOIN BPM_INST INST ON T.PROC_INST_ID_ = INST.ACT_INST_ID_ WHERE I.USER_ID_=#{userId} AND I.TYPE_='candidate' AND T.ASSIGNEE_ IS NULL
+		    <if test="@Ognl@isNotEmpty(groupList)">
+		    	union
+		    	SELECT INST.STATUS_,BS.NAME_ BPM_TYPE_NAME_,T.* FROM ACT_RU_TASK T,ACT_RU_IDENTITYLINK I,BPM_SOLUTION BS,BPM_INST INST WHERE T.PROC_INST_ID_ = INST.ACT_INST_ID_ AND T.SOL_ID_ = BS.SOL_ID_ AND T.ID_=I.TASK_ID_ AND I.GROUP_ID_ IN <foreach collection="groupList"  item="id" separator="," open="(" close=")">#{id}</foreach>
+		    </if>
+		 ) V 
+	</select>
+	
+	<!-- 按用户及条件查找待办列表 -->
+	
+	<select id="getByUserId" parameterType="java.util.Map" resultMap="BpmTaskExt">
+		SELECT V.* FROM (
+		    SELECT INST.STATUS_,BS.NAME_ BPM_TYPE_NAME_,T.* FROM ACT_RU_TASK T LEFT JOIN BPM_SOLUTION BS ON T.SOL_ID_ = BS.SOL_ID_ LEFT JOIN BPM_INST INST ON T.PROC_INST_ID_ = INST.ACT_INST_ID_ WHERE T.ASSIGNEE_=#{userId}
+			UNION 
+			SELECT INST.STATUS_,BS.NAME_ BPM_TYPE_NAME_,T.* FROM ACT_RU_TASK T LEFT JOIN ACT_RU_IDENTITYLINK I ON T.ID_=I.TASK_ID_ LEFT JOIN BPM_SOLUTION BS ON T.SOL_ID_ = BS.SOL_ID_ LEFT JOIN BPM_INST INST ON T.PROC_INST_ID_ = INST.ACT_INST_ID_ WHERE I.USER_ID_=#{userId} AND I.TYPE_='candidate' AND T.ASSIGNEE_ IS NULL
+		    <if test="@Ognl@isNotEmpty(groupList)">
+		    	union
+		    	SELECT INST.STATUS_,BS.NAME_ BPM_TYPE_NAME_,T.* FROM ACT_RU_TASK T,ACT_RU_IDENTITYLINK I,BPM_SOLUTION BS,BPM_INST INST WHERE T.PROC_INST_ID_ = INST.ACT_INST_ID_ AND T.SOL_ID_ = BS.SOL_ID_ AND T.ID_=I.TASK_ID_ AND I.GROUP_ID_ IN <foreach collection="groupList"  item="id" separator="," open="(" close=")">#{id}</foreach>
+		    </if>
+		 ) V 
+		WHERE 1=1
+		<if test="suspensionState!=null">
+		and SUSPENSION_STATE_!=404
+		</if>
+		
+		<if test="@Ognl@isNotEmpty(enableMobile)">
+			and ENABLE_MOBILE_=1
+		</if>
+		<if test="@Ognl@isNotEmpty(name)">
+			and NAME_ like #{name}
+		</if>
+		<if test="@Ognl@isNotEmpty(nodeId)">
+			and TASK_DEF_KEY_ = #{nodeId}
+		</if>
+		<if test="@Ognl@isNotEmpty(description)">
+			and DESCRIPTION_ like #{description}
+		</if>
+		<if test="@Ognl@isNotEmpty(CREATE_TIME__START)">
+			and CREATE_TIME_ &gt;= #{CREATE_TIME__START}
+		</if>
+		<if test="@Ognl@isNotEmpty(CREATE_TIME__END)">
+			and CREATE_TIME_ &lt;= #{CREATE_TIME__END}
+		</if>
+	
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY CREATE_TIME_ desc
+		</if>
+		
+	</select>
+	
+	
+	
+	<!-- 我代理给别人的任务 -->
+	<select id="getMyAgentTasks" parameterType="java.util.Map" resultMap="BpmTask">
+		SELECT T.* FROM ACT_RU_TASK T WHERE T.ASSIGNEE_=#{userId} and T.AGENT_USER_ID_ !='0'
+		<if test="name!=null">
+			and NAME_ like #{name}
+		</if>
+		<if test="description!=null">
+			and DESCRIPTION_ like #{description}
+		</if>
+		<if test="createtime1_START">
+			and CREATE_TIME_ &gt;= #{createtime1_START}
+		</if>
+		<if test="createtime2_END">
+			and CREATE_TIME_ &lt;= #{createtime2_END}
+		</if>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY CREATE_TIME_ desc
+		</if>
+	</select>
+	
+	<!-- 别人代理给自己的任务 -->
+	<select id="getAgentToTasks" parameterType="java.util.Map" resultMap="BpmTask">
+		SELECT T.* FROM ACT_RU_TASK T WHERE T.AGENT_USER_ID_=#{userId}
+		<if test="name!=null">
+			and NAME_ like #{name}
+		</if>
+		<if test="description!=null">
+			and DESCRIPTION_ like #{description}
+		</if>
+		<if test="createtime1_START">
+			and CREATE_TIME_ &gt;= #{createtime1_START}
+		</if>
+		<if test="createtime2_END">
+			and CREATE_TIME_ &lt;= #{createtime2_END}
+		</if>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY CREATE_TIME_ desc
+		</if>
+	</select>
+	
+	<select id="getAllTasks" parameterType="java.util.Map" resultMap="BpmTask">
+		select * from (
+			select t.*,s.TREE_PATH_,s.NAME_ SOL_NAME_ from ACT_RU_TASK t , BPM_SOLUTION s where t.SOL_ID_=s.SOL_ID_ 
+		) s
+		<where>
+			<if test="whereSql!=null">
+				and ${whereSql}
+			</if>
+		</where>
+		
+		
+		<if test="orderBySql!=null">
+			ORDER BY  ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY s.CREATE_TIME_ DESC
+		</if>
+		
+	</select>
+	
+	<select id="getTasks" parameterType="java.util.Map" resultMap="BpmTask">
+	
+		select distinct * from (
+			SELECT a.*,b.TREE_ID_,b.TREE_PATH_,b.NAME_ SOL_NAME_ from ACT_RU_TASK a , BPM_SOLUTION b,
+			bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{TENANT_ID_} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if>
+				 and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='task' and d.TYPE_='everyone'
+			
+			union all
+			
+			<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+				SELECT a.*,b.TREE_ID_,b.TREE_PATH_,b.NAME_ from ACT_RU_TASK a , BPM_SOLUTION b,
+				bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{TENANT_ID_} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if> 
+				and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='task' and d.TYPE_=#{key}
+				and d.AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+			</foreach>
+		) s
+	
+		<where>
+			<if test="TREE_PATH_!=null">
+				and s.TREE_PATH_ like #{TREE_PATH_}
+			</if>
+			<if test="NAME_!=null">
+				and s.SOL_NAME_ like #{SOL_NAME_}
+			</if>
+			<if test="DESCRIPTION_!=null">
+				and s.DESCRIPTION_ like #{DESCRIPTION_}
+			</if>
+			<if test="CREATE_TIME__START!=null">
+				and s.CREATE_TIME_ &gt;= #{CREATE_TIME__START}
+			</if>
+			<if test="CREATE_TIME__END!=null">
+				and s.CREATE_TIME_ &lt;= #{CREATE_TIME__END}
+			</if>
+			<if test="ASSIGNEE_">
+				and s.ASSIGNEE_ = #{ASSIGNEE_}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY s.CREATE_TIME_ DESC
+		</if>
+	</select>
+	<!-- and a.SOL_ID_=e.SOL_ID_  -->
+	<select id="getCategoryTree"  resultType="java.util.HashMap">
+		select TREE_ID_,TREE_PATH_,sum(amount) AMOUNT from (
+			SELECT b.TREE_ID_, b.TREE_PATH_,count(*) amount from ACT_RU_TASK a , BPM_SOLUTION b,
+			bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{tenantId} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if>
+			and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='task' and d.TYPE_='everyone' 
+			GROUP BY b.TREE_ID_,b.TREE_PATH_
+			
+			union all
+			
+			<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+				SELECT b.TREE_ID_,TREE_PATH_,count(*) amount from ACT_RU_TASK a , BPM_SOLUTION b,
+				bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{tenantId} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if>
+				and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='task' and d.TYPE_=#{key}
+				and d.AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+				GROUP BY b.TREE_ID_,b.TREE_PATH_
+			</foreach>
+		) v GROUP BY TREE_ID_,TREE_PATH_
+	</select>
+	
+	<delete id="delByActInstIdNotTaskId" parameterType="java.util.Map">
+		delete from ACT_RU_TASK where PROC_INST_ID_=#{actInstId} and ID_!=#{taskId}
+	</delete>
+	
+	<select id="getByActInstIdNotTaskId" parameterType="java.util.Map" resultMap="BpmTask">
+		select * from ACT_RU_TASK where PROC_INST_ID_=#{actInstId} and ID_!=#{taskId}
+	</select>
+	
+	<select id="getBySolIdActDefIdNodeIdInstId" parameterType="java.util.Map" resultMap="BpmTask">
+		select * from ACT_RU_TASK where SOL_ID_=#{solId} and PROC_DEF_ID_=#{actDefId} and TASK_DEF_KEY_=#{nodeId} and  PROC_INST_ID_=#{instId}
+	</select>
+	
+	<delete id="delTaskUsersByActId" parameterType="java.util.Map">
+		delete from act_ru_identitylink  where proc_inst_id_=#{actInstId} and task_id_ is null
+	</delete>
+	
+	<delete id="remove" parameterType="java.util.Map">
+		delete from ACT_RU_TASK  where  ID_ =#{taskId}
+	</delete>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmTask">
+		UPDATE act_ru_task SET
+		REV_=#{rev,jdbcType=NUMERIC},
+		EXECUTION_ID_=#{executionId,jdbcType=VARCHAR},
+		PROC_INST_ID_=#{procInstId,jdbcType=VARCHAR},
+		PROC_DEF_ID_=#{procDefId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		PARENT_TASK_ID_=#{parentTaskId,jdbcType=VARCHAR},
+		DESCRIPTION_=#{description,jdbcType=VARCHAR},
+		TASK_DEF_KEY_=#{taskDefKey,jdbcType=VARCHAR},
+		OWNER_=#{owner,jdbcType=VARCHAR},
+		ASSIGNEE_=#{assignee,jdbcType=VARCHAR},
+		DELEGATION_=#{delegation,jdbcType=VARCHAR},
+		PRIORITY_=#{priority,jdbcType=NUMERIC},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		DUE_DATE_=#{dueDate,jdbcType=TIMESTAMP},
+		CATEGORY_=#{category,jdbcType=VARCHAR},
+		SUSPENSION_STATE_=#{suspensionState,jdbcType=NUMERIC},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		FORM_KEY_=#{formKey,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		AGENT_USER_ID_=#{agentUserId,jdbcType=VARCHAR},
+		ENABLE_MOBILE_=#{enableMobile,jdbcType=NUMERIC},
+		RC_TASK_ID_=#{rcTaskId,jdbcType=VARCHAR},
+		CM_LEVEL_=#{cmLevel,jdbcType=NUMERIC},
+		TASK_TYPE_=#{taskType,jdbcType=VARCHAR},
+		GEN_CM_TASK_=#{genCmTask,jdbcType=VARCHAR},
+		CM_FUSRID_=#{cmFuserId,jdbcType=VARCHAR},
+		TOKEN_=#{token,jdbcType=VARCHAR},
+		URGENT_TIMES_=#{urgentTimes,jdbcType=NUMERIC},
+		run_path_id_=#{runPathId,jdbcType=VARCHAR},
+		TIMEOUT_STATUS_=#{timeoutStatus,jdbcType=VARCHAR},
+		OVERTIME_=#{overtime,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	
+</mapper>

@@ -1,0 +1,236 @@
+html,body
+{
+    font-size:13px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height:100%;
+    width: 100%;
+}
+
+h1
+{
+    font-size:20px;
+/*     font-family:Verdana; */
+}
+h4
+{
+    font-size:16px;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+.description
+{
+    padding-bottom:30px;
+/*     font-family:Verdana; */
+}
+.description h3
+{
+    color:#CC0000;
+    font-size:16px;
+    margin:0 30px 10px 0px;
+    padding:45px 0 8px;
+    /*background:url(titleback.png) no-repeat scroll left bottom transparent*/
+    border-bottom:solid 1px #888;
+}
+
+a{
+	text-decoration: none;
+}
+
+.actionIcons span
+{
+    width:20px;
+    height:auto;
+    display:inline-block;
+    background-position:50% 50%;
+    cursor:pointer;
+    text-indent:0px;    
+    background:none;    
+    border:0;
+    padding:1px;
+    font-family: "iconfont" !important;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	/*-webkit-text-stroke-width: 0.2px; */
+	-moz-osx-font-smoothing: grayscale;
+	position: relative;
+	font-weight:bold;
+	color:#378cc6;
+}
+
+.icon-tab-com{
+	background:url(icons/tab-com.png) no-repeat;
+}
+
+/*修改*/
+.actionIcons span
+{
+    text-indent:4px;
+}
+/*流程模块绑定-tab增加背景*/
+/* .mini-toolbar-top{
+	background:#eee;
+} */
+/*待办任务管理-tab增加背景*/
+.mini-process-top{
+	/* background:#eee; */
+}
+
+.mini-toolbar tr:nth-of-type(1){border-bottom: 1px solid #fff; /* background:#eee; */color:#666;}
+.mini-toolbar tr:nth-of-type(2){background:#fff;/* text-indent:12px; */ color:#666;line-height:34px; }
+.mini-fit-no-border,.mini-fit-noborder{border:0px;}
+.mini-toolbar-background,.liucheng-background{background:#fff;}
+.background-top a{color:#555;}
+.top-bar-bg a{color:#555;}
+.mini-button .mini-button-icon-text{color:#666;}
+
+/* form-in css */
+html,body {
+
+	padding:1;
+	margin: 0;
+	border: 0;
+	width:100%;
+	height: 100%;
+	font-family: "微软雅黑"
+}
+.form-in{
+	width:100%;
+	height:auto;
+	margin: 0px auto;
+}
+.form-in-detail {
+	border-collapse: collapse;
+	border: solid 1px #d1d1d1;
+	margin:0px 6px;
+
+}
+
+.form-in-detail tr th {
+	min-height: 35px;
+	border: 1px solid #ccc;
+	text-align: right;
+	vertical-align: top;
+	font-weight: bold;
+	min-width: 80px;
+	max-width:200px;
+	width:20%;
+	background-color: #eee;
+	text-indent:4px;
+	padding:6px;
+	line-height:30px;
+	color:#666;
+	font-size:14px;
+}
+
+.form-in-detail tr td {
+	min-height: 35px;
+	border: 1px solid #ccc;
+	text-align: left;
+	text-indent:4px;
+	min-width: 200px;
+
+}
+
+.form-in-detail caption {
+	text-align: left;
+	height: 20px;
+	color:#333;
+	background-color:#fff;
+	/* border: solid 1px #f1f1f1; */
+	border-bottom:none;
+	font-weight:bold;
+	font-size: 14px;
+	padding: 4px;
+	margin:10px 0px;
+}
+
+.form-in-detail input{
+	width:80%;
+	height:30px;
+	border: 1px solid #ccc;
+	background-color: #FFFFE6;
+	text-indent:4px;
+	color:#999
+}
+.form-in-detail select{
+	width:30%;
+	height:30px;
+	border:1px solid #ccc;
+	padding:1px 0px;
+	text-indent:4px;
+	background-color: #FFFFE6;
+}
+.form-in-detail textarea{
+	border:1px solid #ccc;
+	text-indent:4px;
+	margin-top:4px;
+	padding:4px 0px;
+	color:#999;
+	font-family:"微软雅黑"
+}
+
+#toptoolbar{
+    width: 100%;
+    height: 32px;
+    display: block;
+    z-index: 100;
+    position: fixed;
+    top: 0px; 
+    background:#F5F6F7;
+    border-bottom:1px solid #ccc;
+    padding: 2px 0px 0px 5px;
+}
+
+#toptoolbarBg{
+	height: 32px;
+	width: 100%;
+	z-index: 2;
+}
+
+
+
+
+
+/* table-list */
+  body{color:#333; font-size:14px;}
+  .form-list{width: 100%; height:100%; text-align: center; margin: 0 auto}
+  .table-list{border:1px solid #ddd;border-collapse:collapse; margin: 8px; width: 99%;}
+  .table-list tr{padding: 3px 0px;}
+  .table-list th{line-height:20px;}
+  .table-list th,.table-list td{border: 1px solid #ddd ; padding: 8px 0px;}
+  .table-list .text{outline: none}
+  .table-list tbody tr:hover{background: #f5f5f5;}
+  .table-list thead tr{width: 100%;}
+  .table-list thead th:nth-of-type(1){width: 5%}
+  .table-list thead th:nth-of-type(2){width: 15%}
+  .table-list thead th:nth-of-type(3){width: 14%}
+  .table-list thead th:nth-of-type(4){width: 14%}
+  .table-list thead th:nth-of-type(5){width: 14%}
+  .table-list thead th:nth-of-type(6){width: 14%}
+  .table-list thead th:nth-of-type(7){width: 13%}
+
+
+.mini-toolbar{
+/* 	padding-left: 0px !important; */
+/* 	padding-right: 0px !important; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

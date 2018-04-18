@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmSolution">
+	<resultMap id="BpmSolution" type="com.redxun.bpm.core.entity.BpmSolution">
+		<id property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="defKey" column="DEF_KEY_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="descp" column="DESCP_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="formal" column="FORMAL_" jdbcType="VARCHAR"/>
+		<result property="step" column="STEP_" jdbcType="NUMERIC"/>
+		<result property="helpId" column="HELP_ID_" jdbcType="VARCHAR"/>
+		<result property="subjectRule" column="SUBJECT_RULE_" jdbcType="VARCHAR"/>
+		<result property="isUseBmodel" column="IS_USE_BMODEL_"/>
+		<result property="grantType" column="GRANT_TYPE_" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<!-- 获得我的解决方案 -->
+	
+	<select id="getSolutionsByAdmin" parameterType="java.util.Map" resultMap="BpmSolution">
+		SELECT * FROM BPM_SOLUTION   
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		
+		<if test="orderBySql!=null">
+			ORDER BY  ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	<select id="getSolutions" parameterType="java.util.Map" resultMap="BpmSolution">
+		select distinct * from (
+			<if test="admin!=null">
+				SELECT * FROM BPM_SOLUTION   WHERE TENANT_ID_=#{TENANT_ID_} and CREATE_BY_=#{userId}
+				<if test="@Ognl@isNotEmpty(SUPPORT_MOBILE_)">
+				    and SUPPORT_MOBILE_=1
+				</if>
+				
+				union all
+			</if>
+		
+			SELECT a.* from   BPM_SOLUTION a, bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e 
+				where a.TENANT_ID_=#{TENANT_ID_} 
+				<if test="grantType=='bpmAssortment'">
+				and	a.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	a.SOL_ID_=e.SOL_ID_
+				</if> and e.SETTING_ID_ = c.ID_ and c.ENABLE_='yes'   
+				and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_=#{rightType} and d.TYPE_='everyone'
+				<if test="@Ognl@isNotEmpty(SUPPORT_MOBILE_)">
+				    and SUPPORT_MOBILE_=1
+				</if>
+			
+			union all
+			
+			<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+				SELECT a.* from  BPM_SOLUTION a, bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e 
+				where a.TENANT_ID_=#{TENANT_ID_} 
+				<if test="grantType=='bpmAssortment'">
+				and	a.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	a.SOL_ID_=e.SOL_ID_
+				</if>
+				 and e.SETTING_ID_ = c.ID_  and c.ENABLE_='yes' 
+				and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_=#{rightType} and d.TYPE_=#{key}
+				and d.AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+				<if test="@Ognl@isNotEmpty(SUPPORT_MOBILE_)">
+				    and SUPPORT_MOBILE_=1
+				</if>
+			</foreach> ) v
+			
+			<where>
+				<if test="NAME_!=null">
+					and NAME_ like #{NAME_}
+				</if>
+				<if test="KEY_!=null">
+					AND KEY_ like #{KEY_}
+				</if>
+				
+				<if test="TREE_PATH_!=null">
+					AND TREE_PATH_ like #{TREE_PATH_}
+				</if>
+				
+				
+				<if test="STATUS_!=null">
+					AND STATUS_ = #{STATUS_}
+				</if>
+				
+				<if test="CREATE_TIME__START!=null">
+					AND CREATE_TIME_ >= #{CREATE_TIME__START}
+				</if>
+				<if test="CREATE_TIME__END!=null">
+					AND CREATE_TIME_ &lt;= #{CREATE_TIME__END}
+				</if>
+				
+			</where>
+			
+			<if test="orderBySql!=null">
+			 ORDER BY  ${orderBySql}
+			</if>
+			<if test="orderBySql==null">
+				ORDER BY CREATE_TIME_ DESC
+			</if>
+	</select>
+	
+	<select id="getCategoryTree"  resultType="java.util.HashMap">
+		select TREE_ID_,TREE_PATH_,amount AMOUNT from (
+			<if test="admin!=null">
+				SELECT TREE_ID_, TREE_PATH_,count(DISTINCT SOL_ID_) amount FROM BPM_SOLUTION  
+				WHERE TENANT_ID_=#{TENANT_ID_} and CREATE_BY_=#{userId}
+				GROUP BY TREE_ID_,TREE_PATH_
+				
+				union all
+			</if>
+		
+			SELECT b.TREE_ID_, b.TREE_PATH_,count(DISTINCT b.SOL_ID_) amount from BPM_SOLUTION b,
+			bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where b.TENANT_ID_=#{TENANT_ID_} and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if> and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_=#{rightType} and d.TYPE_='everyone' 
+			GROUP BY b.TREE_ID_,b.TREE_PATH_
+			
+			union all
+			<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+				SELECT b.TREE_ID_,b.TREE_PATH_,count(DISTINCT b.SOL_ID_) amount from BPM_SOLUTION b,
+				bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where b.TENANT_ID_=#{TENANT_ID_}
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if>
+				 and e.SETTING_ID_ = c.ID_  and c.ENABLE_='yes' 
+				and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_=#{rightType} 
+				and d.TYPE_=#{key}
+				and d.AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+				GROUP BY b.TREE_ID_,b.TREE_PATH_
+			</foreach>
+		) v GROUP BY TREE_ID_,TREE_PATH_,AMOUNT
+	</select>
+	
+	<select id="getCountByKey" resultType="java.lang.Integer">
+		SELECT count(*) FROM BPM_SOLUTION   WHERE TENANT_ID_=#{tenantId} and KEY_=#{key}
+	</select>
+	
+	<select id="getAllNotEmptyTreeId" resultType="java.lang.String">
+		SELECT b.SOL_ID_  FROM BPM_SOLUTION b  WHERE TENANT_ID_=#{tenantId} and b.TREE_ID_ in (SELECT a.TREE_ID_ FROM BPM_AUTH_DEF a WHERE a.TREE_ID_ is not null)
+	</select>
+	
+	<select id="getCountByKeyId" resultType="java.lang.Integer">
+		SELECT count(*) FROM BPM_SOLUTION   WHERE  SOL_ID_=#{solId} and KEY_=#{key} 
+	</select>
+	
+</mapper>

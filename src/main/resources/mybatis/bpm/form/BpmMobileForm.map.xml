@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.form.entity.BpmMobileForm">
+	<resultMap id="BpmMobileForm" type="com.redxun.bpm.form.entity.BpmMobileForm">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="boDefId" column="BO_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="alias" column="ALIAS_" jdbcType="VARCHAR"/>
+		<result property="formHtml" column="FORM_HTML" jdbcType="CLOB"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="boName" column="BO_NAME_" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.form.entity.BpmMobileForm">
+		INSERT INTO bpm_mobile_form
+		(ID_,BO_DEF_ID_,NAME_,ALIAS_,FORM_HTML,TENANT_ID_,TREE_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{boDefId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{formHtml,jdbcType=CLOB}, #{tenantId,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmMobileForm">
+		SELECT * FROM bpm_mobile_form 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmMobileForm">
+		SELECT a.ID_,a.BO_DEF_ID_,a.NAME_,a.ALIAS_,a.TENANT_ID_,a.TREE_ID_,a.CREATE_BY_,
+		a.CREATE_TIME_,a.UPDATE_BY_,a.UPDATE_TIME_,b.NAME_ BO_NAME_
+		 FROM bpm_mobile_form a ,sys_bo_definition b
+		<where>
+			a.BO_DEF_ID_=b.ID_
+			<if test="whereSql!=null">
+				and ${whereSql}
+			</if>
+			
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY a.ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.form.entity.BpmMobileForm">
+		UPDATE bpm_mobile_form SET
+		BO_DEF_ID_=#{boDefId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		ALIAS_=#{alias,jdbcType=VARCHAR},
+		FORM_HTML=#{formHtml,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_mobile_form 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="isAliasExist"   resultType="java.lang.Integer">
+		SELECT count(*) FROM bpm_mobile_form 
+		WHERE TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		and ALIAS_=#{alias,jdbcType=VARCHAR}
+		<if test="id!=null">
+			and ID_!=#{id}
+		</if>
+		
+	</select>
+	
+	<select id="getByBoDefId"   resultMap="BpmMobileForm">
+		SELECT ID_,BO_DEF_ID_,NAME_,ALIAS_,TENANT_ID_,TREE_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_ FROM bpm_mobile_form 
+		WHERE  BO_DEF_ID_ in <foreach collection="boDefIds" item="boDefId" index="index"
+            open="(" close=")" separator=",">#{boDefId}</foreach>
+		and	TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<select id="getByAlias"   resultMap="BpmMobileForm">
+		SELECT * FROM bpm_mobile_form 
+		WHERE  ALIAS_=#{alias,jdbcType=VARCHAR}
+		and	TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+	</select>
+	
+	
+</mapper>

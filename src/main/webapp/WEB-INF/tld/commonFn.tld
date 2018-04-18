@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+   <tlib-version>1.0</tlib-version>
+   <short-name>commonFun</short-name>
+   <uri>http://www.redxun.cn/commonFun</uri>
+   <description>RedXun Software Common Function Script</description>
+   <display-name>Common Function Tag</display-name>
+
+  <tag>
+    <description>
+       用户标签
+    </description>
+    <name>userLabel</name>
+    <tag-class>com.redxun.saweb.tag.UserLabelTag</tag-class>
+    <body-content>JSP</body-content>
+  
+    <attribute>
+        <description>用户ID</description>
+        <name>userId</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>是否显示全部门</description>
+        <name>showDep</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <description>
+       	用户授权标签
+    </description>
+    <name>grant</name>
+    <tag-class>com.redxun.saweb.tag.GrantTag</tag-class>
+    <body-content>JSP</body-content>
+  
+    <attribute>
+        <description>url</description>
+        <name>url</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  
+</taglib>

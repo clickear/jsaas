@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysOfficeVer">
+	<resultMap id="SysOfficeVer" type="com.redxun.sys.core.entity.SysOfficeVer">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="officeId" column="OFFICE_ID_" jdbcType="VARCHAR"/>
+		<result property="version" column="VERSION_" jdbcType="NUMERIC"/>
+		<result property="fileId" column="FILE_ID_" jdbcType="VARCHAR"/>
+		<result property="fileName" column="FILE_NAME_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysOfficeVer">
+		INSERT INTO SYS_OFFICE_VER
+		(ID_,OFFICE_ID_,VERSION_,FILE_ID_,FILE_NAME_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,TENANT_ID_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{officeId,jdbcType=VARCHAR}, #{version,jdbcType=NUMERIC}, #{fileId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{tenantId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysOfficeVer">
+		SELECT * FROM SYS_OFFICE_VER 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="getByOfficeId"   parameterType="java.lang.String" resultMap="SysOfficeVer">
+		SELECT * FROM SYS_OFFICE_VER 
+		WHERE 
+		OFFICE_ID_=#{officeId} order by VERSION_ desc
+	</select>
+	
+	<select id="getVersionByOfficeId"   parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT Max(VERSION_) FROM SYS_OFFICE_VER 
+		WHERE 
+		OFFICE_ID_=#{officeId} 
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysOfficeVer">
+		SELECT * FROM SYS_OFFICE_VER
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysOfficeVer">
+		UPDATE SYS_OFFICE_VER SET
+		OFFICE_ID_=#{officeId,jdbcType=VARCHAR},
+		VERSION_=#{version,jdbcType=NUMERIC},
+		FILE_ID_=#{fileId,jdbcType=VARCHAR},
+		FILE_NAME_=#{fileName,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_OFFICE_VER 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

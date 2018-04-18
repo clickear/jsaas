@@ -1,0 +1,4 @@
+[
+	{"id":"ENABLED","text":"启用"},
+    {"id":"DISABLED","text":"禁用"}
+]

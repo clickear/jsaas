@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsNewsCtl">
+	<resultMap id="InsNewsCtl" type="com.redxun.oa.info.entity.InsNewsCtl">
+		<id property="ctlId" column="CTL_ID_" jdbcType="VARCHAR"/>
+		<result property="newsId" column="NEWS_ID_" jdbcType="VARCHAR"/>
+		<result property="userId" column="USER_ID_" jdbcType="VARCHAR"/>
+		<result property="groupId" column="GROUP_ID_" jdbcType="VARCHAR"/>
+		<result property="right" column="RIGHT_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsNewsCtl">
+		INSERT INTO INS_NEWS_CTL
+		(CTL_ID_,NEWS_ID_,USER_ID_,GROUP_ID_,RIGHT_,TYPE_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{ctlId,jdbcType=VARCHAR}, #{newsId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, #{right,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InsNewsCtl">
+		SELECT * FROM INS_NEWS_CTL 
+		WHERE 
+		CTL_ID_=#{ctlId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InsNewsCtl">
+		SELECT * FROM INS_NEWS_CTL
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY CTL_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsNewsCtl">
+		UPDATE INS_NEWS_CTL SET
+		NEWS_ID_=#{newsId,jdbcType=VARCHAR},
+		USER_ID_=#{userId,jdbcType=VARCHAR},
+		GROUP_ID_=#{groupId,jdbcType=VARCHAR},
+		RIGHT_=#{right,jdbcType=VARCHAR},
+		TYPE_=#{type,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		CTL_ID_=#{ctlId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM INS_NEWS_CTL 
+		WHERE
+		CTL_ID_=#{ctlId}
+	</delete>
+	
+	
+</mapper>

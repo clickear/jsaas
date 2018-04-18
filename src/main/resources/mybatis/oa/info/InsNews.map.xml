@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsNews">
+	<resultMap id="InsNews" type="com.redxun.oa.info.entity.InsNews">
+		<id property="newId" column="NEW_ID_" jdbcType="VARCHAR"/>
+		<result property="subject" column="SUBJECT_" jdbcType="VARCHAR"/>
+		<result property="tag" column="TAG_" jdbcType="VARCHAR"/>
+		<result property="keywords" column="KEYWORDS_" jdbcType="VARCHAR"/>
+		<result property="content" column="CONTENT_" jdbcType="CLOB"/>
+		<result property="isImg" column="IS_IMG_" jdbcType="VARCHAR"/>
+		<result property="imgFileId" column="IMG_FILE_ID_" jdbcType="VARCHAR"/>
+		<result property="readTimes" column="READ_TIMES_" jdbcType="NUMERIC"/>
+		<result property="author" column="AUTHOR_" jdbcType="VARCHAR"/>
+		<result property="allowCmt" column="ALLOW_CMT_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="files" column="FILES_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="columnId" column="COLUMN_ID_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsNews">
+		INSERT INTO INS_NEWS
+		(NEW_ID_,SUBJECT_,TAG_,KEYWORDS_,CONTENT_,IS_IMG_,IMG_FILE_ID_,READ_TIMES_,AUTHOR_,ALLOW_CMT_,STATUS_,FILES_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,COLUMN_ID_)
+		VALUES 
+		(#{newId,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, #{content,jdbcType=CLOB}, #{isImg,jdbcType=VARCHAR}, #{imgFileId,jdbcType=VARCHAR}, #{readTimes,jdbcType=NUMERIC}, #{author,jdbcType=VARCHAR}, #{allowCmt,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{files,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{columnId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InsNews">
+		SELECT * FROM INS_NEWS 
+		WHERE 
+		NEW_ID_=#{newId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InsNews">
+		SELECT * FROM INS_NEWS
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY NEW_ID_ DESC
+		</if>
+	</select>
+	
+	<select id="getByColId" resultMap="InsNews">
+		SELECT * FROM INS_NEWS
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		ORDER BY CREATE_TIME_ DESC
+		
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsNews">
+		UPDATE INS_NEWS SET
+		SUBJECT_=#{subject,jdbcType=VARCHAR},
+		TAG_=#{tag,jdbcType=VARCHAR},
+		KEYWORDS_=#{keywords,jdbcType=VARCHAR},
+		CONTENT_=#{content,jdbcType=CLOB},
+		IS_IMG_=#{isImg,jdbcType=VARCHAR},
+		IMG_FILE_ID_=#{imgFileId,jdbcType=VARCHAR},
+		READ_TIMES_=#{readTimes,jdbcType=NUMERIC},
+		AUTHOR_=#{author,jdbcType=VARCHAR},
+		ALLOW_CMT_=#{allowCmt,jdbcType=VARCHAR},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		FILES_=#{files,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		COLUMN_ID_=#{columnId,jdbcType=VARCHAR}
+		WHERE
+		NEW_ID_=#{newId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM INS_NEWS 
+		WHERE
+		NEW_ID_=#{newId}
+	</delete>
+	
+	
+</mapper>

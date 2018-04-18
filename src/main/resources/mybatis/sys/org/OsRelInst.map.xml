@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.org.entity.OsRelInst">
+	<resultMap id="OsRelInst" type="com.redxun.sys.org.entity.OsRelInst">
+		<id property="instId" column="INST_ID_" jdbcType="VARCHAR"/>
+		<result property="relTypeKey" column="REL_TYPE_KEY_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="isMain" column="IS_MAIN_" jdbcType="VARCHAR"/>
+		<result property="alias" column="ALIAS_" jdbcType="VARCHAR"/>
+		<result property="party1" column="PARTY1_" jdbcType="VARCHAR"/>
+		<result property="party2" column="PARTY2_" jdbcType="VARCHAR"/>
+		<result property="path" column="PATH_" jdbcType="VARCHAR"/>
+		<result property="dim1" column="DIM1_" jdbcType="VARCHAR"/>
+		<result property="dim2" column="DIM2_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="groupName" column="GROUP_NAME_" jdbcType="VARCHAR"/>
+		<result property="groupKey" column="GROUP_KEY_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>	
+	</resultMap>
+	
+	
+	<select id="getByGroupIdRelTypeId"   parameterType="java.util.Map" resultMap="OsRelInst">
+		SELECT oi.*,ou.NAME_ GROUP_NAME_,ou.KEY_ GROUP_KEY_ FROM OS_GROUP ou RIGHT JOIN OS_REL_INST oi on ou.GROUP_ID_=oi.PARTY2_ WHERE oi.REL_TYPE_ID_=#{relTypeId} and oi.PARTY1_=#{groupId}
+		<if test="whereSql!=null">
+			${whereSql}
+		</if>
+		<if test="orderByClause!=null">
+			ORDER BY ${orderByClause}
+		</if>
+	</select>
+	
+</mapper>

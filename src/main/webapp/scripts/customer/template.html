@@ -1,0 +1,50 @@
+<div style="display:none;" id="formTemplate">
+	<script type="text/html;" id="uploadFile">
+		<ul  style="padding-left: 0px;">
+		<#
+			function isOffice(name){
+				if(name.indexOf('doc')!=-1||name.indexOf('docx')!=-1||name.indexOf('pptx')!=-1||name.indexOf('ppt')!=-1||name.indexOf('xlsx')!=-1||name.indexOf('xls')!=-1){
+					return true;
+				}
+				return false;
+			}
+			for(var i=0;i<list.length;i++){
+				var file=list[i];			
+				var name=file.fileName;
+		#>
+			<li id="li_<#=file.fileId#>">
+				<span style="color:#4f50f2;width:500px;display:-moz-inline-box;display:inline-block;"><#=name#></span><span style="padding-right:25px;color:#aaa;">(<#=Math.ceil(file.totalBytes/1024)#>KB)</span>
+				<#if(write) { #>
+					<a name="removeFile"  href="#"  class="removeFile"><span  class="rx-font icon-See">删除</span></a>
+				<#}#>
+
+				<#if(isOffice(name) && enableOpenOffice!="YES") { #>
+					<a  href="#" onclick="_openDoc('<#=file.fileId#>');"><span  class="rx-font icon-See">查看</span></a>
+				<#}else if (name.indexOf('pdf')!=-1 || (isOffice(name)&& enableOpenOffice=="YES")  ){#>
+					<a target="_blank" href="javascript:;" onclick="_openPdf('<#=file.fileId#>');"><span  class="rx-font icon-See">查看</span></a>
+				<#}else if (name.indexOf('png')!=-1 || name.indexOf('jpg')!=-1 || name.indexOf('bmp')!=-1 || name.indexOf('gif')!=-1){#>
+					<a target="_blank" href="javascript:;" onclick="_openImg('<#=file.fileId#>');"><span  class="rx-font icon-See">查看</span></a>
+				<#}else{#>
+					<a target="_blank" href="<#=ctxPath#>/sys/core/file/download/<#=file.fileId#>.do"><span  class="rx-font icon-See">查看</span></a>
+				<#}#>
+				
+				<#if(isDown) { #>
+				<a style="display: inline-block;margin-left: 8px;" target="_blank" href="<#=ctxPath#>/sys/core/file/previewFile.do?fileId=<#=file.fileId#>"><span class="rx-font icon-See">下载</span></a>
+				<#}#>
+				<#if(isPrint) { #>
+				<a target="_blank" href="<#=ctxPath#>/sys/core/file/previewOffice.do?print=true&fileId=<#=file.fileId#>"><image style="margin-right:15px;cursor:pointer;border:0;"  src="<#=ctxPath#>/styles/icons/printer.png"  title="打印"/></a>
+				<#}#>
+			</li>
+		 <#}#>
+		</ul>
+	</script>
+	
+	<script type="text/html;" id="imgFile">
+		<span class="show-Img">
+			<img src="<#=ctxPath#>/sys/core/file/imageView.do?thumb=true&amp;fileId=" class="upload-file" >
+    		<div class="showBigPic">
+     			<a class="showButton" href="#" href1="<#=ctxPath#>/sys/core/file/imageView.do?fileId=" target="_blank">显示全图</a>
+    		</div>
+    	</span>
+	</script>
+</div>

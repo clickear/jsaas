@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<bean id="tableMetaFactoryBean" class="com.redxun.core.database.factory.TableMetaFactoryBean">
+ 		<property name="dbType" value="${db.type}"/>
+ 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+ 	</bean>
+ 	
+ 	<bean id="dBMetaImpl" class="com.redxun.core.database.impl.DBMetaImpl"  />
+ 	
+ 	<!-- 
+ 	<bean id="redisTemplate" class="com.redxun.core.redis.RedisTemplate"  
+ 		destroy-method="destroy"
+ 		init-method="init" >
+ 	</bean> -->
+
+	<bean id="boAttrParseFactory" class="com.redxun.sys.bo.manager.parse.BoAttrParseFactory">
+		<property name="attrParseList"  >
+			<list>
+	  			<ref bean="upload-panel"/>
+	  			<ref bean="mini-buttonedit"/>
+	  			<ref bean="mini-checkbox"/>
+	  			<ref bean="mini-checkboxlist"/>
+	  			<ref bean="mini-combobox"/>
+	  			
+	  			<ref bean="mini-datepicker"/>
+	  			<ref bean="mini-dep"/>
+	  			<ref bean="mini-group"/>
+	  			<ref bean="mini-hidden"/>
+	  			<ref bean="mini-img"/>
+	  			
+	  			<ref bean="mini-month"/>
+	  			<ref bean="mini-spinner"/>
+	  			<ref bean="mini-radiobuttonlist"/>
+	  			<ref bean="mini-textarea"/>
+	  			<ref bean="mini-textbox"/>
+	  			
+	  			<ref bean="mini-textboxlist"/>
+	  			<ref bean="mini-time"/>
+	  			<ref bean="mini-treeselect"/>
+	  			<ref bean="mini-ueditor"/>
+	  			<ref bean="mini-user"/>
+	  			<ref bean="mini-relatedsolution"/>
+	  			<ref bean="mini-office"/>
+	  			
+	  			
+  			</list>
+		</property>
+		<property name="exculdePlugins"  >
+			<set>  
+                <value>mini-button</value>  
+                <value>mini-checknodehi</value>  
+                <value>mini-checkhilist</value>
+                <value>mini-nodeopinion</value>
+                <value>mini-context</value>    
+                
+            </set>  
+        </property>
+	</bean>
+	
+	<!-- com.redxun.sys.bo.manager.parse.impl. -->
+	
+	<bean id="upload-panel" class="com.redxun.sys.bo.manager.parse.impl.AttachMentAttrParse"></bean>
+	<bean id="mini-buttonedit" class="com.redxun.sys.bo.manager.parse.impl.ButtonEditAttrParse"></bean>
+	<bean id="mini-checkbox" class="com.redxun.sys.bo.manager.parse.impl.CheckBoxAttrParse"></bean>
+	<bean id="mini-checkboxlist" class="com.redxun.sys.bo.manager.parse.impl.CheckBoxListAttrParse"></bean>
+	<bean id="mini-combobox" class="com.redxun.sys.bo.manager.parse.impl.ComboboxAttrParse"></bean>
+	
+	<bean id="mini-datepicker" class="com.redxun.sys.bo.manager.parse.impl.DatepickerAttrParse"></bean>
+	<bean id="mini-dep" class="com.redxun.sys.bo.manager.parse.impl.DeptAttrParse"></bean>
+	<bean id="mini-group" class="com.redxun.sys.bo.manager.parse.impl.GroupAttrParse"></bean>
+	<bean id="mini-hidden" class="com.redxun.sys.bo.manager.parse.impl.HiddenAttrParse"></bean>
+	<bean id="mini-img" class="com.redxun.sys.bo.manager.parse.impl.ImgAttrParse"></bean>
+	
+	<bean id="mini-month" class="com.redxun.sys.bo.manager.parse.impl.MonthAttrParse"></bean>
+	<bean id="mini-spinner" class="com.redxun.sys.bo.manager.parse.impl.NumberAttrParse"></bean>
+	<bean id="mini-radiobuttonlist" class="com.redxun.sys.bo.manager.parse.impl.RadioListAttrParse"></bean>
+	<bean id="mini-textarea" class="com.redxun.sys.bo.manager.parse.impl.TextAreaAttrParse"></bean>
+	<bean id="mini-textbox" class="com.redxun.sys.bo.manager.parse.impl.TextBoxAttrParse"></bean>
+	
+	<bean id="mini-textboxlist" class="com.redxun.sys.bo.manager.parse.impl.TextBoxListAttrParse"></bean>
+	<bean id="mini-time" class="com.redxun.sys.bo.manager.parse.impl.TimeAttrParse"></bean>
+	<bean id="mini-treeselect" class="com.redxun.sys.bo.manager.parse.impl.TreeSelectAttrParse"></bean>
+	<bean id="mini-ueditor" class="com.redxun.sys.bo.manager.parse.impl.UeditorAttrParse"></bean>
+	<bean id="mini-user" class="com.redxun.sys.bo.manager.parse.impl.UserAttrParse"></bean>
+	<bean id="mini-relatedsolution" class="com.redxun.sys.bo.manager.parse.impl.RelatedSolutionAttrParse"></bean>
+	<bean id="mini-office" class="com.redxun.sys.bo.manager.parse.impl.OfficeAttrParse"></bean>
+	
+	<!-- 系统常量 -->
+	<bean id="contextHandlerFactory" class="com.redxun.sys.api.ContextHandlerFactory">
+		<property name="handlers">
+			<list>
+	  			<ref bean="curDateContextHandler" ></ref>
+	  			<ref bean="userIdContextHandler" ></ref>
+	  			<ref bean="userNameContextHandler" ></ref>
+	  			<ref bean="tenantContextHandler" ></ref>
+	  			<ref bean="osGroupContextHandler" ></ref>
+	  			<ref bean="startUserIdContextHandler" ></ref>
+	  			<ref bean="startUserContextHandler" ></ref>
+  			</list>
+		</property>
+	</bean>
+	<bean id="curDateContextHandler" class="com.redxun.sys.core.handler.context.CurDateContextHandler"></bean>
+	<bean id="userIdContextHandler" class="com.redxun.sys.core.handler.context.UserIdContextHandler"></bean>
+	<bean id="userNameContextHandler" class="com.redxun.sys.core.handler.context.UserNameContextHandler"></bean>
+	<bean id="tenantContextHandler" class="com.redxun.sys.core.handler.context.TenantContextHandler"></bean>
+	<bean id="osGroupContextHandler" class="com.redxun.sys.core.handler.context.OsGroupContextHandler"></bean>
+	<bean id="startUserIdContextHandler" class="com.redxun.sys.core.handler.context.StartUserIdContextHandler"></bean>
+	<bean id="startUserContextHandler" class="com.redxun.sys.core.handler.context.StartUserContextHandler"></bean>
+
+	<!-- 表单解析工厂 -->
+	<bean id="formHandlerFactory" class="com.redxun.bpm.form.api.FormHandlerFactory">
+		<property name="handlers">
+			<list>
+	  			<ref bean="pcFormHandler" ></ref>
+	  			<ref bean="printFormHandler" ></ref>
+  			</list>
+		</property>
+	</bean>
+	
+	<bean id="pcFormHandler" class="com.redxun.bpm.form.impl.formhandler.PcFormHandler"></bean>
+	<bean id="printFormHandler" class="com.redxun.bpm.form.impl.formhandler.PrintFormHandler"></bean>
+
+	<bean id="flowService" class="com.redxun.bpm.api.DefaultFlowService"></bean>
+	<!-- 查询配置控件 -->
+	<bean id="queryControlParseConfig" class="com.redxun.ui.query.QueryControlParseConfig">
+		<property name="viewHandlers">
+			<list>
+  				<ref bean="miniTextBoxHandler"/>
+  				<ref bean="miniDatePickerHandler"/>
+  				<ref bean="miniComboBoxHandler"/>
+  				<ref bean="miniDialogHandler"/>
+  			</list>
+		</property>
+	</bean>
+	
+	<bean id="miniTextBoxHandler" class="com.redxun.ui.query.MiniTextBoxHandler"/>
+	
+	<bean id="miniDatePickerHandler" class="com.redxun.ui.query.MiniDatePickerHandler"/>
+	
+	<bean id="miniComboBoxHandler" class="com.redxun.ui.query.MiniComboBoxHandler"/>
+	
+	<bean id="miniDialogHandler" class="com.redxun.ui.query.MiniDialogHandler"/>
+	
+	<!-- 列表行内控件生成解析 -->
+	<bean id="gridColEditParseConfig" class="com.redxun.ui.grid.GridColEditParseConfig">
+		<property name="viewHandlers">
+			<list>
+				<bean class="com.redxun.ui.grid.GdMiniTextBoxHandler"></bean>
+				<bean class="com.redxun.ui.grid.GdMiniSpinnerHandler"></bean>
+				<bean class="com.redxun.ui.grid.GdMiniTextAreaHandler"></bean>
+				<bean class="com.redxun.ui.grid.GdMiniDatePickerHandler"></bean>
+				<bean class="com.redxun.ui.grid.GdMiniComboBoxHandler"></bean>
+				<bean class="com.redxun.ui.grid.GdMiniCheckboxHandler"></bean>
+  			</list>
+		</property>
+	</bean>
+	
+	<!-- 列表列值渲染 -->
+	<bean id="miniGridColumnRenderConfig" class="com.redxun.ui.grid.column.render.MiniGridColumnRenderConfig">
+		<property name="columnRenders">
+			<list>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderCommon"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderUser"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderGroup"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderSysInst"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderDate"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderNumber"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderUrl"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderLinkUrl"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderLinkFlow"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderFlowStatus"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderScript"></bean>
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderDisplayLabel" />
+				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderDisplayItems" />
+  				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderDisplayPercent" />
+  				<bean class="com.redxun.ui.grid.column.render.MiniGridColumnRenderDisplayRange"/>
+  			</list>
+		</property>
+	</bean>
+	
+	<bean id="logScanner" class="com.redxun.sys.log.LogEntScanner">
+		<property name="basePackage">
+			<list>
+				<value>classpath:com/redxun/**/**/controller/*.class</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--用于配置文件上传配置-->
+    <bean id="fileUploadConfig" class="com.redxun.saweb.config.upload.FileUploadConfig"/>
+
+</beans>

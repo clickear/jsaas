@@ -1,0 +1,7 @@
+[
+{'fieldOp':'eq','fieldOpLabel':'等于(=)'},
+{'fieldOp':'lt','fieldOpLabel':'小于(<)'},
+{'fieldOp':'lt_eq','fieldOpLabel':'小于等于(<=)'},
+{'fieldOp':'gt','fieldOpLabel':'大于(>)'},
+{'fieldOp':'gt_eq','fieldOpLabel':'大于等于(>=)'}
+]

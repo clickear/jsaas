@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysInstType">
+	<resultMap id="SysInstType" type="com.redxun.sys.core.entity.SysInstType">
+		<id property="typeId" column="TYPE_ID_" jdbcType="VARCHAR"/>
+		<result property="typeCode" column="TYPE_CODE_" jdbcType="VARCHAR"/>
+		<result property="typeName" column="TYPE_NAME_" jdbcType="VARCHAR"/>
+		<result property="enabled" column="ENABLED_" jdbcType="VARCHAR"/>
+		<result property="isDefault" column="IS_DEFAULT_" jdbcType="VARCHAR"/>
+		<result property="homeUrl" column="HOME_URL_" jdbcType="VARCHAR"/>
+		<result property="descp" column="DESCP_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysInstType">
+		INSERT INTO SYS_INST_TYPE
+		(TYPE_ID_,TYPE_CODE_,TYPE_NAME_,ENABLED_,IS_DEFAULT_,HOME_URL_,DESCP_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{typeId,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{enabled,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR},#{homeUrl,jdbcType=VARCHAR}, #{descp,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysInstType">
+		SELECT * FROM SYS_INST_TYPE 
+		WHERE 
+		TYPE_ID_=#{typeId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysInstType">
+		SELECT * FROM SYS_INST_TYPE
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY TYPE_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysInstType">
+		UPDATE SYS_INST_TYPE SET
+		TYPE_CODE_=#{typeCode,jdbcType=VARCHAR},
+		TYPE_NAME_=#{typeName,jdbcType=VARCHAR},
+		ENABLED_=#{enabled,jdbcType=VARCHAR},
+		IS_DEFAULT_=#{isDefault,jdbcType=VARCHAR},
+		HOME_URL_=#{homeUrl,jdbcType=VARCHAR},
+		DESCP_=#{descp,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		TYPE_ID_=#{typeId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_INST_TYPE 
+		WHERE
+		TYPE_ID_=#{typeId}
+	</delete>
+	
+	
+</mapper>

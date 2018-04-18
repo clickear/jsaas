@@ -1,0 +1,17 @@
+[{name:"url",comment:"连接字符串",type:"String",val:"jdbc:mysql://localhost:3306/dbName?useUnicode=true&amp;characterEncoding=utf-8"},
+{name:"username",comment:"用户名",type:"String",val:""},
+{name:"password",comment:"密码",type:"String",val:""},
+{name:"initialSize",comment:"初始大小",type:"int",val:"5"},
+{name:"minIdle",comment:"最小空闲连接数",type:"int",val:"5"},
+{name:"maxActive",comment:"连接池最大数",type:"int",val:"10"},
+{name:"maxWait",comment:"获取连接超时的时间(毫秒)",type:"long",val:"60000"},
+{name:"timeBetweenEvictionRunsMillis",comment:"检测间隔时间(毫秒)",type:"long",val:"60000"},
+{name:"minEvictableIdleTimeMillis",comment:"连接最小生存时间(毫秒)",type:"long",val:"300000"},
+{name:"validationQuery",comment:"连接校验语句",type:"String",val:"SELECT 1 from act_ge_property"},
+{name:"testWhileIdle",comment:"空闲时检测连接",type:"boolean",val:"true"},
+{name:"testOnBorrow",comment:"获取连接时检测连接",type:"boolean",val:"false"},
+{name:"testOnReturn",comment:"连接返回连接池时检测连接",type:"boolean",val:"false"},
+{name:"poolPreparedStatements",comment:"打开PSCACHE",type:"boolean",val:"true"},
+{name:"maxPoolPreparedStatementPerConnectionSize",comment:"PSCACHE大小",type:"int",val:"20"},
+{name:"filters",comment:"插件",type:"String",val:"stat"}]
+

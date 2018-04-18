@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="RedXun-Codegen" default="gencode" basedir=".">
+	
+	<path id="refLib">
+			<fileset dir="lib" includes="*.jar" /> 
+	</path>
+		
+	<taskdef name="gencode" classname="com.redxun.Codegen">
+	    <classpath refid="refLib" />
+	</taskdef>
+	<taskdef name="deletecode" classname="com.redxun.CodeDelete">
+		<classpath refid="refLib"/>
+	</taskdef>
+	<target   name="gencode" description="生成代码">
+		<gencode rootpath=""/>
+	</target>
+	
+
+</project>

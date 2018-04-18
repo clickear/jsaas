@@ -1,0 +1,287 @@
+@charset "utf-8";
+
+*{
+	color:#666;
+	font-weight:normal !important;	
+}
+
+html,body{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	font-family:"Microsoft YaHei";
+}
+
+/*Microsoft JhengHei   SimSun  PingFangSC STXihei */
+
+#toptoolbar{
+    width: 100%;
+    height: 50px;
+    display: block;
+    z-index: 100;
+    position: fixed;
+    top: 0px; 
+	text-align:right;
+    padding: 0px 10px 10px 6px;
+    line-height: 32px;
+    vertical-align: middle;
+}
+
+#toptoolbarBg{
+	height: 32px;
+	width: 100%;
+	z-index: 2;
+	background-color: red;
+}
+
+.topButton {
+	display: inline-block;
+	line-height: 50px;
+	height: 50px;
+	width: 70px;
+	background-color: #FF0000;
+	color: #FFFFFF;
+	text-align: center;
+	cursor: pointer;
+	font-size: 18px;
+	vertical-align: middle;
+	border: 1px solid #0492C1;
+	margin-right: 4px;
+}
+
+
+#opinion { 
+    margin-top: 10px;
+    overflow: hidden; 
+    width: 650px; 
+    font-size: 10pt;
+    height: 54px; 
+    line-height: 22px;
+    padding:2px; 
+}
+
+.toggleButton{
+	margin: 10px;
+	display: inline;
+	color: #FFFFFF;
+	background-color: #99CCFF;
+	border: 1px solid #6699CC;
+	border-radius: 35%;
+	cursor: pointer;
+}
+
+
+.submitButton{
+	margin-top: 10px;
+	display: inline-block;
+	line-height: 40px;
+	height: 40px;
+	width: 80px;
+	background-color: #29b4f7;
+	color: #FFFFFF;
+	text-align: center;
+	cursor: pointer;
+	font-size: 18px;
+	border: 0px;
+	margin-right: 4px;
+	vertical-align: middle;
+	border-radius: 8px;
+}
+
+
+@media print {
+  .noPrint {display:none;}
+}
+
+.table-list{
+	width:100%;
+	border-collapse:collapse;
+	border-right:solid #ececec 1px;
+	border-top:solid #ececec 1px;
+}
+
+.table-list caption {
+	text-align: center;
+	font-size: 16px !important;
+	padding: 5px 5px;
+	color:#666;
+	font-size: 18px;
+	border-left:solid #ececec 1px;
+}
+
+.table-list  > thead > tr {
+	height: 24px;
+	height: 24px;
+}
+
+
+.table-list  > tbody > tr {
+	height: 24px;
+	height: 24px;
+}
+
+.table-list > thead > tr > th{
+	padding:4px;
+	text-align: center;
+}
+
+.table-list > tbody > tr > td{
+	padding:4px;
+}
+
+/*表格颜色*/
+.table-list.blue> thead > tr > th{
+	border-left:solid #ececec 1px;
+	border-bottom:solid #ececec 1px;
+	padding:4px;
+	text-align: center;
+}
+
+.table-list.blue > tbody > tr > td{
+	border-left:solid #ececec 1px;
+	border-bottom:solid #ececec 1px;
+	padding:4px;
+}
+
+.table-list.green> thead > tr > th{
+	border:solid #ececec 1px;
+	padding:4px;
+	text-align: center;
+}
+
+.table-list.green > tbody > tr > td{
+	border:solid #ececec 1px;
+	padding:4px;
+}
+
+.table-list.gray> thead > tr > th{
+	border:solid #ececec 1px;
+	padding:4px;
+	text-align: center;
+}
+
+.table-list.gray > tbody > tr > td{
+	border:solid #ececec 1px;
+	padding:4px;
+}
+
+.table-list.brown> thead > tr > th{
+	border:solid #ececec 1px;
+	padding:4px;
+}
+
+.table-list.brown > tbody > tr > td{
+	border:solid #ececec 1px;
+	padding:4px;
+}
+
+.form-detail caption {
+	font-size: 20px !important;
+	padding: 8px 0;
+	color:#666;
+	font-size: 18px;
+}
+
+.column-two,.column-four{
+	width:100%;
+	height:100%;
+	margin: 0px auto;
+}
+
+.form-detail {
+	border-collapse: collapse;
+	border: solid 1px #ececec;
+	width:100%;
+	height:auto;
+	margin:0px auto
+}
+
+.form-detail caption {
+	margin-top:0px;
+	text-align: center;
+	font-size: 16px !important;
+	padding: 5px 5px;
+	color:#666;
+	font-size: 18px;
+}
+
+div.sperator{
+	height:auto;
+}
+
+.table-container{
+	padding-top: 4px;
+}
+
+/**
+	定义表格th,td的样式。
+*/
+.form-detail tr th{
+	font-size:14px;
+	border: 1px solid #ececec;
+	padding:6px;
+}
+
+.form-detail tr > td{
+	font-size:14px;
+	color:#666;
+	border: 1px solid #ececec;
+	height:30px;
+	padding:6px;
+	word-break:break-all;
+}
+
+/**
+	定义表格宽度。
+*/
+.form-detail.column-two> tr > th{
+	width:20%;
+}
+
+.form-detail.column-two> tr > td {
+	width:80%;
+}
+
+.form-detail.column-four> tr > th{
+	width:15%;
+}
+
+.form-detail.column-four> tr > td {
+	width:35%;
+}
+
+.form-detail.column-six> tr > th{
+	width:11%;
+}
+
+.form-detail.column-six> tr > td {
+	width:22%;
+}
+
+.form-detail.column-eight> tr > th{
+	width:8%;
+}
+
+.form-detail.column-eight> tr > td {
+	width:17%;
+}
+
+.form-detail ul li{
+	list-style-type: none;
+}
+
+
+/*定义字体颜色*/
+
+
+
+#form-panel>table>caption,
+#form-panel>table th{
+	background: transparent;
+}
+.form-detail th{
+	text-align: center;
+}
+

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.org.entity.OsUser">
+	<resultMap id="OsUser" type="com.redxun.sys.org.entity.OsUser">
+		<id property="userId" column="USER_ID_" jdbcType="VARCHAR"/>
+		<result property="fullname" column="FULLNAME_" jdbcType="VARCHAR"/>
+		<result property="userNo" column="USER_NO_" jdbcType="VARCHAR"/>
+		<result property="entryTime" column="ENTRY_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="quitTime" column="QUIT_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="from" column="FROM_" jdbcType="VARCHAR"/>
+		<result property="birthday" column="BIRTHDAY_" jdbcType="TIMESTAMP"/>
+		<result property="sex" column="SEX_" jdbcType="VARCHAR"/>
+		<result property="email" column="EMAIL_" jdbcType="VARCHAR"/>
+		<result property="mobile" column="MOBILE_" jdbcType="VARCHAR"/>
+		<result property="address" column="ADDRESS_" jdbcType="VARCHAR"/>
+		<result property="urgent" column="URGENT_" jdbcType="VARCHAR"/>
+		<result property="urgentMobile" column="URGENT_MOBILE_" jdbcType="VARCHAR"/>
+		<result property="qq" column="QQ_" jdbcType="VARCHAR"/>
+		<result property="photo" column="PHOTO_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="syncWx" column="SYNC_WX_" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<resultMap id="OsUserAccountExt" type="com.redxun.sys.org.entity.OsUser">
+		<id property="userId" column="USER_ID_" jdbcType="VARCHAR"/>
+		<result property="fullname" column="FULLNAME_" jdbcType="VARCHAR"/>
+		<result property="sex" column="SEX_" jdbcType="VARCHAR"/>
+		<result property="email" column="EMAIL_" jdbcType="VARCHAR"/>
+		<result property="mobile" column="MOBILE_" jdbcType="VARCHAR"/>
+		<association property="sysAccount"  javaType="com.redxun.sys.core.entity.SysAccount">
+            <id property="accountId" column="ACCOUNT_ID_"/>
+            <result property="name" column="NAME_"/>
+            <result property="status" column="STATUS_"/>
+        </association>
+	</resultMap>
+	
+	<resultMap id="OsUserExt" type="com.redxun.sys.org.entity.OsUser">
+		<id property="userId" column="USER_ID_" jdbcType="VARCHAR"/>
+		<result property="fullname" column="FULLNAME_" jdbcType="VARCHAR"/>
+		<result property="sex" column="SEX_" jdbcType="VARCHAR"/>
+		<result property="email" column="EMAIL_" jdbcType="VARCHAR"/>
+		<result property="mobile" column="MOBILE_" jdbcType="VARCHAR"/>
+		<association property="sysAccount"  javaType="com.redxun.sys.core.entity.SysAccount">
+            <id property="accountId" column="ACCOUNT_ID_"/>
+            <result property="name" column="NAME_"/>
+            <result property="status" column="STATUS_"/>
+            
+        </association>
+        <association property="mainDep" column="" javaType="com.redxun.sys.org.entity.OsGroup">
+            <id property="groupId" column="PARTY1_"/>
+            <result property="wxPid" column="WX_PID_"/>
+        </association>
+        
+		
+	</resultMap>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="OsUser">
+		SELECT * FROM OS_USER
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY USER_ID_ DESC
+		</if>
+	</select>
+	<select id="getByGroupPathRelTypeId"   parameterType="java.util.Map" resultMap="OsUser">
+		SELECT distinct ou.* FROM OS_USER ou,OS_REL_INST oi,OS_GROUP g WHERE ou.USER_ID_=oi.PARTY2_ AND oi.PARTY1_=g.GROUP_ID_ AND oi.REL_TYPE_ID_=#{relTypeId} and g.PATH_ like #{path}
+		<if test="userNo!=null">
+			and ou.USER_NO_ like #{userNo}
+		</if>
+		<if test="fullname!=null">
+			and ou.FULLNAME_ like #{fullname}
+		</if>
+		<if test="email!=null">
+			and ou.EMAIL_ like #{email}
+		</if>
+		<if test="status!=null">
+			and ou.STATUS_=#{status}
+		</if>
+		<if test="tenantId!=null">
+			and ou.TENANT_ID_=#{tenantId}
+		</if>
+		<if test="orderByClause!=null">
+			ORDER BY ${orderByClause}
+		</if>
+		
+	</select>
+	
+	<select id="getByDepIdGroupId"   parameterType="java.util.Map" resultMap="OsUser">
+		select * from os_user o left join os_rel_inst i on o.USER_ID_=i.PARTY2_ 
+        where i.PARTY1_ in (#{depId},#{groupId}) and REL_TYPE_ID_='1'
+	</select>
+
+	<select id="getByGroupIdRelTypeId"   parameterType="java.util.Map" resultMap="OsUser">
+		SELECT ou.* FROM OS_USER ou RIGHT JOIN OS_REL_INST oi on ou.USER_ID_=oi.PARTY2_ WHERE oi.REL_TYPE_ID_=#{relTypeId} and oi.PARTY1_=#{groupId}
+		<if test="userNo!=null">
+			and ou.USER_NO_ like #{userNo}
+		</if>
+		<if test="fullname!=null">
+			and ou.FULLNAME_ like #{fullname}
+		</if>
+		<if test="email!=null">
+			and ou.EMAIL_ like #{email}
+		</if>
+		<if test="status!=null">
+			and ou.STATUS_=#{status}
+		</if>
+		<if test="tenantId!=null">
+			and ou.TENANT_ID_=#{tenantId}
+		</if>
+		<if test="orderByClause!=null">
+			ORDER BY ${orderByClause}
+		</if>
+		
+	</select>
+	
+	<select id="getByRelationGroup" resultMap="OsUser">
+		SELECT u.* from OS_REL_INST  rel,OS_REL_TYPE t,os_user u where rel.REL_TYPE_ID_=t.ID_ 
+		and u.USER_ID_=rel.PARTY2_ and t.NAME_=#{relationName} and rel.PARTY1_=#{groupId}
+	</select>
+	
+	<select id="getByReportLine" resultMap="OsUser">
+		SELECT U.* from OS_REL_INST rel, OS_REL_TYPE t,os_user U where t.NAME_=#{reportName} 
+		AND U.USER_ID_=rel.PARTY1_  and rel.PARTY2_=#{userId} and t.ID_=rel.REL_TYPE_ID_
+	</select>
+	
+	<select id="getSyncWx" resultMap="OsUserExt">
+		SELECT  a.NAME_,b.USER_ID_, b.FULLNAME_,B.SEX_,A.STATUS_,C.PARTY1_,B.EMAIL_,B.MOBILE_,d.WX_PID_ from 
+		sys_account A, os_user b,os_rel_inst c,os_group d where a.USER_ID_=b.USER_ID_ 
+		and B.USER_ID_=C.PARTY2_ AND d.GROUP_ID_ = C.PARTY1_ AND B.SYNC_WX_=0 and b.STATUS_='IN_JOB'
+		AND (B.MOBILE_ is not null and B.MOBILE_ !='') and C.IS_MAIN_='YES' and b.TENANT_ID_=#{tenantId}
+	</select>
+	
+	<update id="updWxFlag">
+		update os_user set SYNC_WX_=1 where USER_ID_=#{userId}
+	</update>
+	
+	<select id="getByFilter" resultMap="OsUserAccountExt">
+		SELECT  a.NAME_,b.USER_ID_, b.FULLNAME_,B.SEX_,A.STATUS_,B.EMAIL_,B.MOBILE_ from 
+		sys_account A, os_user b where a.USER_ID_=b.USER_ID_ 
+		and  b.STATUS_='IN_JOB'
+		AND  b.TENANT_ID_=#{tenantId} 
+		<if test="@Ognl@isNotEmpty(fullName)">
+			and b.FULLNAME_ like #{fullName}
+		</if>
+		order by b.CREATE_TIME_ asc
+	</select>
+	
+	<select id="getByGroupId" resultMap="OsUser">
+		SELECT ou.* FROM OS_USER ou,OS_REL_INST oi
+		WHERE ou.USER_ID_=oi.PARTY2_ AND oi.PARTY1_=#{groupId}
+	</select>
+	
+</mapper>

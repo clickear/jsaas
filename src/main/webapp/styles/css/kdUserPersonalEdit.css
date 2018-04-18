@@ -1,0 +1,89 @@
+.main-container{
+	margin:15px auto;
+	border:1px solid rgb(237, 237, 237);
+	color: rgb(102, 102, 102);
+	font-size: 12px;
+	height: 687px;
+	max-width:900px;
+	zoom: 1;
+}
+
+.main-container .header{
+	color: rgb(102, 102, 102);
+	font-size: 22px;
+	height: 46px;
+	line-height: 46px;
+	padding-left: 20px;
+	border-bottom:1px solid rgb(237, 237, 237);
+	zoom: 1;
+}
+
+.main-container .content{
+	color:#666;
+	font-size: 12px;
+	min-height: 640px;
+	zoom: 1;
+}
+
+.main-container .content .detail{
+	background-color: #fff;
+	border-top: 1px solid #e5e5e5;
+	color: #666;
+	font-size: 12px;
+	height: 640px;
+	width: 778px;
+}
+
+.main-container .content .detail .setting{
+	color: #666;
+	font-size: 12px;
+	padding:18px 20px;
+}
+.main-container .content .detail .setting .title{
+	border-bottom:2px solid #f2f2f2;
+	font-size: 20px;
+	line-height: 20px;
+	padding-bottom: 11px;
+}
+
+.main-container .content .detail .setting .detail-form{
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+.main-container .content .detail .setting .detail-form table th{
+	width:90px;
+	padding-right: 10px;
+	padding-top: 14px;
+	text-align: right;
+	vertical-align: top;
+}
+
+.main-container .content .detail .setting .detail-form table td{
+	padding-top: 8px;
+	vertical-align: middle;
+}
+
+#saveInfo{
+	border:2px solid #4f85b9;
+	background-color:#4f85b9;
+	box-shadow: none;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	float: left;
+	font-size: 14px;
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 0px;
+	margin-left: 100px;
+	margin-right: 0px;
+	margin-top: 13px;
+	text-align: center;
+	width: 68px;
+	zoom: 1;
+}
+
+
+
+

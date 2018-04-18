@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysTypeSubRef">
+	<resultMap id="SysTypeSubRef" type="com.redxun.sys.core.entity.SysTypeSubRef">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="instTypeId" column="INST_TYPE_ID_" jdbcType="VARCHAR"/>
+		<result property="subSysId" column="SUB_SYS_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysTypeSubRef">
+		INSERT INTO SYS_TYPE_SUB_REF
+		(ID_,INST_TYPE_ID_,SUB_SYS_ID_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{instTypeId,jdbcType=VARCHAR}, #{subSysId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysTypeSubRef">
+		SELECT * FROM SYS_TYPE_SUB_REF 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysTypeSubRef">
+		SELECT * FROM SYS_TYPE_SUB_REF
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysTypeSubRef">
+		UPDATE SYS_TYPE_SUB_REF SET
+		INST_TYPE_ID_=#{instTypeId,jdbcType=VARCHAR},
+		SUB_SYS_ID_=#{subSysId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_TYPE_SUB_REF 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="deleteByInstType" parameterType="java.lang.String">
+		DELETE FROM SYS_TYPE_SUB_REF 
+		WHERE
+		INST_TYPE_ID_=#{instTypeId}
+	</delete>
+	
+	<select id="getByInstId"   parameterType="java.lang.String" resultMap="SysTypeSubRef">
+		SELECT * FROM SYS_TYPE_SUB_REF 
+		WHERE 
+		SUB_SYS_ID_=#{instId}
+	</select>
+	<select id="getBySysIdAndTypeId" parameterType="java.lang.String" resultMap="SysTypeSubRef">
+		SELECT * FROM SYS_TYPE_SUB_REF
+		WHERE INST_TYPE_ID_=#{typeId}
+		AND SUB_SYS_ID_=#{sysId}
+	</select>
+	
+</mapper>

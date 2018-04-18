@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.redxun:jsaas-core:5.5.18">
+    <CLASSES>
+      <root url="jar://D:/maven_repo/com/redxun/jsaas-core/5.5.18/jsaas-core-5.5.18.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven_repo/com/redxun/jsaas-core/5.5.18/jsaas-core-5.5.18-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven_repo/com/redxun/jsaas-core/5.5.18/jsaas-core-5.5.18-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

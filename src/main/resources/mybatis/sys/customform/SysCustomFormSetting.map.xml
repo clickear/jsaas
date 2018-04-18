@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.customform.entity.SysCustomFormSetting">
+	<resultMap id="SysCustomFormSetting" type="com.redxun.sys.customform.entity.SysCustomFormSetting">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="alias" column="ALIAS_" jdbcType="VARCHAR"/>
+		<result property="preJsScript" column="PRE_JS_SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="afterJsScript" column="AFTER_JS_SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="preJavaScript" column="PRE_JAVA_SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="afterJavaScript" column="AFTER_JAVA_SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="solName" column="SOL_NAME_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="formName" column="FORM_NAME_" jdbcType="VARCHAR"/>
+		<result property="formAlias" column="FORM_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="bodefId" column="BODEF_ID_" jdbcType="VARCHAR"/>
+		<result property="bodefName" column="BODEF_NAME_" jdbcType="VARCHAR"/>
+		<result property="isTree" column="IS_TREE_" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="expandLevel" column="EXPAND_LEVEL_" jdbcType="NUMERIC"/>
+		<result property="loadMode" column="LOAD_MODE_" jdbcType="NUMERIC"/>
+		<result property="displayFields" column="DISPLAY_FIELDS_" jdbcType="VARCHAR"/>
+		<result property="buttonDef" column="BUTTON_DEF_" jdbcType="VARCHAR"/>
+		<result property="dataHandler" column="DATA_HANDLER_" jdbcType="VARCHAR"/>
+		<result property="tableRightJson" column="TABLE_RIGHT_JSON_" jdbcType="VARCHAR"/>
+		<result property="mobileFormAlias" column="MOBILE_FORM_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="mobileFormName" column="MOBILE_FORM_NAME_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.customform.entity.SysCustomFormSetting">
+		INSERT INTO SYS_CUSTOMFORM_SETTING
+		(ID_,TREE_ID_,NAME_,ALIAS_,PRE_JS_SCRIPT_,AFTER_JS_SCRIPT_,PRE_JAVA_SCRIPT_,AFTER_JAVA_SCRIPT_,SOL_NAME_,SOL_ID_,FORM_NAME_,FORM_ALIAS_,BODEF_ID_,IS_TREE_,TENANT_ID_,
+		CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_,BODEF_NAME_,EXPAND_LEVEL_,LOAD_MODE_,DISPLAY_FIELDS_,BUTTON_DEF_,DATA_HANDLER_,TABLE_RIGHT_JSON_,MOBILE_FORM_ALIAS_,MOBILE_FORM_NAME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{preJsScript,jdbcType=VARCHAR}, #{afterJsScript,jdbcType=VARCHAR}, #{preJavaScript,jdbcType=VARCHAR},
+		 #{afterJavaScript,jdbcType=VARCHAR}, #{solName,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR}, #{formName,jdbcType=VARCHAR},#{formAlias,jdbcType=VARCHAR},  #{bodefId,jdbcType=VARCHAR}, 
+		 #{isTree,jdbcType=NUMERIC}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+		 #{updateBy,jdbcType=VARCHAR},  #{bodefName,jdbcType=VARCHAR}, #{expandLevel,jdbcType=NUMERIC}, #{loadMode,jdbcType=NUMERIC}, #{displayFields,jdbcType=VARCHAR},
+		#{buttonDef,jdbcType=VARCHAR},#{dataHandler,jdbcType=VARCHAR},#{tableRightJson,jdbcType=VARCHAR},#{mobileFormAlias,jdbcType=VARCHAR},#{mobileFormName,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysCustomFormSetting">
+		SELECT * FROM SYS_CUSTOMFORM_SETTING 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysCustomFormSetting">
+		SELECT ID_,TREE_ID_,NAME_,ALIAS_,SOL_NAME_,SOL_ID_,FORM_ALIAS_,FORM_NAME_,BODEF_ID_,IS_TREE_,BODEF_NAME_,
+		TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_ FROM SYS_CUSTOMFORM_SETTING
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.customform.entity.SysCustomFormSetting">
+		UPDATE SYS_CUSTOMFORM_SETTING SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		ALIAS_=#{alias,jdbcType=VARCHAR},
+		PRE_JS_SCRIPT_=#{preJsScript,jdbcType=VARCHAR},
+		AFTER_JS_SCRIPT_=#{afterJsScript,jdbcType=VARCHAR},
+		PRE_JAVA_SCRIPT_=#{preJavaScript,jdbcType=VARCHAR},
+		AFTER_JAVA_SCRIPT_=#{afterJavaScript,jdbcType=VARCHAR},
+		SOL_NAME_=#{solName,jdbcType=VARCHAR},
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		FORM_NAME_=#{formName,jdbcType=VARCHAR},
+		FORM_ALIAS_=#{formAlias,jdbcType=VARCHAR},
+		BODEF_ID_=#{bodefId,jdbcType=VARCHAR},
+		BODEF_NAME_=#{bodefName,jdbcType=VARCHAR},
+		IS_TREE_=#{isTree,jdbcType=NUMERIC},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		LOAD_MODE_=#{loadMode,jdbcType=NUMERIC},
+		EXPAND_LEVEL_=#{expandLevel,jdbcType=NUMERIC},
+		DISPLAY_FIELDS_=#{displayFields,jdbcType=VARCHAR},
+		BUTTON_DEF_=#{buttonDef,jdbcType=VARCHAR},
+		DATA_HANDLER_=#{dataHandler,jdbcType=VARCHAR},
+		TABLE_RIGHT_JSON_=#{tableRightJson,jdbcType=VARCHAR},
+		MOBILE_FORM_ALIAS_=#{mobileFormAlias,jdbcType=VARCHAR},
+		MOBILE_FORM_NAME_=#{mobileFormName,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_CUSTOMFORM_SETTING 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="isAliasExist"   resultType="java.lang.Integer">
+		SELECT count(*) FROM SYS_CUSTOMFORM_SETTING 
+		WHERE TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		and ALIAS_=#{alias,jdbcType=VARCHAR}
+		<if test="@Ognl@isNotEmpty(id)">
+			and ID_!=#{id}
+		</if>
+	</select>
+	
+	<select id="getByAlias"  resultMap="SysCustomFormSetting">
+		SELECT * FROM SYS_CUSTOMFORM_SETTING 
+		WHERE TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		and ALIAS_=#{alias,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmSolUsergroup">
+	<resultMap id="BpmSolUsergroup" type="com.redxun.bpm.core.entity.BpmSolUsergroup">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="groupName" column="GROUP_NAME_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="groupType" column="GROUP_TYPE_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="setting" column="SETTING_" jdbcType="VARCHAR"/>
+		<result property="sn" column="SN_" jdbcType="NUMERIC"/>
+		<result property="notifyType" column="NOTIFY_TYPE_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmSolUsergroup">
+		INSERT INTO BPM_SOL_USERGROUP
+		(ID_,GROUP_NAME_,SOL_ID_,ACT_DEF_ID_, GROUP_TYPE_,NODE_ID_,NODE_NAME_,TENANT_ID_,SETTING_,SN_,NOTIFY_TYPE_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR},#{actDefId,jdbcType=VARCHAR}, #{groupType,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{setting,jdbcType=VARCHAR}, #{sn,jdbcType=NUMERIC}, #{notifyType,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmSolUsergroup">
+		SELECT * FROM BPM_SOL_USERGROUP 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmSolUsergroup">
+		SELECT * FROM BPM_SOL_USERGROUP
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmSolUsergroup">
+		UPDATE BPM_SOL_USERGROUP SET
+		GROUP_NAME_=#{groupName,jdbcType=VARCHAR},
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR},
+		GROUP_TYPE_=#{groupType,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		NODE_NAME_=#{nodeName,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		SETTING_=#{setting,jdbcType=VARCHAR},
+		SN_=#{sn,jdbcType=NUMERIC},
+		NOTIFY_TYPE_=#{notifyType,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_SOL_USERGROUP 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+	<select id="getBySolNode"  resultMap="BpmSolUsergroup">
+		SELECT * FROM BPM_SOL_USERGROUP 
+		WHERE 
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		and SOL_ID_=#{solId,jdbcType=VARCHAR}
+		and ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR} 
+		and NODE_ID_=#{nodeId,jdbcType=VARCHAR}
+		and GROUP_TYPE_=#{groupType,jdbcType=VARCHAR}
+		order by SN_ ASC
+	</select>
+	
+	<select id="getBySolActDefId"  resultMap="BpmSolUsergroup">
+		SELECT * FROM BPM_SOL_USERGROUP 
+		WHERE 
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		and SOL_ID_=#{solId,jdbcType=VARCHAR}
+		and ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR} 
+		order by SN_ ASC
+	</select>
+	
+	
+	
+	
+	<select id="getMaxSn"  resultType="java.lang.Integer">
+		SELECT max(SN_) FROM BPM_SOL_USERGROUP 
+		WHERE 
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		and SOL_ID_=#{solId,jdbcType=VARCHAR}
+		and ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR} 
+		and NODE_ID_=#{nodeId,jdbcType=VARCHAR}
+		and GROUP_TYPE_=#{groupType,jdbcType=VARCHAR}
+		
+	</select>
+	
+	
+</mapper>

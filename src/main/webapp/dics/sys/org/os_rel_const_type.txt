@@ -1,0 +1,18 @@
+[
+	{
+		id:'ONE-ONE',
+		text:'一对一'
+	},
+	{
+		id:'ONE-MANY',
+		text:'一对多'
+	},
+	{
+		id:'MANY-ONE',
+		text:'多对一'
+	}，
+	{
+		id:'MANY-MANY',
+		text:'多对多'
+	}
+]

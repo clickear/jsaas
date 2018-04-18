@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmOpinionTemp">
+	<resultMap id="BpmOpinionTemp" type="com.redxun.bpm.core.entity.BpmOpinionTemp">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+		<result property="instId" column="INST_ID_" jdbcType="VARCHAR"/>
+		<result property="opinion" column="OPINION_" jdbcType="VARCHAR"/>
+		<result property="attachment" column="ATTACHMENT_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmOpinionTemp">
+		INSERT INTO BPM_OPINION_TEMP
+		(ID_,TYPE_,INST_ID_,OPINION_,ATTACHMENT_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_,TENANT_ID_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{instId,jdbcType=VARCHAR}, #{opinion,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmOpinionTemp">
+		SELECT * FROM BPM_OPINION_TEMP 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmOpinionTemp">
+		SELECT * FROM BPM_OPINION_TEMP
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmOpinionTemp">
+		UPDATE BPM_OPINION_TEMP SET
+		TYPE_=#{type,jdbcType=VARCHAR},
+		INST_ID_=#{instId,jdbcType=VARCHAR},
+		OPINION_=#{opinion,jdbcType=VARCHAR},
+		ATTACHMENT_=#{attachment,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_OPINION_TEMP 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delTemp" parameterType="java.lang.String">
+		DELETE FROM BPM_OPINION_TEMP
+		WHERE
+		TYPE_=#{type} AND INST_ID_=#{typeId}
+	</delete>
+	
+	
+</mapper>

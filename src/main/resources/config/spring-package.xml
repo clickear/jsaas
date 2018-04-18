@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+"> 
+	<context:component-scan base-package="com.redxun.sys.core.dao"/>
+    <context:component-scan base-package="com.redxun.sys.core.manager"/>
+    	
+    <context:component-scan base-package="com.redxun.sys.org.dao"/>
+    <context:component-scan base-package="com.redxun.sys.org.manager"/>
+
+    <context:component-scan base-package="com.redxun.sys.view.service"/>
+    <context:component-scan base-package="com.redxun.bpm.activiti.service"/>
+    
+    <context:component-scan base-package="com.redxun.bpm.activiti.listener"/>
+    <context:component-scan base-package="com.redxun.bpm.core.event"/>
+	<context:component-scan base-package="com.redxun.bpm.sql.event"/>
+    <context:component-scan base-package="com.redxun.bpm.reminder.event"/>
+      
+    <context:component-scan base-package="com.redxun.saweb.factory"/>
+    <context:component-scan base-package="com.redxun.sys.view.factory"/>
+	<context:component-scan base-package="com.redxun.wx.*.*.manager" /> 	
+    <context:component-scan base-package="com.redxun.*.*.manager" />
+    <context:component-scan base-package="com.redxun.wx.*.*.dao" />	
+    <context:component-scan base-package="com.redxun.*.*.dao" />	
+    <context:component-scan base-package="com.redxun.*.*.handler" />
+   
+    <context:component-scan base-package="com.redxun.bpm.form.parse" />
+    <context:component-scan base-package="com.redxun.bpm.listener" />
+    <context:component-scan base-package="com.redxun.org.impl.profile" />
+    <context:component-scan base-package="com.redxun.bpm.form.impl.formhandler" />
+    <context:component-scan base-package="com.redxun.wx.pub.impl" />
+    <context:component-scan base-package="com.redxun.ext" />
+    
+    
+    
+</beans>

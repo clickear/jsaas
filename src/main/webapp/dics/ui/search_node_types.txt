@@ -1,0 +1,5 @@
+[
+    {'nodeType':'OR','nodeTypeLabel':'或'},
+    {'nodeType':'AND','nodeTypeLabel':'与'},
+    {'nodeType':'FIELD','nodeTypeLabel':'字段'}
+]

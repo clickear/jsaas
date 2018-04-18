@@ -1,0 +1,30 @@
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,p{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img,object{border:0 none;}
+img{-ms-interpolation-mode: bicubic;}
+ol,ul{list-style:none}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+input,textarea,select,button{font-family:inherit;font-size:inherit;font-weight:inherit;color: #333;*font-size:100%;vertical-align: middle;}
+.fl{float:left;}
+.fr{float:right;}
+.tc{text-align:center;}
+.vm{vertical-align: middle;}
+.rel{position:relative;}
+.abs{position:absolute;}
+.none{display:none;}
+.center{margin: auto;}
+em{ font-style: normal;}
+body{ font-family: Microsoft yahei; width: 100%; font-size: 14px; background: white;}
+.panel-body ul{width:100%; height: auto; overflow: hidden; margin: 10px 0px;}
+.panel-body ul li{width:100%; height: 30px; line-height: 30px; overflow: hidden; text-indent: 12px; }
+.panel-body ul li.start{background: url("icons/icon-start.png") no-repeat 10px center;}
+.panel-body ul li.task{background: url("icons/task.png") no-repeat 10px center;}
+.panel-body ul li.doc{background: url("icons/detail.png") no-repeat 10px center;}
+.panel-body ul li.mail{background: url("icons/mail.png") no-repeat 10px center;}
+.panel-body ul li.commute{background: url("icons/commute.png") no-repeat 10px center;}
+.panel-body ul li.html{background: url("icons/html.png") no-repeat 10px center;}
+.panel-body ul li.document{background: url("icons/document.png") no-repeat 10px center;}
+.panel-body ul li p{float: left; padding-left: 20px;}
+.panel-body ul li span{float: right; padding-right: 10px;}
+.panel-body ul li a{text-decoration: none}

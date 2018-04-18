@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmSolFv">
+	<resultMap id="BpmSolFv" type="com.redxun.bpm.core.entity.BpmSolFv">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeText" column="NODE_TEXT_" jdbcType="VARCHAR"/>
+		<result property="formType" column="FORM_TYPE_" jdbcType="VARCHAR"/>
+		<result property="formUri" column="FORM_URI_" jdbcType="VARCHAR"/>
+		<result property="formName" column="FORM_NAME_" jdbcType="VARCHAR"/>
+		<result property="printUri" column="PRINT_URI_" jdbcType="VARCHAR"/>
+		<result property="printName" column="PRINT_NAME_" jdbcType="VARCHAR"/>
+		<result property="sn" column="SN_" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="mobileAlias" column="MOBILE_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="mobileName" column="MOBILE_NAME_" jdbcType="VARCHAR"/>
+		<result property="tabRights" column="TAB_RIGHTS_" jdbcType="VARCHAR"/>
+		<result property="tabTitle" column="TITLE_" jdbcType="VARCHAR"/>
+		<result property="isUseCform" column="IS_USE_CFORM_" jdbcType="VARCHAR"/>
+		<result property="condForms" column="COND_FORMS_" jdbcType="VARCHAR"/>
+		<result property="dataConfs" column="DATA_CONFS_" jdbcType="VARCHAR"/>
+		<result property="mobileForms" column="MOBILE_FORMS_" jdbcType="CLOB"/>
+		<result property="printForms" column="PRINT_FORMS_" jdbcType="CLOB"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmSolFv">
+		INSERT INTO BPM_SOL_FV
+		(ID_,SOL_ID_,ACT_DEF_ID_,NODE_ID_,NODE_TEXT_,FORM_TYPE_,FORM_URI_,FORM_NAME_,PRINT_URI_,PRINT_NAME_,SN_,TENANT_ID_,UPDATE_BY_,CREATE_BY_,CREATE_TIME_,UPDATE_TIME_,MOBILE_ALIAS_,MOBILE_NAME_,IS_USE_CFORM_,COND_FORMS_,DATA_CONFS_,MOBILE_FORMS_,PRINT_FORMS_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR},#{actDefId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{nodeText,jdbcType=VARCHAR}, 
+		#{formType,jdbcType=VARCHAR}, #{formUri,jdbcType=VARCHAR}, #{formName,jdbcType=VARCHAR}, #{printUri,jdbcType=VARCHAR}, 
+		#{printName,jdbcType=VARCHAR}, #{sn,jdbcType=NUMERIC}, #{tenantId,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{mobileAlias,jdbcType=VARCHAR}, #{mobileName,jdbcType=VARCHAR},
+		#{isUseCform,jdbcType=VARCHAR},#{condForms,jdbcType=VARCHAR},#{dataConfs,jdbcType=VARCHAR},#{mobileForms,jdbcType=CLOB},#{printForms,jdbcType=CLOB})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmSolFv">
+		SELECT * FROM BPM_SOL_FV 
+		WHERE 
+		ID_=#{id}
+	</select>
+	<select id="getBySolutionId"   parameterType="java.lang.String" resultMap="BpmSolFv">
+		SELECT BSF.ID_,BSF.SOL_ID_  ,BSF.NODE_ID_ ,BSF.NODE_TEXT_ ,BSF.TAB_RIGHTS_,BSF.IS_USE_CFORM_,BSF.COND_FORMS_,BSF.FORM_TYPE_ , BSF.FORM_URI_, 
+		BSF.FORM_NAME_,BSF.PRINT_URI_ ,BSF.PRINT_NAME_ ,BSF.SN_ ,BSF.TENANT_ID_ ,BSF.UPDATE_BY_ ,BSF.CREATE_BY_ ,BSF.UPDATE_TIME_ ,BSF.MOBILE_ALIAS_ , 
+		BSF.MOBILE_NAME_,BSF.DATA_CONFS_, BFV.TITLE_,BSF.MOBILE_FORMS_,BSF.PRINT_FORMS_
+		FROM BPM_SOL_FV  BSF left join  BPM_FORM_VIEW  BFV  
+		on  BSF.FORM_URI_=BFV.KEY_ WHERE BSF.SOL_ID_=#{solId} and BSF.ACT_DEF_ID_=#{actDefId}
+	</select>
+	<select id="query" parameterType="java.util.Map" resultMap="BpmSolFv">
+		SELECT * FROM BPM_SOL_FV
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmSolFv">
+		UPDATE BPM_SOL_FV SET
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		NODE_TEXT_=#{nodeText,jdbcType=VARCHAR},
+		FORM_TYPE_=#{formType,jdbcType=VARCHAR},
+		FORM_URI_=#{formUri,jdbcType=VARCHAR},
+		FORM_NAME_=#{formName,jdbcType=VARCHAR},
+		PRINT_URI_=#{printUri,jdbcType=VARCHAR},
+		PRINT_NAME_=#{printName,jdbcType=VARCHAR},
+		SN_=#{sn,jdbcType=NUMERIC},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		MOBILE_ALIAS_=#{mobileAlias,jdbcType=VARCHAR},
+		MOBILE_NAME_=#{mobileName,jdbcType=VARCHAR},
+		DATA_CONFS_=#{dataConfs,jdbcType=VARCHAR},
+		MOBILE_FORMS_=#{mobileForms,jdbcType=CLOB},
+		PRINT_FORMS_=#{printForms,jdbcType=CLOB}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_SOL_FV  WHERE ID_=#{id}
+	</delete>
+	
+	<select id="getBySolIdAndNodeId" parameterType="java.lang.String" resultMap="BpmSolFv">
+		SELECT *  FROM BPM_SOL_FV WHERE SOL_ID_=#{solId} AND NODE_ID_=#{nodeId}
+	</select>
+	<select id="getBySolIdActDefIdNodeId" parameterType="java.lang.String" resultMap="BpmSolFv">
+		SELECT *  FROM BPM_SOL_FV
+		WHERE SOL_ID_=#{solId} ADN ACT_DEF_ID_=#{actDefId} AND NODE_ID_=#{nodeId}
+	</select>
+	
+</mapper>

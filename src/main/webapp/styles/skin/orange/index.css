@@ -1,0 +1,39 @@
+#top{background-color:#FF761A;}
+#tabsbox{background-color:#FF8E43;}
+#fr{background-color:#FF761A;}
+#fr #skin{background:#FF761A;}
+#fr #skin a:hover{background:rgba(255,255,255,0.2);}
+#fr #skin div:hover{background:rgba(255,255,255,0.2);}
+#sidemenu .firstmenu.active>p{ background:linear-gradient(to right, #FF8E43 4px, rgba(246,246,246,0.3) 4px); background:-webkit-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -ms-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -moz-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);  color:#FF8E43;}
+#sidemenu .firstmenu:hover>p{ background:linear-gradient(to right, #FF8E43 4px, rgba(246,246,246,0.3) 0px);background:-webkit-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -ms-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);background: -moz-linear-gradient(to right, #1CA8EF 4px, rgba(246,246,246,0.3) 4px);   color:#FF8E43;}
+#sidemenu .firstmenu p:before{color:#FF8E43;}
+#sidemenu .secondmenu>li>p.active{color:#FF761A;}
+#sidemenu .secondmenu>li>p:before{content: "\e6cd";color: #666;margin-right:10px; font-size: 12px;font-weight: 600;} 
+#sidemenu .secondmenu>li>p.active:before{content: "\e76c";color: #FF761A;} 
+.mini-window .mini-panel-header{background:#FF761A !important;}
+#form1 .table-detail > tbody > tr > th{background:#fff5ee;}
+#tabs1 .table-detail > tbody > tr > th{background:#fff5ee;}
+.form-outer .table-detail > tbody > tr > th{background:#fff5ee;}
+#grantForm .table-detail > tbody > tr > th{background:#fff5ee;}
+#uploadForm .table-detail > tbody > tr > th{background:#fff5ee;}
+#zipForm .table-detail > tbody > tr > th{background:#fff5ee;}
+#miniForm .table-detail > tbody > tr > th{background:#fff5ee;}
+#resetForm .table-detail > tbody > tr > th{background:#fff5ee;}
+body tr.mini-grid-row-hover{background:#fff5ee;}
+#picker .webuploader-pick{background:#FF761A;}
+body a:hover.mini-button{border:1px solid #FF761A;}
+body .mini-textbox-focus .mini-textbox-border,
+body .mini-buttonedit-focus .mini-buttonedit-border,
+body .mini-buttonedit-popup .mini-buttonedit-border{
+    border-color:#FF761A;
+}
+
+
+
+
+
+
+
+
+
+

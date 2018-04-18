@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+	  http://www.springframework.org/schema/security/spring-security-3.2.xsd
+	  http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <security:http pattern="/styles/**" security="none"/>
+    <security:http pattern="/scripts/**" security="none"/>
+   
+    
+    <security:http entry-point-ref="authenticationEntryPoint" request-matcher="ant">
+    	<security:custom-filter  ref="securityFilter" before="FORM_LOGIN_FILTER" />
+      	<security:remember-me key="rememberPrivateKey"/> 
+        <security:logout invalidate-session="true" logout-success-url="/logoutRedirect.do" logout-url="/logout"/>
+        <security:custom-filter after="FIRST" ref="dataSourceFilter" />
+        <!-- security:custom-filter ref="ssoFilter" after="BASIC_AUTH_FILTER"/-->
+        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityInterceptorFilter" />
+        <security:access-denied-handler ref="defaultAccessDeniedHandler"/>
+        <security:custom-filter position="SWITCH_USER_FILTER" ref="switchUserProcessingFilter"/>
+    </security:http>
+    
+    <bean id="xssUrl" class="com.redxun.saweb.security.filter.RegMatchers">
+		<property name="ingoreUrls">
+			<list>
+				<value>/sys/core/sysBoList/saveHtml.do</value>
+				<value>/bpm/form/bpmFormView/parseFormTemplate.do</value>
+				<value>/bpm/form/bpmFormView/saveFormAndBo.do</value>
+				<value>/bpm/form/bpmFormView/getBoEntInfo.do</value>
+				<value>/bpm/core/bpmMobileForm/save.do</value>
+				<value>/bpm/form/bpmFormTemplate/save.do</value>
+				<value>/bpm/form/bpmFormView/save.do</value>
+				<value>/sys/core/sysBoList/save.do</value>
+				<value>/bpm/core/bpmSolution/save.do</value>
+				<value>/oa/info/insColumnDef/save.do</value>
+				<value>/oa/info/insPortalDef/saveHtml.do</value>
+				<value>/bpm/core/bpmNodeSet/saveNodeConfig.do</value>
+				<value>/oa/doc/doc/save.do</value>
+				<value>/oa/pro/project/save.do</value>
+				<value>/oa/pro/proVers/save.do</value>
+				<value>/oa/pro/reqMgr/save.do</value>
+				<value>/oa/res/oaMeeting/save.do</value>
+				<value>/oa/mail/outMail/sendMail.do</value>
+				<value>/oa/mail/innerMail/sendMail.do</value>
+				<value>/kms/core/kdDoc/saveNew2.do</value>
+				<value>/oa/info/insNews/save.do</value>
+				<value>/oa/info/infInnerMsg/sendMsg.do</value>
+				<value>/wx/core/wxMeterial/submitMeterial.do</value>
+				<value>/mobile/oa/sendMail.do</value>
+				<value>/bpm/core/bpmInst/startProcess.do</value>
+				<value>/bpm/core/bpmTask/doNext.do</value>
+				<value>/sys/core/sysBoList/saveConfigJson.do</value>
+				<value>/oa/info/insNews/save.do</value>
+				<value>/oa/info/insNews/published.do</value>
+				<value>/oa/article/proArticle/save.do</value>
+				<value>/bpm/webapi/inst/startProcess.do</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="switchUserProcessingFilter" class="com.redxun.saweb.filter.CustomSwitchUserFilter">
+       		<property name="userDetailsService" ref="userDetailsProvider"></property>
+            <property name="switchUserUrl" value="/j_spring_security_switch_user" />
+            <property name="exitUserUrl" value="/j_spring_security_exit_user" />
+            <property name="targetUrl" value="/index.do" />
+    </bean>
+
+	<bean id="securityFilter" class="com.redxun.saweb.security.filter.SecurityFilter" />
+	
+	<bean id="csrfUrl" class="com.redxun.saweb.security.filter.RegMatchers">
+		<property name="ingoreUrls">
+			<list>
+				<value>abc.cn</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="tokenUrl" class="com.redxun.saweb.security.filter.RegMatchers">
+		<property name="ingoreUrls">
+			<list>
+				<value>/sys/org/osUser/infoEdit.do</value>
+				<value>/bpm/core/bpmTask/agents.do</value>
+				<value>/bpm/core/bpmTask/myList.do</value>
+				<value>/oa/info/infInbox/groupMsg.do</value>
+				<value>/oa/info/infInbox/receive.do</value>
+				<value>/oa/info/infInbox/send.do</value>
+				<value>/oa/personal/bpmInst/myAttends.do</value>
+				<value>/sys/org/osUser/edit.do</value>
+				<value>/oa/mail/innerMail/edit.do</value>
+				<value>/sys/org/osUser/dialog.do</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="defaultAccessDeniedHandler" class="com.redxun.saweb.filter.DefaultAccessDeniedHandler" ></bean>
+    
+    <bean id="dataSourceFilter" class="com.redxun.saweb.filter.DataSourceFilter"></bean>
+    <!-- 
+    <bean id="tokenSsoFilter" class="com.redxun.saweb.filter.TokenSsoFilter"></bean>
+ 	 -->
+    <bean id="actionPageMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="mobile" value="/vuemobile/index.html"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+    <!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="userDetailsProvider" >
+        	<security:password-encoder ref="customPwdEncoder"></security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+    
+    <!-- bean id="ssoFilter" class="com.thirdparty.web.filter.SsoFilter">
+    	<property name="ssoTrackUrl" value="http://192.168.1.248:8081/cemSys/user/getUserByTrackId"/>
+    </bean-->
+    
+    <bean id="customPwdEncoder" class="com.redxun.saweb.filter.CustomPwdEncoder">
+    	<property name="encType" value="SHA256"/>
+    </bean>
+        
+    <bean id="userDetailsProvider" class="com.redxun.saweb.security.provider.UserDetailsProvider" />
+    
+    <bean id="securityInterceptorFilter" class="com.redxun.saweb.filter.SecurityInterceptorFilter">
+    	<property name="securityDataProvider" ref="securityDataProvider"/>
+    </bean>
+    
+    <bean id="securityDataProvider" class="com.redxun.saweb.security.provider.SecurityDataSourceProvider">
+    	<property name="sysMenuManager" ref="sysMenuManager"/>
+    	<property name="anonymousUrls">
+    		<set>
+    			<value>/restApi/**</value>
+    			<value>/bpm/process/**</value>
+    			<value>/decs/**</value>
+    			<value>/getValidSysInsts.do</value>
+    			<value>/logoutRedirect.do</value>
+    			<value>*.html</value>
+    			<value>/login.jsp</value>
+    			<value>/register.jsp</value>
+    			<value>/partner/login.*</value>
+    			<value>/login.do</value>
+    			<value>/loginRedirect.do</value>
+    			<value>/loginWx.do</value>
+    			<value>/captcha-image.do</value>
+    			<value>/register.do</value>
+				<value>/activeInst.do</value>
+				<value>/bpm/webapi/inst/**</value>
+				<value>/bpm/webservice/**</value>
+    			<value>/pub/**</value>
+    			<value>/proxy/**</value>
+    			<value>/pubReceive/**</value>
+    			<value>/pubReceive.do</value>
+    			<value>/pubMessage/**.do</value>
+    			<value>/wx/core/wxMeterial/get.do</value>	
+    			<value>/sys/core/file/download/*.do</value>
+    			<value>/commons/csrf.jsp</value>
+    			<value>/commons/xss.jsp</value>
+    		</set>
+    	</property>
+    	<property name="publicUrls">
+    		<set>
+    			<value>/sys/org/osUser/info.do</value>
+    			<value>/index.do</value>
+    			<value>/sys/core/sysFile/dialog.do</value>
+    			<value>/sys/core/sysFile/myMgr.do</value>
+    			<value>/service/*</value>
+    		    <value>/oa/personal/bpmInst/myAttends.do</value>
+    			<value>/bpm/core/bpmTask/myList.do</value>	
+    			<value>/bpm/core/bpmTask/myTasks.do</value>	
+    			<value>/oa/personal/MybpmSolution/listData.do</value>
+    		</set>
+    	</property>
+    </bean>
+    <!--自定义安全过滤器-->
+
+    <bean id="loginLogAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <property name="defaultTargetUrl" value="/index.jsp"/>
+    </bean>
+	
+    <bean id="simpleUrlAuthenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <property name="defaultFailureUrl" value="/login.jsp"/>
+    </bean>
+	
+    <bean id="authenticationEntryPoint" class="com.redxun.saweb.filter.MultipleAuthenticationLoginEntry">  
+        <property name="defaultLoginUrl" value="/login.jsp"/> 
+        <property name="partnerLoginUrl" value="/partner/login.jsp"/>
+    </bean>
+
+</beans>

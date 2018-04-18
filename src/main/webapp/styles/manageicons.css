@@ -1,0 +1,401 @@
+/* 修改 */
+@font-face {
+	font-family: 'iconfont';
+	src: url('font/iconfont.eot');
+	src: url('font/iconfont.eot?#iefix') format('embedded-opentype'),
+		url('font/iconfont.woff') format('woff'), url('font/iconfont.ttf')
+		format('truetype'), url('font/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 12px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	/*-webkit-text-stroke-width: 0.2px; */
+	-moz-osx-font-smoothing: grayscale;
+
+}
+
+.mini-iconfont,.mini-button-icon ,.mini-tab-icon,.mini-tab-icon,.mini-tree .mini-tree-icon,.icon-full,.icon-button,.information span{
+	font-family: "iconfont" !important;
+	font-style: normal;
+	font-size: 14px;
+	font-weight: 700;
+	}
+/* 导航栏 */
+.icon-company:before { content: "\e62a";font-size: 16px;margin-right:5px;}
+.icon-emails:before { content: "\e719";font-size: 18px;margin-right:5px; }
+.icon-news:before { content: "\e621"; font-size: 12px;margin-right:5px;}
+
+
+
+/* 导航栏 */
+.icon-Office-collaboration:before {
+	content: "\e7bb";
+	font-size: 18px;
+	color:#fff;
+	float:left;
+}
+
+.icon-Process-management:before {
+	content: "\e636";
+	font-size: 16px;
+	color: #fff;
+	float:left;
+}
+
+.icon-Knowledge-subsystem:before {
+	content: "\e615";
+	font-size: 18px;
+	color:#fff;
+	line-height:24px;
+	margin-right:5px
+}
+
+.icon-Document-subsystem:before {
+	content: "\e64c";
+	font-size: 16px;
+	color:#fff;
+	float:left;
+
+}
+
+.icon-system-configuration:before {
+	content: "\e67e";
+	font-size: 18px;
+	color:#fff;
+	float:left;
+
+}
+
+.icon-Help-configure:before {
+	content: "\e600";
+	font-size: 18px;
+	color: #fff;
+	float:left;
+}
+
+/*一级菜单（协同）*/
+.icon-public:before {
+	content: "\e65f";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+	
+}
+
+.icon-personal_office:before {
+	content: "\ec4d";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-document-management:before {
+	content: "\e60e";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-tasks:before {
+	content: "\e632";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-email:before {
+	content: "\e719";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Check-work:before {
+	content: "\e664";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+/*一级菜单（流程）*/
+.icon-Business-solution:before {
+	content: "\e61a";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Process-design:before {
+	content: "\e638";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Process-LDAP:before {
+	content: "\e6f1";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Business-model-Design:before {
+	content: "\e639";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Business-form-Design:before {
+	content: "\e65c";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Process-instance:before {
+	content: "\e698";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-need-do:before {
+	content: "\e619";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Process-module:before {
+	content: "\e611";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.icon-task-notice:before {
+	content: "\e628";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+.icon-business-model:before {
+	content: "\e639";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+/*一级菜单（知识子系统）*/
+.icon-Knowledge-management:before {
+	content: "\e65a";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-zhishicangku:before {
+	content: "\e60a";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+.icon-warehouse-management:before {
+	content: "\e655";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.icon-Knowledge-quiz:before {
+	content: "\e6e4";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Knowledge-quizlist:before {
+	content: "\e734";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.icon-expertlist:before {
+	content: "\e6f1";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-User-level:before {
+	content: "\e6f9";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.icon-map-list:before {
+	content: "\e651";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-homepage:before {
+	content: "\e63d";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+/*一级菜单（公文子系统）*/
+.icon-configure:before {
+	content: "\e610";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Get-into:before {
+	content: "\e657";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+/*一级菜单（系统配置）*/
+.icon-system-management:before {
+	content: "\e66a";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-zuzhiguanli:before {
+	content: "\ea72";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Organization-management:before {
+	content: "\e63a";
+	color: #0a7ac6;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-Portal-information:before {
+	content: "\e609";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.icon-WeChat-public:before {
+	content: "\e60f";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 500;
+}
+/* .icon-window:before {
+	content: "\e72b";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 500;
+} */
+.icon-authorization:before{
+	content: "\e72b";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 500;
+}
+/*一级菜单（帮助系统）*/
+.icon-Basic-framework:before {
+	content: "\e685";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 600;
+	
+}
+.icon-skin:before{
+	content: "\e769";
+	color: #fff;
+	padding-right: 6px;
+	font-size: 18px;
+	font-weight: 600;
+}
+.icon-phone:before { content: "\e7ad"; color: #46aaf1;padding-right: 8px;font-size:18px;font-weight: 600;}
+.icon-example:before { content: "\e665";color: #46aaf1;padding-right: 8px;font-size: 16px;font-weight: 600; }
+.icon-weixin:before{ content: "\e60f";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 18px;
+	font-weight: 500;}
+.fr .icon-full{border:none; margin:0px 20px; border:1px solid #47aff9; }
+.icon-full:before { content: "\e610";color: #fff;font-size: 16px;font-weight: 200;}
+.information span:nth-of-type(1):before{ content: "\e6f1";color: #fff;margin-right:10px; }
+.information span:nth-of-type(2):before{ content: "\e715";color: #fff;margin-right:25px; font-size: 16px;}
+.information span:nth-of-type(2):before{ content: "\e715";color: #fff;margin-right:25px; font-size: 16px;}
+	
+
+.sidemenu .secondmenu>li>p:before{content: "\e6cd";color: #666;margin-right:10px; font-size: 12px;font-weight: 600;} 
+.sidemenu .secondmenu>li>p.active:before{content: "\e76c";color: #47aff9;} 
+/* .sidemenu .secondmenu>li>p:after{content: "\e713";color: #47aff9;margin-left:25px; font-size: 10px;font-weight: 600;}
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

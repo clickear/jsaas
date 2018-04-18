@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.personal.entity.ContactInfo">
+	<resultMap id="ContactInfo" type="com.redxun.oa.personal.entity.ContactInfo">
+		<result property="fullname" column="FULLNAME_" jdbcType="VARCHAR"/>
+		<result property="contact" column="CONTACT_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="getAllMailContact" parameterType="java.util.Map" resultMap="ContactInfo">
+	SELECT * FROM (
+		SELECT distinct b.NAME_ as FULLNAME_, b. MAIL_ as CONTACT_ FROM OA_ADDR_BOOK b
+		where b.CREATE_BY_=#{userId}
+		<if test="name!=null">
+				and b.NAME_ LIKE #{name}
+		</if>
+		<if test="mail!=null">
+				and b.MAIL_ LIKE #{mail}
+		</if>
+		union  
+		SELECT  b.NAME_ as FULLNAME_,t.CONTACT_ as CONTACT_ FROM OA_ADDR_CONT t LEFT JOIN OA_ADDR_BOOK b ON t.ADDR_ID_=b.ADDR_ID_
+		where t.TYPE_='mail' and t.CREATE_BY_=#{userId}
+		<if test="name!=null">
+				and b.NAME_ LIKE #{name}
+		</if>
+		<if test="mail!=null">
+				and t.CONTACT_ LIKE #{mail}
+		</if>
+		)  temp
+		<if test="property!=null">
+			ORDER BY  ${property} ${direction}
+		</if>
+	</select>
+	
+	<select id="getByGroupId" parameterType="java.util.Map" resultMap="ContactInfo">
+		SELECT * FROM (
+		SELECT distinct b.NAME_ as FULLNAME_, b. MAIL_ as CONTACT_ FROM OA_ADDR_BOOK b,OA_ADDR_GPB pb
+		where  b.ADDR_ID_=pb.ADDR_ID_
+		<if test="groupId!=null">
+			and pb.GROUP_ID_=#{groupId}
+		</if>
+		<if test="name!=null">
+				and b.NAME_ LIKE #{name}
+		</if>
+		<if test="mail!=null">
+				and b.MAIL_ LIKE #{mail}
+		</if>
+		union  
+		select  b.NAME_ as FULLNAME_,t.CONTACT_ as CONTACT_ from OA_ADDR_CONT t, OA_ADDR_GPB pb,OA_ADDR_BOOK b where t.ADDR_ID_=b.ADDR_ID_  and t.TYPE_='mail' and b.ADDR_ID_=pb.ADDR_ID_
+		<if test="groupId!=null">
+				and pb.GROUP_ID_=#{groupId}
+		</if>
+		<if test="name!=null">
+				and b.NAME_ LIKE #{name}
+		</if>
+		<if test="mail!=null">
+				and t.CONTACT_ LIKE #{mail}
+		</if>
+		)  temp
+		<if test="property!=null">
+			ORDER BY  ${property} ${direction}
+		</if>
+	</select>
+	
+</mapper>

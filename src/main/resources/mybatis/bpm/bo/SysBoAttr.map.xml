@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.bo.entity.SysBoAttr">
+	<resultMap id="SysBoAttr" type="com.redxun.sys.bo.entity.SysBoAttr">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="entId" column="ENT_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="fieldName" column="FIELD_NAME_" jdbcType="VARCHAR"/>
+		<result property="comment" column="COMMENT_" jdbcType="VARCHAR"/>
+		<result property="dataType" column="DATA_TYPE_" jdbcType="VARCHAR"/>
+		<result property="length" column="LENGTH_" jdbcType="NUMERIC"/>
+		<result property="decimalLength" column="DECIMAL_LENGTH_" jdbcType="NUMERIC"/>
+		<result property="control" column="CONTROL_" jdbcType="VARCHAR"/>
+		<result property="extJson" column="EXT_JSON_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="NUMERIC"/>
+		<result property="isSingle" column="IS_SINGLE_" jdbcType="NUMERIC"/>
+		
+		
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.bo.entity.SysBoAttr">
+		INSERT INTO SYS_BO_ATTR
+		(ID_,ENT_ID_,NAME_,FIELD_NAME_,COMMENT_,DATA_TYPE_,LENGTH_,DECIMAL_LENGTH_,CONTROL_,EXT_JSON_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_,TENANT_ID_,STATUS_,IS_SINGLE_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{entId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, #{length,jdbcType=NUMERIC}, #{decimalLength,jdbcType=NUMERIC}, #{control,jdbcType=VARCHAR}, #{extJson,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{isSingle,jdbcType=NUMERIC})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysBoAttr">
+		SELECT * FROM SYS_BO_ATTR 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysBoAttr">
+		SELECT * FROM SYS_BO_ATTR
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	<update id="update" parameterType="com.redxun.sys.bo.entity.SysBoAttr">
+		UPDATE SYS_BO_ATTR SET
+		ENT_ID_=#{entId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		FIELD_NAME_=#{fieldName,jdbcType=VARCHAR},
+		COMMENT_=#{comment,jdbcType=VARCHAR},
+		DATA_TYPE_=#{dataType,jdbcType=VARCHAR},
+		LENGTH_=#{length,jdbcType=NUMERIC},
+		DECIMAL_LENGTH_=#{decimalLength,jdbcType=NUMERIC},
+		CONTROL_=#{control,jdbcType=VARCHAR},
+		EXT_JSON_=#{extJson,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		IS_SINGLE_=#{isSingle,jdbcType=NUMERIC}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_BO_ATTR 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delByMainId">
+	    DELETE FROM SYS_BO_ATTR
+	    WHERE
+	    ENT_ID_=#{entId}
+	</delete>    
+	
+	<select id="getAttrsByEntId" resultMap="SysBoAttr">
+	    SELECT *
+	    FROM SYS_BO_ATTR 
+	    WHERE ENT_ID_=#{entId}
+	</select>
+	
+	<select id="getByBoDefId" resultMap="SysBoAttr">
+		select a.* from  SYS_BO_ATTR a , SYS_BO_RELATION b  
+		WHERE a.ENT_ID_=b.BO_ENTID_  and b.BO_DEFID_=#{boDefId} and b.RELATION_TYPE_='main' 
+	</select>
+	
+	
+	
+</mapper>

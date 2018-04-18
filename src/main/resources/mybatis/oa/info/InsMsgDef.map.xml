@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsMsgDef">
+	<resultMap id="InsMsgDef" type="com.redxun.oa.info.entity.InsMsgDef">
+		<id property="msgId" column="MSG_ID_" jdbcType="VARCHAR"/>
+		<result property="color" column="COLOR_" jdbcType="VARCHAR"/>
+		<result property="url" column="URL_" jdbcType="VARCHAR"/>
+		<result property="icon" column="ICON_" jdbcType="VARCHAR"/>
+		<result property="content" column="CONTENT_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="dsName" column="DS_NAME_" jdbcType="VARCHAR"/>
+		<result property="dsAlias" column="DS_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="sqlFunc" column="SQL_FUNC_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsMsgDef">
+		INSERT INTO INS_MSG_DEF
+		(MSG_ID_,COLOR_,URL_,ICON_,CONTENT_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,DS_NAME_,DS_ALIAS_,SQL_FUNC_,TYPE_)
+		VALUES 
+		(#{msgId,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{dsName,jdbcType=VARCHAR}, #{dsAlias,jdbcType=VARCHAR}, #{sqlFunc,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InsMsgDef">
+		SELECT * FROM INS_MSG_DEF 
+		WHERE 
+		MSG_ID_=#{msgId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InsMsgDef">
+		SELECT * FROM INS_MSG_DEF
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY MSG_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsMsgDef">
+		UPDATE INS_MSG_DEF SET
+		COLOR_=#{color,jdbcType=VARCHAR},
+		URL_=#{url,jdbcType=VARCHAR},
+		ICON_=#{icon,jdbcType=VARCHAR},
+		CONTENT_=#{content,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		DS_NAME_=#{dsName,jdbcType=VARCHAR},
+		DS_ALIAS_=#{dsAlias,jdbcType=VARCHAR},
+		SQL_FUNC_=#{sqlFunc,jdbcType=VARCHAR},
+		TYPE_=#{type,jdbcType=VARCHAR}
+		WHERE
+		MSG_ID_=#{msgId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM INS_MSG_DEF 
+		WHERE
+		MSG_ID_=#{msgId}
+	</delete>
+	
+	
+</mapper>

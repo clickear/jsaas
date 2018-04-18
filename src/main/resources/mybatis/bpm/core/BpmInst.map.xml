@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmInst">
+	<resultMap id="BpmInst" type="com.redxun.bpm.core.entity.BpmInst">
+		<id property="instId" column="INST_ID_" jdbcType="VARCHAR"/>
+		<result property="actInstId" column="ACT_INST_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="subject" column="SUBJECT_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="version" column="VERSION_" jdbcType="NUMERIC"/>
+		<result property="busKey" column="BUS_KEY_" jdbcType="VARCHAR"/>
+		<result property="billNo" column="BILL_NO_" jdbcType="VARCHAR"/>
+		<result property="instNo" column="INST_NO_" jdbcType="VARCHAR"/>
+		<result property="isTest" column="IS_TEST_" jdbcType="VARCHAR"/>
+		<result property="isUseBmodel" column="IS_USE_BMODEL_"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="endTime" column="END_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="startDepId" column="START_DEP_ID_" jdbcType="VARCHAR"/>
+		<result property="startDepFull" column="START_DEP_FULL_" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap type="com.redxun.bpm.core.entity.BpmInst" id="ExtBpmInst" extends="BpmInst">
+		<result property="errors" column="ERRORS_" jdbcType="CLOB"/>
+	</resultMap>
+	
+	<sql id="fieldsSql">
+		b.INST_ID_,b.DEF_ID_,b.ACT_INST_ID_,b.ACT_DEF_ID_,
+  		b.SOL_ID_,b.INST_NO_,b.IS_USE_BMODEL_,b.SUBJECT_,
+  		b.STATUS_,b.VERSION_,b.BUS_KEY_,b.BILL_NO_,b.CHECK_FILE_ID_,
+		b.IS_TEST_,b.END_TIME_,b.TENANT_ID_,
+  		b.CREATE_BY_,b.CREATE_TIME_,b.UPDATE_BY_,b.UPDATE_TIME_,b.START_DEP_ID_,b.START_DEP_FULL_
+	</sql>
+
+	<select id="getMyCheckInstCounts" parameterType="java.util.Map" resultType="java.lang.Long">
+		select count(*) from (select distinct <include refid="fieldsSql"></include> from bpm_inst b left join bpm_node_jump c on b.ACT_INST_ID_=c.ACT_INST_ID_ where HANDLER_ID_=#{userId}
+		<if test="subject!=null">
+			and b.subject_ like #{subject}
+		</if>
+		<if test="billNo!=null">
+			and b.bill_no_ like #{billNo}
+		</if>
+		<if test="status!=null">
+			and b.status_ =#{status}
+		</if>
+		<if test="enableMobile!=null">
+			and b.ENABLE_MOBILE_ =1
+		</if>
+		<if test="createtime1!=null">
+			and b.CREATE_TIME_ &gt;= #{createtime1}
+		</if>
+		<if test="createtime2!=null">
+			and b.CREATE_TIME_ &lt;= #{createtime2}
+		</if>
+		<if test="createtime3!=null">
+			and c.CREATE_TIME_ &gt;= #{createtime3}
+		</if>
+		<if test="ccreatetime4!=null">
+			and c.CREATE_TIME_ &lt;= #{createtime4}
+		</if>
+		) V
+	</select>
+	
+	<!-- 按最新的实例ID获得审批节点及及状态 -->
+	<select id="getMyCheckInst" parameterType="java.util.Map" resultMap="BpmInst">
+		select distinct <include refid="fieldsSql"></include> from bpm_inst b left join bpm_node_jump c on b.ACT_INST_ID_=c.ACT_INST_ID_ where HANDLER_ID_=#{userId}
+		<if test="subject!=null">
+			and b.subject_ like #{subject}
+		</if>
+		<if test="billNo!=null">
+			and b.bill_no_ like #{billNo}
+		</if>
+		<if test="status!=null">
+			and b.status_ =#{status}
+		</if>
+		<if test="enableMobile!=null">
+			and b.ENABLE_MOBILE_ =1
+		</if>
+		<if test="createtime1!=null">
+			and b.CREATE_TIME_ &gt;= #{createtime1}
+		</if>
+		<if test="createtime2!=null">
+			and b.CREATE_TIME_ &lt;= #{createtime2}
+		</if>
+		<if test="createtime3!=null">
+			and c.CREATE_TIME_ &gt;= #{createtime3}
+		</if>
+		<if test="ccreatetime4!=null">
+			and c.CREATE_TIME_ &lt;= #{createtime4}
+		</if>
+		<if test="orderByClause!=null">
+			ORDER BY ${orderByClause}
+		</if>
+		<if test="orderByClause==null">
+			ORDER BY b.CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	<select id="getByBusKey"  resultMap="BpmInst">
+		select * from BPM_INST where BUS_KEY_=#{busKey}
+	</select>
+	
+	<select id="getInstsByAdminTreeId" parameterType="java.util.Map" resultMap="BpmInst">
+		select * from (
+		SELECT <include refid="fieldsSql"></include> from BPM_INST b LEFT JOIN BPM_SOLUTION s on b.SOL_ID_=s.SOL_ID_ 
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>) tmp
+		<if test="orderBySql!=null">
+			ORDER BY  ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	<select id="getMyInstBySolutionId" parameterType="java.util.Map" resultMap="BpmInst">
+	 SELECT B.*
+	 FROM BPM_INST B
+     LEFT JOIN BPM_INST_CC C ON C.INST_ID_= B.INST_ID_
+     LEFT JOIN BPM_INST_CP P ON P.CC_ID_=C.CC_ID_
+     WHERE B.SOL_ID_=#{solId} AND (B.CREATE_BY_=#{userId} OR P.USER_ID_=#{userId})
+	</select>
+	
+	<select id="getMyInst" parameterType="java.util.Map" resultMap="BpmInst">
+		 SELECT v.*
+		 FROM BPM_INST v
+	     WHERE  v.CREATE_BY_=#{CREATE_BY_} 
+	    <if test="enableMobile!=null">
+			and b.ENABLE_MOBILE_ =1
+		</if>
+    	<if test="SUBJECT_!=null">
+			and v.subject_ like #{SUBJECT_}
+		</if>
+		
+		<if test="CREATE_TIME__START!=null">
+			and v.CREATE_TIME_ &gt;= #{CREATE_TIME__START}
+		</if>
+		<if test="CREATE_TIME__END!=null">
+			and v.CREATE_TIME_ &lt;= #{CREATE_TIME__END}
+		</if>
+		<if test="STATUS_!=null">
+			and v.STATUS_ = #{STATUS_}
+		</if>
+		<if test="@Ognl@isEmpty(STATUS_)">
+			and v.STATUS_ != 'DRAFTED'
+		</if>
+		<if test="orderBySql!=null">
+			ORDER BY  ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY CREATE_TIME_ DESC
+		</if>
+		
+	</select>
+	
+	<select id="getInstsByTreeId" parameterType="java.util.Map" resultMap="BpmInst">
+		select distinct * from (
+			SELECT a.INST_ID_,a.DEF_ID_,a.ACT_INST_ID_,a.ACT_DEF_ID_,
+	  		a.SOL_ID_,a.INST_NO_,a.IS_USE_BMODEL_,a.SUBJECT_,
+	  		a.STATUS_,a.VERSION_,a.BUS_KEY_,a.BILL_NO_,a.CHECK_FILE_ID_,
+			a.IS_TEST_,a.END_TIME_,a.TENANT_ID_,a.START_DEP_ID_,a.START_DEP_FULL_,
+	  		a.CREATE_BY_,a.CREATE_TIME_,a.UPDATE_BY_,a.UPDATE_TIME_,
+	  		b.TREE_ID_,b.TREE_PATH_ from BPM_INST a , BPM_SOLUTION b,
+			bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{bTENANT_ID_} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes'
+			<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if> 
+				<if test="treeId!=null">
+				and	b.TREE_ID_=#{treeId}
+			</if>
+				and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='inst' and d.TYPE_='everyone'
+			
+			union all
+			
+			<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+				SELECT  a.INST_ID_,a.DEF_ID_,a.ACT_INST_ID_,a.ACT_DEF_ID_,
+		  		a.SOL_ID_,a.INST_NO_,a.IS_USE_BMODEL_,a.SUBJECT_,
+		  		a.STATUS_,a.VERSION_,a.BUS_KEY_,a.BILL_NO_,a.CHECK_FILE_ID_,
+				a.IS_TEST_,a.END_TIME_,a.TENANT_ID_,a.UPDATE_BY_,a.UPDATE_TIME_,
+		  		a.CREATE_BY_,a.CREATE_TIME_,a.UPDATE_BY_,a.UPDATE_TIME_,
+		  		b.TREE_ID_,b.TREE_PATH_ from BPM_INST a , BPM_SOLUTION b,
+				bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{bTENANT_ID_} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes'
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if> 
+				<if test="treeId!=null">
+				and	b.TREE_ID_=#{treeId}
+				</if>
+				 and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='inst' and d.TYPE_=#{key}
+				and d.AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+			</foreach>
+		) v
+		
+		<where>
+			<if test="TREE_PATH_!=null">
+			and v.TREE_PATH_ like #{TREE_PATH_}
+			</if>
+			<if test="CREATE_BY_!=null">
+				and v.CREATE_BY_=#{CREATE_BY_}
+			</if>
+			<if test="SUBJECT_!=null">
+				and v.subject_ like #{SUBJECT_}
+			</if>
+			<if test="BILL_NO_!=null">
+				and v.bill_no_ like #{BILL_NO_}
+			</if>
+			<if test="CREATE_TIME__START!=null">
+				and v.CREATE_TIME_ &gt;= #{CREATE_TIME__START}
+			</if>
+			<if test="CREATE_TIME__END!=null">
+				and v.CREATE_TIME_ &lt;= #{CREATE_TIME__END}
+			</if>
+			<if test="STATUS_!=null">
+				and v.STATUS_ = #{STATUS_}
+			</if>
+		</where>
+		
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY v.CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	<select id="getCategoryTree"  resultType="java.util.HashMap">
+		select TREE_ID_,TREE_PATH_,sum(amount) AMOUNT from (
+			SELECT b.TREE_ID_, b.TREE_PATH_,count(*) amount from BPM_INST a , BPM_SOLUTION b,
+			bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{tenantId} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if>
+				 and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='inst' and d.TYPE_='everyone' 
+			GROUP BY b.TREE_ID_,b.TREE_PATH_
+			
+			union all
+			
+			<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+				SELECT b.TREE_ID_,TREE_PATH_,count(*) amount from BPM_INST a , BPM_SOLUTION b,
+				bpm_auth_setting c, bpm_auth_rights d, bpm_auth_def e where a.TENANT_ID_=#{tenantId} and a.SOL_ID_=b.SOL_ID_ and c.ENABLE_='yes' 
+				<if test="grantType=='bpmAssortment'">
+				and	b.TREE_ID_=e.TREE_ID_
+				</if>
+				<if test="grantType!='bpmAssortment'">
+				and	b.SOL_ID_=e.SOL_ID_
+				</if>
+				 and e.SETTING_ID_ = c.ID_  and c.ID_ =d.SETTING_ID_ and d.RIGHT_TYPE_='inst' and d.TYPE_=#{key}
+				and d.AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+				GROUP BY b.TREE_ID_,b.TREE_PATH_
+			</foreach>
+		) v GROUP BY TREE_ID_,TREE_PATH_
+	</select>
+</mapper>

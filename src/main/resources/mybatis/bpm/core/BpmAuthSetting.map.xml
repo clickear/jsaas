@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmAuthSetting">
+	<resultMap id="BpmAuthSetting" type="com.redxun.bpm.core.entity.BpmAuthSetting">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="enable" column="ENABLE_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmAuthSetting">
+		INSERT INTO bpm_auth_setting
+		(ID_,NAME_,ENABLE_,TYPE_,TENANT_ID_,CREATE_TIME_,UPDATE_TIME_,CREATE_BY_,UPDATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmAuthSetting">
+		SELECT * FROM bpm_auth_setting 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmAuthSetting">
+		SELECT * FROM bpm_auth_setting
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmAuthSetting">
+		UPDATE bpm_auth_setting SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		ENABLE_=#{enable,jdbcType=VARCHAR},
+		TYPE_=#{type,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_auth_setting 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="getRights" resultType="java.util.HashMap">
+		select b.RIGHT_JSON_,b.SOL_ID_ from bpm_auth_rights a,bpm_auth_def b 
+		where a.SETTING_ID_=b.SETTING_ID_ and a.RIGHT_TYPE_=#{rightType} and a.TYPE_='everyone'
+		union all 
+		<foreach collection="profileMap" index="key"  item="ent" separator="union all">
+			select b.RIGHT_JSON_,b.SOL_ID_ from bpm_auth_rights a,bpm_auth_def b 
+			where a.SETTING_ID_=b.SETTING_ID_ and a.RIGHT_TYPE_=#{rightType} and a.TYPE_=#{key}
+                and AUTH_ID_ in  <foreach collection="ent"  item="id" separator="," open="(" close=")">#{id}</foreach>
+        </foreach>
+		
+	</select>
+	
+	
+	<select id="getRightsBySolId" resultType="java.util.HashMap">
+		select b.RIGHT_JSON_,b.SOL_ID_ from 
+			bpm_auth_setting a,  bpm_auth_def b where a.ENABLE_='yes' 
+			and a.ID_=b.SETTING_ID_ and b.SOL_ID_ in
+		<foreach collection="solIds"  item="id" separator="," open="(" close=")">#{id}</foreach>
+	
+	
+	</select>
+	
+	<select id="getRightsByTreeId" resultType="java.util.HashMap">
+		select b.RIGHT_JSON_,b.TREE_ID_ from 
+			bpm_auth_setting a,  bpm_auth_def b where a.ENABLE_='yes' 
+			and a.ID_=b.SETTING_ID_ and b.TREE_ID_ in
+		<foreach collection="treeIds"  item="id" separator="," open="(" close=")">#{id}</foreach>
+	
+	
+	</select>	
+	
+	
+		<select id="getSettingByDefTreeId"   parameterType="java.lang.String" resultMap="BpmAuthSetting">
+		SELECT b.*
+		FROM bpm_auth_setting b,bpm_auth_def d
+		WHERE d.TREE_ID_=#{treeId} and d.SETTING_ID_=b.ID_
+	</select>
+	
+	
+	
+</mapper>

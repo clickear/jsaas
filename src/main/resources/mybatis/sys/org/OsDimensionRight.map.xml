@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.org.entity.OsDimensionRight">
+	<resultMap id="OsDimensionRight" type="com.redxun.sys.org.entity.OsDimensionRight">
+		<id property="rightId" column="RIGHT_ID_" jdbcType="VARCHAR"/>
+		<result property="userId" column="USER_ID_" jdbcType="CLOB"/>
+		<result property="groupId" column="GROUP_ID_" jdbcType="CLOB"/>
+		<result property="dimId" column="DIM_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.org.entity.OsDimensionRight">
+		INSERT INTO OS_DIMENSION_RIGHT
+		(RIGHT_ID_,USER_ID_,GROUP_ID_,DIM_ID_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{rightId,jdbcType=VARCHAR}, #{userId,jdbcType=CLOB}, #{groupId,jdbcType=CLOB}, #{dimId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="OsDimensionRight">
+		SELECT * FROM OS_DIMENSION_RIGHT 
+		WHERE 
+		RIGHT_ID_=#{rightId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="OsDimensionRight">
+		SELECT * FROM OS_DIMENSION_RIGHT
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY RIGHT_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.org.entity.OsDimensionRight">
+		UPDATE OS_DIMENSION_RIGHT SET
+		USER_ID_=#{userId,jdbcType=CLOB},
+		GROUP_ID_=#{groupId,jdbcType=CLOB},
+		DIM_ID_=#{dimId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		RIGHT_ID_=#{rightId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM OS_DIMENSION_RIGHT 
+		WHERE
+		RIGHT_ID_=#{rightId}
+	</delete>
+	
+	<select id="getDimRightByDimId" parameterType="java.lang.String" resultMap="OsDimensionRight" >
+	SELECT RIGHT_ID_,USER_ID_,GROUP_ID_,DIM_ID_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_ 
+	FROM OS_DIMENSION_RIGHT
+	WHERE DIM_ID_=#{dimId}
+	</select>
+	
+</mapper>

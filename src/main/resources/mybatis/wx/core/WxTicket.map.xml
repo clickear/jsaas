@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.core.entity.WxTicket">
+	<resultMap id="WxTicket" type="com.redxun.wx.core.entity.WxTicket">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="pubId" column="PUB_ID_" jdbcType="VARCHAR"/>
+		<result property="cardType" column="CARD_TYPE_" jdbcType="VARCHAR"/>
+		<result property="logoUrl" column="LOGO_URL_" jdbcType="VARCHAR"/>
+		<result property="codeType" column="CODE_TYPE_" jdbcType="VARCHAR"/>
+		<result property="brandName" column="BRAND_NAME_" jdbcType="VARCHAR"/>
+		<result property="title" column="TITLE_" jdbcType="VARCHAR"/>
+		<result property="color" column="COLOR_" jdbcType="VARCHAR"/>
+		<result property="notice" column="NOTICE_" jdbcType="VARCHAR"/>
+		<result property="description" column="DESCRIPTION_" jdbcType="VARCHAR"/>
+		<result property="sku" column="SKU_" jdbcType="CLOB"/>
+		<result property="dateInfo" column="DATE_INFO" jdbcType="CLOB"/>
+		<result property="baseInfo" column="BASE_INFO_" jdbcType="CLOB"/>
+		<result property="advancedInfo" column="ADVANCED_INFO_" jdbcType="CLOB"/>
+		<result property="specialConfig" column="SPECIAL_CONFIG_" jdbcType="CLOB"/>
+		<result property="checked" column="CHECKED_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.core.entity.WxTicket">
+		INSERT INTO WX_TICKET
+		(ID_,PUB_ID_,CARD_TYPE_,LOGO_URL_,CODE_TYPE_,BRAND_NAME_,TITLE_,COLOR_,NOTICE_,DESCRIPTION_,SKU_,DATE_INFO,BASE_INFO_,ADVANCED_INFO_,SPECIAL_CONFIG_,CHECKED_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{pubId,jdbcType=VARCHAR}, #{cardType,jdbcType=VARCHAR}, #{logoUrl,jdbcType=VARCHAR}, #{codeType,jdbcType=VARCHAR}, #{brandName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{notice,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{sku,jdbcType=CLOB}, #{dateInfo,jdbcType=CLOB}, #{baseInfo,jdbcType=CLOB}, #{advancedInfo,jdbcType=CLOB}, #{specialConfig,jdbcType=CLOB}, #{checked,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxTicket">
+		SELECT * FROM WX_TICKET 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxTicket">
+		SELECT * FROM WX_TICKET
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.core.entity.WxTicket">
+		UPDATE WX_TICKET SET
+		PUB_ID_=#{pubId,jdbcType=VARCHAR},
+		CARD_TYPE_=#{cardType,jdbcType=VARCHAR},
+		LOGO_URL_=#{logoUrl,jdbcType=VARCHAR},
+		CODE_TYPE_=#{codeType,jdbcType=VARCHAR},
+		BRAND_NAME_=#{brandName,jdbcType=VARCHAR},
+		TITLE_=#{title,jdbcType=VARCHAR},
+		COLOR_=#{color,jdbcType=VARCHAR},
+		NOTICE_=#{notice,jdbcType=VARCHAR},
+		DESCRIPTION_=#{description,jdbcType=VARCHAR},
+		SKU_=#{sku,jdbcType=CLOB},
+		DATE_INFO=#{dateInfo,jdbcType=CLOB},
+		BASE_INFO_=#{baseInfo,jdbcType=CLOB},
+		ADVANCED_INFO_=#{advancedInfo,jdbcType=CLOB},
+		SPECIAL_CONFIG_=#{specialConfig,jdbcType=CLOB},
+		CHECKED_=#{checked,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM WX_TICKET 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

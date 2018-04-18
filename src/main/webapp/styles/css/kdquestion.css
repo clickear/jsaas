@@ -1,0 +1,85 @@
+@charset "utf-8";
+/*main*/
+/*上面*/
+.main .main-top{
+	idth:95%;
+	height:auto;
+	overflow:hidden;
+	margin:1.4% auto;
+}
+
+.zuixin, .zuire, .gaofen  {
+	width: 31.56%;
+	height:300px;
+	overflow: hidden;
+	float:left;
+	background: #fff;
+	box-shadow: 0px 9px 21px 0px rgba(184, 184, 184, 0.19);
+}
+
+.zuixin{
+	margin-left: 25px;
+}
+
+.zuire{
+	margin:0px 25px;
+}
+.panel-head{
+	width:100%; 
+	height: 40px; 
+	line-height: 40px; 
+	border-bottom: 1px solid #d1d1d1;
+}
+.panel-head h3 { float: left; font-weight: 500;font-size: 14px;border-bottom: 2px solid #47bbf9;line-height: 38px;padding: 0px 10px; margin-left: 10px;}
+.panel-head .more{display:block;float:left; width: 40px; height: 15px;margin-right:10px;margin-top: 12px; background: url("../images/index/contenticon.png") no-repeat 0px -95px;}
+.panel-head .renovate{ margin-right: 10px;}
+.panel-body{width:93%; height: auto; overflow: hidden;margin:20px auto;font-size:13px;}
+.panel-body
+.list-mian a{text-decoration:none;color:#7BBDFA;}
+.list-mian{float:left;}
+
+ul, ol, li {list-style: none;}
+.panel-body ul {width: 100%;height: auto;;}
+.panel-body ul li {width: 100%; height: 24px;}
+
+.list-mian p{width: 60%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin: 5px 0px; }
+em{width:70px;height:auto;margin-left:5px;margin-right:5%;font-style: normal;color:#92c7fb;border-right:2px solid #f5f5f5;}	
+.fl {float: left;}
+.fr {float: right;}
+
+/*左边*/
+.main-content{width:95%;height:500px;background:#FFF;margin:10px auto;border:1px solid #d1d1d1;}
+.main-content .leftside{width:67%;height:500px;float:left}
+.main-content .leftside .daohang{width:98%;height:auto;overflow:hidden;border-bottom:#ececec thin solid;margin:0px auto;}
+.daohang li{float:left;width:90px;margin-right:20px;}
+.market-title li:hover {color: #199bf8;border-bottom: 2px solid #199bf8;}
+.market-title li:visited{ color: #199bf8;border-bottom: 2px solid #199bf8;font-weight:700;}
+.market-title .first {color: #199bf8;border-bottom: 2px solid #199bf8;}
+.module-title .first {color: #199bf8;font-weight: 700;}
+.market-title li {border: 0;}
+.market-title li {padding: 3px;font-size: 14px;}
+.module-title li {height: 15px;padding:11.5px;line-height: 17px;float: left;cursor: pointer;margin-right:20px;}
+.main-content .leftside .best .daohang{width:98%;height:auto;overflow:hidden;border-bottom:#ececec thin solid;margin:0px auto;color:#199bf8;font-weight:600;line-height:40px;}
+.main-content .leftside .daohang img{margin-right:20px;padding-bottom:5px;vertical-align:middle;}
+.main-content .leftside .more{display:block;float:right; width: 40px; height: 15px;margin-top:16px;;padding-left:10px; background: url("../images/index/contenticon.png") no-repeat 0px -95px;}
+.main-content .leftside .daohang a{display:block;float:right; width: 40px; height: 15px; background: url("../images/index/contenticon.png") no-repeat 0px -95px;}
+.main-content .leftside .list ul{width:96%;height:auto;overflow:hidden;margin:15px auto;font-size:13px;}
+.main-content .leftside .list ul>li{width:100%;height:35px;}
+.main-content .leftside .list .num1{margin-left:15px;margin-right:20px;}
+.main-content .leftside .list .num2{margin-left:30px;margin-right:10px;}
+.list li{line-height:25px;}
+.jb{}
+
+/*右边*/
+.main-content .rightside{width:31.56%;height:500px;border-left:#ececec thin solid;float:right}
+.main-content .rightside .daohang{width:98%;height:auto;overflow:hidden;border-bottom:#ececec thin solid;margin:0px auto;}
+.main-content .rightside .daohang h3{ float: left; font-weight: 500;font-size: 14px;border-bottom: 2px solid #47bbf9;line-height: 38px;padding: 0px 10px; margin-left: 10px;}
+.main-content .rightside .daohang .more{display:block;float:right; width: 40px; height: 15px; background: url("../images/index/contenticon.png") no-repeat 0px -95px;margin-top:16px;margin-right:10px;}
+.main-content .rightside .zhuanjia{width:90%;height:auto;overflow:hidden;margin:0px auto;font-size:13px;}
+.main-content .rightside .zhuanjia1{width:100%;height:auto;overflow:hidden;margin:30px auto;}
+.main-content .rightside .zhuanjia1 .touxiang{width:80px;height:100px;float:left;cursor: pointer;}
+.main-content .rightside .zhuanjia1 .xinxi{width:175px;height:109px;margin-left:15px;line-height:27px;float:left;}
+.main-content .rightside .zhuanjia .zixun{width:70px;height:25px;background:#45B0F8;float:right;text-align:center;line-height:25px;color:#FFF;}
+/*footer*/
+.footer{ width: 100%; height: 60px; line-height: 60px; text-align: center;}
+.footer a{padding: 0px 20px; text-decoration: none; color: #333;}

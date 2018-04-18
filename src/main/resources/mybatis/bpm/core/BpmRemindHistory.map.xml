@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmRemindHistory">
+	<resultMap id="BpmRemindHistory" type="com.redxun.bpm.core.entity.BpmRemindHistory">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="reminderInstId" column="REMINDER_INST_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="remindType" column="REMIND_TYPE_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmRemindHistory">
+		INSERT INTO BPM_REMIND_HISTORY
+		(ID_,REMINDER_INST_ID_,TENANT_ID_,REMIND_TYPE_,CREATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{reminderInstId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{remindType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmRemindHistory">
+		SELECT * FROM BPM_REMIND_HISTORY 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmRemindHistory">
+		SELECT * FROM BPM_REMIND_HISTORY
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmRemindHistory">
+		UPDATE BPM_REMIND_HISTORY SET
+		REMINDER_INST_ID_=#{reminderInstId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		REMIND_TYPE_=#{remindType,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_REMIND_HISTORY 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+	<select id="getByInstId"   parameterType="java.lang.String" resultMap="BpmRemindHistory">
+		SELECT * FROM BPM_REMIND_HISTORY 
+		where REMINDER_INST_ID_=#{reminderInstId}
+		and REMIND_TYPE_=#{remindType}
+	</select>
+	
+	<select id="getByStartEnd"   resultType ="java.lang.Integer">
+		SELECT count(*) FROM BPM_REMIND_HISTORY 
+		where REMINDER_INST_ID_=#{reminderInstId}
+		and CREATE_TIME_ between #{startTime} and #{endTime}
+	</select>
+	
+	<delete id="removeByActInst" parameterType="java.lang.String">
+		DELETE FROM BPM_REMIND_HISTORY
+		WHERE REMINDER_INST_ID_ IN (SELECT ID_ from BPM_REMIND_INST where ACT_INST_ID_=#{actInstId}  )
+	</delete>
+	
+	
+</mapper>

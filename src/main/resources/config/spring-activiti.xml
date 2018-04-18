@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" >
+   
+   <bean id="actIdGenerator" class="com.redxun.bpm.activiti.id.ActIdGenerator">
+   		<property name="idGenerator" ref="idGenerator"/>
+   </bean>
+
+  <!-- bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  	<property name="dataSource" ref="dataSource" />
+  </bean-->
+  
+  <bean id="processEngineConfiguration" class="com.redxun.bpm.activiti.cfg.SpringProcessEngineConfigurationExt">
+  	<property name="dataSource" ref="dataSource" />
+  	<property name="transactionManager" ref="jpaTranManager" />
+  	<property name="databaseSchemaUpdate" value="true" />
+  	<property name="jobExecutorActivate" value="false" />
+    <property name="enableDatabaseEventLogging" value="false" />
+    <property name="databaseType" value="${db.type}" />
+    <property name="idGenerator" ref="actIdGenerator"/>
+    <property name="processDefinitionCache" ref="activitiDefCache"/>
+    <property name="bpmnModelCache" ref="actBpmnModelCache"/>
+    <property name="eventListeners">
+      <list>
+        <ref bean="globalEventListener"/>
+      </list>
+    </property>
+    <property name="activityFontName" value="黑体"/>
+    <property name="labelFontName" value="黑体"/>
+    <!-- 用于更改流程节点的执行行为 -->
+    <property name="activityBehaviorFactory" ref="activityBehaviorFactoryExt"/>
+  </bean>
+  
+  <bean id="activitiDefCache" class="com.redxun.bpm.activiti.ext.ActivitiDefCache"></bean>
+  
+  <bean id="actBpmnModelCache"  class="com.redxun.bpm.activiti.ext.ActBpmnModelCache"></bean>
+  
+  <bean id="activityBehaviorFactoryExt" class="com.redxun.bpm.activiti.ext.ActivityBehaviorFactoryExt">
+  	<property name="exclusiveGatewayActivityBehaviorExt" ref="exclusiveGatewayActivityBehaviorExt"/>
+  	<property name="inclusiveGatewayActivityBehaviorExt" ref="inclusiveGatewayActivityBehaviorExt"/>
+  	<property name="parallelGatewayActivityBehaviorExt" ref="parallelGatewayActivityBehaviorExt"/>
+  	
+  </bean>
+  
+  <bean id="exclusiveGatewayActivityBehaviorExt" class="com.redxun.bpm.activiti.ext.RxExclusiveGatewayActivityBehavior"/>
+  <bean id="inclusiveGatewayActivityBehaviorExt" class="com.redxun.bpm.activiti.ext.RxInclusiveGatewayActivityBehavior"/>
+  <bean id="parallelGatewayActivityBehaviorExt" class="com.redxun.bpm.activiti.ext.RxParallelGatewayActivityBehavior"/>
+  
+  <bean id="globalEventListener" class="com.redxun.bpm.activiti.listener.GlobalEventListener">
+  	<property name="handlers">
+		<map>
+			<entry key="TASK_CREATED" value="taskCreateListener"/>
+			<entry key="TASK_COMPLETED" value="taskCompleteListener"/>
+			<entry key="TASK_ASSIGNED" value="taskAssignedListener"/>
+			<entry key="PROCESS_COMPLETED" value="processCompleteListener"/>
+			<entry key="ACTIVITY_STARTED" value="activityStartedListener"/>
+			<entry key="ACTIVITY_COMPLETED" value="activityCompletedListener"/>
+			<entry key="PROCESS_STARTED" value="processStartEventListener"/>
+		</map>
+	</property>
+  </bean>
+ 
+  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
+  	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+  </bean>
+   
+  <bean id="taskCreateListener" class="com.redxun.bpm.activiti.listener.TaskCreateListener"/>
+  <bean id="taskCompleteListener" class="com.redxun.bpm.activiti.listener.TaskCompleteListener"/>
+  <bean id="taskAssignedListener" class="com.redxun.bpm.activiti.listener.TaskAssignedListener"/>
+  <bean id="processCompleteListener" class="com.redxun.bpm.activiti.listener.ProcessCompleteListener"/>
+  <bean id="activityStartedListener" class="com.redxun.bpm.activiti.listener.ActivityStartedListener"/>
+  <bean id="activityCompletedListener" class="com.redxun.bpm.activiti.listener.ActivityCompletedListener"/>
+  <bean id="processStartEventListener" class="com.redxun.bpm.activiti.listener.ProcessStartEventListener"/>
+  
+  <bean id="processDiagramGenerator" class="com.redxun.bpm.activiti.image.ProcessDiagramGeneratorExt">
+  	<property name="processColors">
+  		<map>
+  			<entry key="SKIP" value="0,176,8"/>
+  			<entry key="TIMEOUT_SKIP" value="8,208,232"/>
+  			<entry key="AGREE" value="17,135,217"/>
+  			<entry key="REFUSE" value="217,87,30"/>
+  			<entry key="BACK" value="163,38,162"/>
+  			<entry key="BACK_TO_STARTOR" value="163,38,162"/>
+  			<entry key="RECOVER" value="255,135,3"/>
+  			<entry key="ABSTAIN" value="244,240,162"/>
+  			<entry key="INTERPOSE" value="152,129,153"/>
+  			<entry key="UNHANDLE" value="255,59,48"/>
+  		</map>
+  	</property>
+  	<property name="timeoutColors">
+  		<map>
+  			<entry key="0" value="134,219,72"/>
+  			<entry key="1" value="255,127,6"/>
+  			<entry key="2" value="251,37,49"/>
+  		</map>
+  	</property>
+  </bean>
+  
+  <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+  <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+  <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+  <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+  <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+  
+  <bean id="processScript" class="com.redxun.bpm.script.ProcessScript"/>
+  
+  <bean id="sqlScript" class="com.redxun.bpm.script.SqlScript"/>
+
+  <!--用户计算分类及配置的总入口-->
+  <bean id="identityTypeService" class="com.redxun.bpm.core.identity.service.IdentityTypeService">
+  	<property name="identityCalServices">
+  		<list>
+  			<ref bean="startUserCalService"/>
+  			<ref bean="userCalService"/>
+  			<ref bean="groupCalService"/>
+  			<ref bean="preNodeUserCalService"/>
+  			<ref bean="varCalService"/>
+  			<ref bean="formJsonCalService"/>
+  			<ref bean="scriptCalService"/>
+  			<ref bean="groupScriptCalService"/>
+  			<ref bean="depGroupCalService"/>
+  			<ref bean="userRelCalService"/>
+  			<ref bean="groupRelCalService"/>
+  			<ref bean="userGroupRelCalService"/>
+  			<ref bean="groupRankTypeRelCalService"/>
+  			<ref bean="userByDepNameGroupNameCalService"/>	
+  		</list>
+  	</property>
+  </bean>
+  <!--用于通过配置计算节点的人员 -->
+  <bean id="bpmIdentityCalService" class="com.redxun.bpm.core.identity.service.impl.BpmIdentityCalServiceImpl"/>
+  
+  <bean id="startUserCalService" class="com.redxun.bpm.core.identity.service.impl.StartUserCalServiceImpl">
+  	<property name="typeKey" value="START-USER"/>
+  	<property name="typeName" value="发起人"/>
+  </bean>
+  
+  <bean id="userCalService" class="com.redxun.bpm.core.identity.service.impl.UserCalServiceImpl">
+  	<property name="typeKey" value="USER"/>
+  	<property name="typeName" value="用户"/>
+  </bean>
+  
+  <bean id="groupCalService" class="com.redxun.bpm.core.identity.service.impl.GroupCalServiceImpl">
+  	<property name="typeKey" value="GROUP"/>
+  	<property name="typeName" value="用户组"/>
+  </bean>
+  
+  <bean id="preNodeUserCalService" class="com.redxun.bpm.core.identity.service.impl.PreNodeUserCalServiceImpl">
+  	<property name="typeKey" value="PRE_NODE_USER"/>
+  	<property name="typeName" value="用户来自其他节点的审批人"/>
+  </bean>
+  
+  <bean id="varCalService" class="com.redxun.bpm.core.identity.service.impl.VarCalServiceImpl">
+  	<property name="typeKey" value="VAR"/>
+  	<property name="typeName" value="用户或组来自流程变量"/>
+  </bean>
+  
+  <bean id="formJsonCalService" class="com.redxun.bpm.core.identity.service.impl.FormJsonCalServiceImpl">
+  	<property name="typeKey" value="FORMJSON"/>
+  	<property name="typeName" value="用户或组来自表单数据"/>
+  </bean>
+
+  <bean id="scriptCalService" class="com.redxun.bpm.core.identity.service.impl.ScriptCalServiceImpl">
+  		<property name="typeKey" value="SCRIPT"/>
+  		<property name="typeName" value="用户或组来自脚本运算"/>
+  </bean>
+    <bean id="groupScriptCalService" class="com.redxun.bpm.core.identity.service.impl.GroupScriptCalServiceImpl">
+  		<property name="typeKey" value="GROUPSCRIPT"/>
+  		<property name="typeName" value="人员脚本运算"/>
+  </bean>
+  
+  <bean id="userRelCalService" class="com.redxun.bpm.core.identity.service.impl.UserRelCalServiceImpl">
+  		<property name="typeKey" value="USER-REL"/>
+  		<property name="typeName" value="用户来自用户关系运算"/>
+  </bean>
+  
+  <bean id="groupRelCalService" class="com.redxun.bpm.core.identity.service.impl.GroupRelCalServiceImpl">
+  		<property name="typeKey" value="USER-GROUP-REL"/>
+  		<property name="typeName" value="用户组来自用户与组关系运算"/>
+  </bean>
+  
+  <bean id="userGroupRelCalService" class="com.redxun.bpm.core.identity.service.impl.UserGroupRelCalServiceImpl">
+  		<property name="typeKey" value="USER-CAL-BY-USER-GROUP-REL"/>
+  		<property name="typeName" value="用户来自用户与组关系运算"/>
+  </bean>
+  
+  <bean id="depGroupCalService" class="com.redxun.bpm.core.identity.service.impl.DepGroupCalServiceImpl">
+  		<property name="typeKey" value="USER_CAL_DEP_GROUP"/>
+  		<property name="typeName" value="用户来自用户所在部门下的用户组用户"/>
+  </bean>
+  
+  <bean id="groupRankTypeRelCalService" class="com.redxun.bpm.core.identity.service.impl.GroupRankTypeRelCalService">
+  	<property name="typeKey" value="GROUP-RANK-TYPE-REL"/>
+  	<property name="typeName" value="用户来自发起人所在部门往上查找符合等级的部门的关系用户"/>
+  </bean>
+  
+  <bean id="userByDepNameGroupNameCalService" class="com.redxun.bpm.core.identity.service.impl.UserByDepNameGroupNameCalService">
+  	<property name="typeKey" value="UserByDepNameGroupName"/>
+  	<property name="typeName" value="查找某部门下的拥有某种用户组（角色、职务）的人"/>
+  </bean>
+  
+  <!-- 脚本引擎 -->
+  <bean id="groovyEngine" class="com.redxun.core.script.GroovyEngine"/>
+  
+  <!-- activiti中的miniui表单控件解析配置 -->
+  <bean id="miniControlParseConfig" class="com.redxun.bpm.view.control.MiniControlParseConfig">
+  	<property name="viewHandlers">
+  		<list>
+  			<ref bean="miniCheckboxListViewHandler"/>
+  			<ref bean="miniRadioButtonListViewHandler"/>
+  			<ref bean="miniCheckboxViewHandler"/>
+  			<ref bean="miniComboBoxViewHandler"/>
+  			<ref bean="miniDatePickerViewHandler"/>
+  			<ref bean="miniMonthPickerViewHandler"/>
+  			<ref bean="miniUserViewHandler"/>
+  			<ref bean="miniGroupViewHandler"/>
+  			<ref bean="miniDepViewHandler"/>
+  			<ref bean="uploadPanelViewHandler"/>
+  			<ref bean="miniButtonEditViewHandler"/>
+  			<ref bean="miniGridViewHandler"/>
+  			<ref bean="miniTreeSelectViewHandler"/>
+  			<ref bean="miniButtonViewHandler"/>
+  			<ref bean="miniTextareaViewHandler"/>
+  			<ref bean="miniRichTextViewHandler"/>
+  			<ref bean="miniTextBoxListViewHandler"/>
+  			<ref bean="miniCheckNodeHiViewHandler"/>
+  			<ref bean="miniTextBoxViewHandler"/>
+  			<ref bean="miniNodeOpinionViewHandler"/>
+  			<ref bean="miniImgViewHandler" />
+  			<ref bean="miniCheckHiListViewHandler"/>
+  			<ref bean="miniTimeViewHandler"/>
+  			<ref bean="miniConditionDivViewHandler"/>
+  			<ref bean="miniHiddenViewHandler"/>
+  			<ref bean="miniNumberViewHandler"/>
+  			<ref bean="miniRelatedSolutionHandler"/>
+  			<ref bean="miniOfficeViewHandler"/>
+  		</list>
+  	</property>
+  </bean>
+  <bean id="miniOfficeViewHandler" class="com.redxun.bpm.view.control.MiniOfficeViewHandler"/>
+  <bean id="miniHiddenViewHandler" class="com.redxun.bpm.view.control.MiniHiddenViewHandler"/>
+  <bean id="miniCheckHiListViewHandler" class="com.redxun.bpm.view.control.MiniCheckHiListViewHandler"/>
+  <bean id="miniCheckboxListViewHandler" class="com.redxun.bpm.view.control.MiniCheckboxListViewHandler"/>
+  <bean id="miniRadioButtonListViewHandler" class="com.redxun.bpm.view.control.MiniRadioButtonListViewHandler"/>
+  <bean id="miniCheckboxViewHandler" class="com.redxun.bpm.view.control.MiniCheckboxViewHandler"/>
+  <bean id="miniComboBoxViewHandler" class="com.redxun.bpm.view.control.MiniComboBoxViewHandler"/>
+  <bean id="miniDatePickerViewHandler" class="com.redxun.bpm.view.control.MiniDatePickerViewHandler"/>
+  <bean id="miniMonthPickerViewHandler" class="com.redxun.bpm.view.control.MiniMonthPickerViewHandler"/>
+  <bean id="miniUserViewHandler" class="com.redxun.bpm.view.control.MiniUserViewHandler"/>
+  <bean id="miniGroupViewHandler" class="com.redxun.bpm.view.control.MiniGroupViewHandler"/>
+  <bean id="miniDepViewHandler" class="com.redxun.bpm.view.control.MiniDepViewHandler"/>
+  <bean id="uploadPanelViewHandler" class="com.redxun.bpm.view.control.UploadPanelViewHandler"/>
+  <bean id="miniButtonEditViewHandler" class="com.redxun.bpm.view.control.MiniButtonEditViewHandler"/>
+  <bean id="miniGridViewHandler" class="com.redxun.bpm.view.control.MiniGridViewHandler"/>
+  <bean id="miniTreeSelectViewHandler" class="com.redxun.bpm.view.control.MiniTreeSelectViewHandler"/>
+  <bean id="miniButtonViewHandler" class="com.redxun.bpm.view.control.MiniButtonViewHandler"/>
+  <bean id="miniTextareaViewHandler" class="com.redxun.bpm.view.control.MiniTextareaViewHandler"/>
+  <bean id="miniRichTextViewHandler" class="com.redxun.bpm.view.control.MiniRichTextViewHandler"/>
+  <bean id="miniTextBoxListViewHandler" class="com.redxun.bpm.view.control.MiniTextBoxListViewHandler"/>
+  <bean id="miniCheckNodeHiViewHandler" class="com.redxun.bpm.view.control.MiniCheckNodeHiViewHandler"/>
+  <bean id="miniTextBoxViewHandler" class="com.redxun.bpm.view.control.MiniTextBoxViewHandler"/>
+  <bean id="miniNodeOpinionViewHandler" class="com.redxun.bpm.view.control.MiniNodeOpinionViewHandler"/>
+  <bean id="miniImgViewHandler" class="com.redxun.bpm.view.control.MiniImgViewHandler"/>
+  <bean id="miniTimeViewHandler" class="com.redxun.bpm.view.control.MiniTimeViewHandler"/>
+  <bean id="miniRelatedSolutionHandler" class="com.redxun.bpm.view.control.MiniRelatedSolutionHandler"/>
+  <bean id="miniConditionDivViewHandler" class="com.redxun.bpm.view.control.MiniConditionDivViewHandler"/>
+  
+  <bean id="miniNumberViewHandler" class="com.redxun.bpm.view.control.MiniNumberViewHandler"/>
+  <!-- 会签服务类 用于流程定义中的任务或子流程中的多实例的条件的配置-->
+  <bean id="counterSignService" class="com.redxun.bpm.core.service.sign.CounterSignService"/>
+  
+  <bean id="flowService" class="com.redxun.bpm.api.DefaultFlowService" />
+  <!-- 流程事件或节点事件配置统一调用入口 -->
+  <bean id="bpmEventCallConfig" class="com.redxun.bpm.activiti.listener.call.BpmEventCallConfig">
+  	<property name="defaultHandler" ref="bpmEventCallHandlerScript"/>
+  	<property name="handlers">
+  		<list>
+  			<ref local="bpmEventCallHandlerScript"/>
+  			<ref local="bpmEventCallHandlerSql"/>
+  			<ref local="bpmEventCallHandlerRestfulApi"/>
+  			<ref local="bpmEventCallHandlerWebService"/>
+  			<ref local="bpmEventCallHandlerProcessCall"/>
+  		</list>
+  	</property>
+  </bean>
+  
+  <bean id="bpmEventCallHandlerScript" class="com.redxun.bpm.activiti.listener.call.handler.BpmEventCallHandlerScript"/>
+  <bean id="bpmEventCallHandlerSql" class="com.redxun.bpm.activiti.listener.call.handler.BpmEventCallHandlerSql"/>
+  <bean id="bpmEventCallHandlerRestfulApi" class="com.redxun.bpm.activiti.listener.call.handler.BpmEventCallHandlerRestfulApi"/>
+  <bean id="bpmEventCallHandlerWebService" class="com.redxun.bpm.activiti.listener.call.handler.BpmEventCallHandlerWebService"/>
+  <bean id="bpmEventCallHandlerProcessCall" class="com.redxun.bpm.activiti.listener.call.handler.BpmEventCallHandlerProcessCall"/>
+  
+  <bean id="skipConditionFactory" class="com.redxun.bpm.activiti.service.SkipConditionFactory">
+  	<property name="skipConditions">
+  		<list>
+	  		<ref bean="sameUserCondition"/>
+	  		<ref bean="allUserCondition"/>
+	  		<ref bean="approveUserCondition"/>
+  		</list>
+  	</property>
+  </bean>
+  
+  <bean id="sameUserCondition" class="com.redxun.bpm.activiti.service.impl.SameUserCondition"></bean>
+  <bean id="allUserCondition" class="com.redxun.bpm.activiti.service.impl.AllUserCondition"></bean>
+  <bean id="approveUserCondition" class="com.redxun.bpm.activiti.service.impl.ApproveUserCondition"></bean>
+  
+  
+  <bean id="serviceTask" class="com.redxun.bpm.activiti.service.ServiceTask"></bean>
+  <bean id="serviceTaskFactory" class="com.redxun.bpm.activiti.service.ServiceTaskFactory">
+  		<property name="tasks">
+  			<list>
+  				<ref bean="scriptTask"/>
+  			</list>
+  		</property>
+  </bean>
+  
+  <bean id="scriptTask" class="com.redxun.bpm.activiti.service.impl.ScriptTask"></bean>
+  
+
+</beans>

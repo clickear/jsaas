@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.core.entity.WxTagUser">
+	<resultMap id="WxTagUser" type="com.redxun.wx.core.entity.WxTagUser">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="tagId" column="TAG_ID_" jdbcType="VARCHAR"/>
+		<result property="pubId" column="PUB_ID_" jdbcType="VARCHAR"/>
+		<result property="userId" column="USER_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.core.entity.WxTagUser">
+		INSERT INTO WX_TAG_USER
+		(ID_,PUB_ID_,TAG_ID_,USER_ID_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{pubId,jdbcType=VARCHAR},#{tagId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxTagUser">
+		SELECT * FROM WX_TAG_USER 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxTagUser">
+		SELECT * FROM WX_TAG_USER
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.core.entity.WxTagUser">
+		UPDATE WX_TAG_USER SET
+		TAG_ID_=#{tagId,jdbcType=VARCHAR},
+		PUB_ID_=#{pubId,jdbcType=VARCHAR},
+		USER_ID_=#{userId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM WX_TAG_USER 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

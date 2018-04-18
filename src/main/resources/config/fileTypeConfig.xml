@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--用于映射文件的扩展名及类别，展示的图标等-->
+<fileCat>
+    <fileExtCat id="Image" descp="图片">
+        <fileExt id="png" descp="" icon="icon/image.png"/>
+        <fileExt id="jpg" descp="" icon="icon/image.png"/>
+        <fileExt id="jpeg" descp="" icon="icon/image.png"/>
+        <fileExt id="bmp" descp="" icon="icon/image.png"/>
+        <fileExt id="gif" descp="" icon="icon/image.png"/>
+    </fileExtCat>
+    <fileExtCat id="Document" descp="Office文档（含txt，html）">
+        <fileExt id="doc" descp="" icon="icon/word.png"/>
+        <fileExt id="docx" descp="" icon="icon/word.png"/>
+        <fileExt id="ppt" descp="" icon="icon/ppt.png"/>
+        <fileExt id="pptx" descp="" icon="icon/ppt.png"/>
+        <fileExt id="xls" descp="" icon="icon/xls.png"/>
+        <fileExt id="xlsx" descp="" icon="icon/xls.png"/>
+        <fileExt id="txt" descp="" icon="icon/txt.png"/>
+        <fileExt id="pdf" descp="" icon="icon/pdf.png"/>
+        <fileExt id="xml" descp="" icon="icon/xml.png"/>
+        <fileExt id="html" descp="" icon="icon/html.png"/>
+    </fileExtCat>
+    <fileExtCat id="Zip" descp="压缩文件">
+        <fileExt id="zip" descp="" icon="icon/zip.png"/>
+        <fileExt id="rar" descp="" icon="icon/rar.png"/>
+    </fileExtCat>
+    
+    <fileExtCat id="Vedio" descp="影像文件">
+        <fileExt id="mp4" descp="" icon="icon/vidio.png"/>
+    </fileExtCat>
+    <fileExtCat id="Mail" descp="邮件">
+        <fileExt id="eml" descp="" icon="icon/eml.png"/>
+    </fileExtCat>
+    <fileExtCat id="Office" descp="Office文档">
+        <fileExt id="doc" descp="" icon="icon/word.png"/>
+        <fileExt id="docx" descp="" icon="icon/word.png"/>
+        <fileExt id="ppt" descp="" icon="icon/ppt.png"/>
+        <fileExt id="pptx" descp="" icon="icon/ppt.png"/>
+        <fileExt id="xls" descp="" icon="icon/xls.png"/>
+        <fileExt id="xlsx" descp="" icon="icon/xls.png"/>
+        <fileExt id="pdf" descp="" icon="icon/pdf.png"/>
+    </fileExtCat>
+     <fileExtCat id="Voice" descp="声音文件">
+        <fileExt id="mp3" descp="" icon="icon/image.png"/>
+        <fileExt id="wma" descp="" icon="icon/image.png"/>
+        <fileExt id="wav" descp="" icon="icon/image.png"/>
+        <fileExt id="amr" descp="" icon="icon/image.png"/>
+    </fileExtCat>
+    
+  
+</fileCat>

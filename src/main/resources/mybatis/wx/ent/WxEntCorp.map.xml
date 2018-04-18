@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.ent.entity.WxEntCorp">
+	<resultMap id="WxEntCorp" type="com.redxun.wx.ent.entity.WxEntCorp">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="corpId" column="CORP_ID_" jdbcType="VARCHAR"/>
+		<result property="secret" column="SECRET_" jdbcType="VARCHAR"/>
+		<result property="enable" column="ENABLE_" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.ent.entity.WxEntCorp">
+		INSERT INTO wx_ent_corp
+		(ID_,CORP_ID_,SECRET_,ENABLE_,TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{corpId,jdbcType=VARCHAR}, #{secret,jdbcType=VARCHAR}, #{enable,jdbcType=NUMERIC}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxEntCorp">
+		SELECT * FROM wx_ent_corp 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxEntCorp">
+		SELECT * FROM wx_ent_corp
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.ent.entity.WxEntCorp">
+		UPDATE wx_ent_corp SET
+		CORP_ID_=#{corpId,jdbcType=VARCHAR},
+		SECRET_=#{secret,jdbcType=VARCHAR},
+		ENABLE_=#{enable,jdbcType=NUMERIC},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM wx_ent_corp 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="getByTenantId"   parameterType="java.lang.String" resultMap="WxEntCorp">
+		SELECT * FROM wx_ent_corp 
+		WHERE 
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+	</select>
+	
+	
+</mapper>

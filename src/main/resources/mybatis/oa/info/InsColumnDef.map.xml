@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsColumnDef">
+	<resultMap id="InsColumnDef" type="com.redxun.oa.info.entity.InsColumnDef">
+		<id property="colId" column="COL_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="dataUrl" column="DATA_URL_" jdbcType="VARCHAR"/>
+		<result property="isDefault" column="IS_DEFAULT_" jdbcType="VARCHAR"/>
+		<result property="isNews" column="IS_NEWS_" jdbcType="VARCHAR"/>
+		<result property="templet" column="TEMPLET_" jdbcType="VARCHAR"/>
+		<result property="function" column="FUNCTION_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsColumnDef">
+		INSERT INTO ins_column_def
+		(COL_ID_,NAME_,KEY_,DATA_URL_,IS_DEFAULT_,IS_NEWS_,TEMPLET_,FUNCTION_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{colId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{dataUrl,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR},#{isNews,jdbcType=VARCHAR}, #{templet,jdbcType=CLOB}, #{function,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InsColumnDef">
+		SELECT * FROM ins_column_def 
+		WHERE 
+		COL_ID_=#{colId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InsColumnDef">
+		SELECT * FROM ins_column_def
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY COL_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsColumnDef">
+		UPDATE ins_column_def SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		KEY_=#{key,jdbcType=VARCHAR},
+		DATA_URL_=#{dataUrl,jdbcType=VARCHAR},
+		IS_DEFAULT_=#{isDefault,jdbcType=VARCHAR},
+		IS_NEWS_=#{isNews,jdbcType=VARCHAR},
+		TEMPLET_=#{templet,jdbcType=CLOB},
+		FUNCTION_=#{function,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		COL_ID_=#{colId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM ins_column_def 
+		WHERE
+		COL_ID_=#{colId}
+	</delete>
+	
+	
+</mapper>

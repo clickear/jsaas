@@ -1,0 +1,356 @@
+﻿@charset "utf-8";
+*{
+	font-family: '微软雅黑';
+}
+*::-webkit-scrollbar {
+	width:8px;
+	height:8px;
+}
+*::-webkit-scrollbar-thumb {
+	border-radius:4px;
+	background:#d4d5d9;
+}
+*::-webkit-scrollbar-track {
+	background:#b3b3b3;
+	border-radius:4px;
+}
+*::-webkit-scrollbar-corner{
+	background:#fff;
+}
+
+input,textarea{
+	padding:5px !important;
+	border-radius: 4px;
+	border: 1px solid #ececec;
+}
+
+textarea{
+	box-sizing: border-box;
+	padding: 3px !important;
+}
+
+.table-view {
+	margin:0 auto;
+}
+.view {
+	margin:5px 1px;
+	height:98%;
+}
+
+.mini-datepicker {
+	background:url("images/formeditor/icon-date.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-checkboxlist {
+	background:url("images/formeditor/checkbox.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-radiobuttonlist {
+	background:url("images/formeditor/radio.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-month {
+	background:url("images/formeditor/icon-monthpicker.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-user {
+	background:url("images/formeditor/icon-users.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-group {
+	background:url("images/formeditor/icon-usergroup.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.upload-panel {
+	background:url("images/formeditor/upload-panel.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-hidden {
+	background:url("images/formeditor/mini-hidden.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-buttonedit {
+	background:url("images/formeditor/icon-buttoninput.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+.mini-combobox {
+	background:url("images/formeditor/mini-combobox.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+
+.mini-office{
+	background:url("images/formeditor/icon-office.jpg") no-repeat left top;
+	background-size: 100% auto;
+}
+
+.mini-time {
+	border:none;
+	outline:none
+}
+.mini-dep {
+	background:url("images/formeditor/mini-dep.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+/* .table-view .rx-grid {
+	background:url("images/formeditor/mini-combobox.png") no-repeat left center;
+	border:none;
+	outline:none
+}
+*/
+.mini-ueditor {
+	background:url("images/formeditor/mini-ueditor.png") no-repeat left top;
+	border:none;
+	outline:none;
+}
+.mini-textboxlist {
+	background:url("images/formeditor/mini-textboxlist.png") no-repeat left top;
+	border:none;
+	outline:none;
+}
+.button-d {
+	border:1px solid #ccc;
+	cursor:pointer;
+	width:50px;
+	height:22px;
+	font-weight:600;
+	font-size:12px;
+	margin:6px 6px 6px 20px;
+	display:inline-block;
+	text-align:center;
+	line-height:22px;
+}
+.popup-window-d {
+	background:#f0f0f0;
+	width:100% !important;
+	border:1px solid #ccc;
+}
+.popup-window-d .form {
+	background-color:#fff;
+	margin:0px 4px;
+}
+.popup-window-d .mini-toolbar {
+	background-color:#f0f0f0;
+}
+.table-def {
+	width:100% !important;
+	border:0px !important;
+}
+.rx-grid {
+	border:1px solid #fff;
+/* 	padding:5px; */
+	overflow:auto;
+	/*width:1000px !important;
+	*/
+}
+.table-detail {
+	width:100%;
+}
+.table-detail thead {
+	width:100%;
+	text-align:right;
+}
+.table-detail .p35 {
+	width:35%;
+}
+.table-detail .p65 {
+	width:65%;
+}
+.table-detail .percent15 {
+	width:15%;
+}
+.table-detail .percent35 {
+	width:35%;
+}
+.form {
+	border:0px !important;
+}
+/* .mini-textbox {
+	border:1px solid #ececec;
+	border-radius: 4px;
+} */
+.header {
+	background-color:#f2f2f2;
+}
+.mini-button {
+	border:1px solid #359435;
+	padding:2px 14px;
+	background:#5cb85c;
+	color:#fff;
+	border-radius:5px;
+	text-decoration:none;
+}
+.mini-time {
+	background:url("images/formeditor/timespinner.png") no-repeat left center;
+	border:none;
+	outline:none;
+}
+/*以下是自定义2列或四列表单样式  */
+table tr.firstRow th {
+	border-top-width:1px !important;
+}
+caption {
+	border:0px !important;
+}
+html,body {
+	font-family:"微软雅黑";
+	color:#444;
+	background:#f8f8f8;
+}
+body td,body th {
+	border-color:#ececec;
+	font-weight:normal;
+}
+.form-detail {
+	border-collapse:collapse;
+	width:100%;
+	height:auto;
+	margin:0 auto;
+	background:#fff;
+}
+.form-detail>caption {
+	font-size:15px;
+	background:#fff;
+}
+.column-two,.column-four {
+	margin:0px auto;
+}
+.form-detail>tbody>tr>th {
+	font-size:14px;
+	color:#444;
+	border:1px solid #ececec;
+	line-height:30px;
+	height:30px;
+	padding:6px;
+	font-weight:normal;
+}
+.form-detail>tbody>tr>td {
+	font-size:14px;
+	font-weight:400;
+	color:#444;
+	line-height:30px;
+	border:1px solid #ececec;
+	text-align:left;
+	line-height:30px;
+	height:30px;
+	padding:6px;
+}
+.form-detail.column-two tr th {
+	width:20%;
+}
+.form-detail.column-two tr td {
+	width:80%;
+}
+.form-detail.column-four tr th {
+	width:15%;
+}
+.form-detail.column-four tr td {
+	width:30%;
+}
+.form-detail.column-six tr th {
+	width:11%;
+}
+.form-detail.column-six tr td {
+	width:22%;
+}
+.form-detail.column-eight tr th {
+	width:10%;
+}
+.form-detail.column-eight tr td {
+	width:15%;
+}
+.transparent {
+	
+}
+.transparent>caption {
+	text-align:center;
+	color:#666;
+	font-size: 18px;
+}
+.transparent>tbody>tr>th{
+	background:transparent;
+}
+/* blue 样式 */
+.blue>caption {
+	background:#a3e0ff;
+	text-align:center;
+	font-size:16px;
+	color:black;
+}
+.blue>tbody>tr>th{
+	background:#d9edf7;
+}
+/* red样式 */
+
+.grey>caption {
+	background:#ececec;
+	text-align:center;
+	font-size:16px;
+	color:black;
+}
+.grey>tbody>tr>th{
+	background:#f0f0f0;
+}
+/* brown样式 */
+ .brown>caption{
+	background:#e7bd9f;
+	text-align:center;
+	font-size:16px;
+	color:black;
+}
+.brown>tbody>tr>th{
+	background:#e7d4c6;
+}
+/* green样式 */
+
+ .green>caption {
+	background:#a4e8a4;
+	text-align:center;
+	font-size:16px;
+	color:black;
+}
+.green>tbody>tr>th{
+	background:#E0EEE0;
+}
+div.divContainer {
+	border:1px solid silver;
+	padding:4px;
+	min-height:25px;
+	line-height:25px;
+	min-width:200px;
+}
+div.div-condition {
+	border:1px solid silver;
+	padding:4px;
+	min-height:25px;
+	line-height:25px;
+	min-width:200px;
+}
+.shadowBox {
+	background:#fff;
+	padding: 8px;
+	box-sizing:border-box;
+	width:94%;
+	margin:0 auto;
+	border-radius:8px;
+	box-shadow:0px 4px 20px 0px rgba(179,179,179,.35);
+	margin-bottom: 40px;
+}
+
+.transparent>caption{
+/* 	padding-top: 2px; */
+}
+
+.shadowBox >table {
+	width:100%;
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.log.entity.LogEntity">
+	<resultMap id="LogEntity" type="com.redxun.sys.log.entity.LogEntity">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="module" column="MODULE_" jdbcType="VARCHAR"/>
+		<result property="subModule" column="SUB_MODULE_" jdbcType="VARCHAR"/>
+		<result property="action" column="ACTION_" jdbcType="VARCHAR"/>
+		<result property="ip" column="IP_" jdbcType="VARCHAR"/>
+		<result property="userAgent" column="USER_AGENT_" jdbcType="VARCHAR"/>
+		<result property="mainGroupName" column="MAIN_GROUP_NAME_" jdbcType="VARCHAR"/>
+		<result property="mainGroup" column="MAIN_GROUP_" jdbcType="VARCHAR"/>
+		<result property="duration" column="DURATION_" jdbcType="BIGINT"/>
+		<result property="target" column="TARGET_" jdbcType="CLOB"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.log.entity.LogEntity">
+		INSERT INTO SYS_AUDIT
+		(ID_,MODULE_,SUB_MODULE_,ACTION_,IP_,USER_AGENT_,MAIN_GROUP_NAME_,MAIN_GROUP_,DURATION_,TARGET_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{subModule,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR},#{mainGroupName,jdbcType=VARCHAR},#{mainGroup,jdbcType=VARCHAR},#{duration,jdbcType=BIGINT}, #{target,jdbcType=CLOB}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="LogEntity">
+		SELECT * FROM SYS_AUDIT 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="LogEntity">
+		SELECT * FROM SYS_AUDIT
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.log.entity.LogEntity">
+		UPDATE SYS_AUDIT SET
+		MODULE_=#{module,jdbcType=VARCHAR},
+		SUB_MODULE_=#{subModule,jdbcType=VARCHAR},
+		ACTION_=#{action,jdbcType=VARCHAR},
+		IP_=#{ip,jdbcType=VARCHAR},
+		USER_AGENT_=#{userAgent,jdbcType=VARCHAR},
+		MAIN_GROUP_NAME_=#{mainGroupName,jdbcType=VARCHAR},
+		MAIN_GROUP_=#{mainGroup,jdbcType=VARCHAR},
+		DURATION_=#{duration,jdbcType=BIGINT},
+		TARGET_=#{target,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_AUDIT 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

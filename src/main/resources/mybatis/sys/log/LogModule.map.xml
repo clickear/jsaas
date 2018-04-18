@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.log.entity.LogModule">
+	<resultMap id="LogModule" type="com.redxun.sys.log.entity.LogModule">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="module" column="MODULE_" jdbcType="VARCHAR"/>
+		<result property="subModule" column="SUB_MODULE" jdbcType="VARCHAR"/>
+		<result property="enable" column="ENABLE_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.log.entity.LogModule">
+		INSERT INTO LOG_MODULE
+		(ID_,MODULE_,SUB_MODULE,ENABLE_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{subModule,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="LogModule">
+		SELECT * FROM LOG_MODULE 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="LogModule">
+		SELECT * FROM LOG_MODULE
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.log.entity.LogModule">
+		UPDATE LOG_MODULE SET
+		MODULE_=#{module,jdbcType=VARCHAR},
+		SUB_MODULE=#{subModule,jdbcType=VARCHAR},
+		ENABLE_=#{enable,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM LOG_MODULE 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="getLogModuleByModuleAndSubModule" parameterType="java.lang.String" resultMap="LogModule">
+		SELECT * FROM LOG_MODULE 
+		WHERE 
+		MODULE_=#{module} AND SUB_MODULE=#{subModule}
+	</select>
+	
+	
+</mapper>

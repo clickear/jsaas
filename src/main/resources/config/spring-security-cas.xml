@@ -1,0 +1,129 @@
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!-- 请求校验登录身份 -->
+	<security:http entry-point-ref="casAuthenticationEntryPoint"
+		auto-config="true" access-denied-page="${cas.denied.page}"
+		  servlet-api-provision="true">
+	    <!-- cas过滤器 -->
+		<security:custom-filter position="CAS_FILTER" ref="casAuthenticationFilter" />
+		<!-- spring单点退出过滤器 -->
+		<security:custom-filter before="LOGOUT_FILTER" ref="requestSingleLogoutFilter" />
+		<!-- cas单点退出过滤器 -->
+		<security:custom-filter before="CAS_FILTER" ref="singleLogoutFilter" />
+		<!-- 要权限过滤器-->
+		<security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityInterceptorFilter" />
+	</security:http>
+	
+    <!-- cas单点退出过滤器 -->
+	<bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter" />
+	<!-- spring单点退出过滤器 -->
+	<bean id="requestSingleLogoutFilter"
+		class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+			</list>
+		</constructor-arg>
+		<!-- 业务系统点击退出后的返回页面-->
+		<constructor-arg value="${cas.server}/logout?service=${cas.client.homePage}" />
+		<!-- 签听退的的url-->   
+		<property name="filterProcessesUrl" value="/logout" />
+	</bean>
+	
+	<!-- 单点登陆过程 -->
+	<bean id="casAuthenticationFilter"
+		class="org.springframework.security.cas.web.CasAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationSuccessHandler" ref="simpleUrlAuthenticationSuccessHandler" />
+	</bean>
+
+	<!-- 登陆成功后的跳转-->
+	<bean id="simpleUrlAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="${cas.client.homePage}"></property>
+    </bean>
+
+	<!-- 认证管理器 -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="casAuthenticationProvider" />
+	</security:authentication-manager>
+	 
+	 <!-- cas认证代理-->
+	<bean id="casAuthenticationProvider"
+		class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService" />  
+		<property name="serviceProperties" ref="serviceProperties" />
+		<property name="ticketValidator">
+			<bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+				<constructor-arg index="0" value="${cas.server}" />
+			</bean>
+		</property>
+		<property name="key" value="an_id_for_this_auth_provider_only" />
+	</bean>
+	<!-- 本地spring认证类-->
+	<bean id="casAuthenticationUserDetailsService"
+		class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+		<property name="userDetailsService" ref="userDetailsService" />
+	</bean>
+     <!-- 本地认证入口 -->
+	<bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">
+		<property name="service" value="${cas.client}/j_spring_cas_security_check" />
+		<property name="sendRenew" value="false" />
+	</bean>
+	
+	<!-- cas登陆入口-->	
+	<bean id="casAuthenticationEntryPoint"
+		class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+		<property name="loginUrl" value="${cas.server}" /><!--cas 入口-->
+		<property name="serviceProperties" ref="serviceProperties" />
+	</bean>
+
+	<bean id="userDetailsService" class="com.redxun.saweb.security.provider.UserDetailsProvider" />
+	
+	
+ 
+	<bean id="securityInterceptorFilter" class="com.redxun.saweb.filter.SecurityInterceptorFilter">
+    	<property name="securityDataProvider" ref="securityDataProvider"/>
+    </bean>
+    
+    <bean id="securityDataProvider" class="com.redxun.saweb.security.provider.SecurityDataSourceProvider">
+    	<property name="sysMenuManager" ref="sysMenuManager"/>
+    	<property name="anonymousUrls">
+    		<set>
+    			<value>/decs/**</value>
+    			<value>/getValidSysInsts.do</value>
+    			<value>*.html</value>
+    			<value>/register.jsp</value>
+    			<value>/login.do</value>
+    			<value>/m.do</value>
+    			<value>/login2.do</value>
+    			<value>/loginRedirect.do</value>
+    			<value>/captcha-image.do</value>
+    			<value>/register.do</value>
+				<value>/activeInst.do</value>
+				<value>/bpm/webapi/inst/**</value>
+				<value>/bpm/webservice/**</value>
+    			<value>/pub/**</value>
+    		</set>
+    	</property>
+    	<property name="publicUrls">
+    		<set>
+    			<value>/index.do</value>
+    			<value>/sys/core/sysFile/dialog.do</value>
+    			<value>/sys/core/sysFile/myMgr.do</value>
+    			<value>/service/*</value>
+    		    <value>/oa/personal/bpmInst/myAttends.do</value>
+    			<value>/bpm/core/bpmTask/myList.do</value>	
+    			<value>/bpm/core/bpmTask/myTasks.do</value>	
+    			<value>/oa/personal/MybpmSolution/listData.do</value>	
+
+    		</set>
+    	</property>
+    </bean>
+</beans>

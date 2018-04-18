@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.core.entity.WxPubApp">
+	<resultMap id="WxPubApp" type="com.redxun.wx.core.entity.WxPubApp">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="wxNo" column="WX_NO_" jdbcType="VARCHAR"/>
+		<result property="appId" column="APP_ID_" jdbcType="VARCHAR"/>
+		<result property="secret" column="SECRET_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+		<result property="authed" column="AUTHED_" jdbcType="VARCHAR"/>
+		<result property="interfaceUrl" column="INTERFACE_URL_" jdbcType="VARCHAR"/>
+		<result property="TOKEN" column="TOKEN" jdbcType="VARCHAR"/>
+		<result property="jsDomain" column="JS_DOMAIN_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="alias" column="ALIAS_" jdbcType="VARCHAR"/>
+		<result property="description" column="DESCRIPTION_" jdbcType="CLOB"/>
+		<result property="menuConfig" column="MENU_CONFIG_" jdbcType="CLOB"/>
+		<result property="otherConfig" column="OTHER_CONFIG_" jdbcType="CLOB"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.core.entity.WxPubApp">
+		INSERT INTO WX_PUB_APP
+		(ID_,WX_NO_,APP_ID_,SECRET_,TYPE_,AUTHED_,INTERFACE_URL_,TOKEN,JS_DOMAIN_,NAME_,ALIAS_,DESCRIPTION_,MENU_CONFIG_,OTHER_CONFIG_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{wxNo,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{secret,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{authed,jdbcType=VARCHAR}, #{interfaceUrl,jdbcType=VARCHAR}, #{TOKEN,jdbcType=VARCHAR}, #{jsDomain,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{description,jdbcType=CLOB},#{menuConfig,jdbcType=CLOB},#{otherConfig,jdbcType=CLOB}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxPubApp">
+		SELECT * FROM WX_PUB_APP 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxPubApp">
+		SELECT * FROM WX_PUB_APP
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.core.entity.WxPubApp">
+		UPDATE WX_PUB_APP SET
+		WX_NO_=#{wxNo,jdbcType=VARCHAR},
+		APP_ID_=#{appId,jdbcType=VARCHAR},
+		SECRET_=#{secret,jdbcType=VARCHAR},
+		TYPE_=#{type,jdbcType=VARCHAR},
+		AUTHED_=#{authed,jdbcType=VARCHAR},
+		INTERFACE_URL_=#{interfaceUrl,jdbcType=VARCHAR},
+		TOKEN=#{TOKEN,jdbcType=VARCHAR},
+		JS_DOMAIN_=#{jsDomain,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		ALIAS_=#{alias,jdbcType=VARCHAR},
+		DESCRIPTION_=#{description,jdbcType=CLOB},
+		MENU_CONFIG_=#{menuConfig,jdbcType=CLOB},
+		OTHER_CONFIG_=#{otherConfig,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM WX_PUB_APP 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmAuthDef">
+	<resultMap id="BpmAuthDef" type="com.redxun.bpm.core.entity.BpmAuthDef">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="settingId" column="SETTING_ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="rightJson" column="RIGHT_JSON_" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap id="BpmAuthDefExt" type="com.redxun.bpm.core.entity.BpmAuthDef" extends="BpmAuthDef">
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmAuthDef">
+		INSERT INTO bpm_auth_def
+		(ID_,SETTING_ID_,SOL_ID_,TREE_ID_,RIGHT_JSON_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{settingId,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR},#{treeId,jdbcType=VARCHAR}, #{rightJson,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmAuthDef">
+		SELECT * FROM bpm_auth_def 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmAuthDef">
+		SELECT * FROM bpm_auth_def
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmAuthDef">
+		UPDATE bpm_auth_def SET
+		SETTING_ID_=#{settingId,jdbcType=VARCHAR},
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		RIGHT_JSON_=#{rightJson,jdbcType=VARCHAR}
+		WHERE 1=1 and 
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_auth_def 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delBySettingId" parameterType="java.lang.String">
+		DELETE FROM bpm_auth_def 
+		WHERE
+		SETTING_ID_=#{settingId}
+	</delete>
+	
+	
+	
+	<select id="getBySettingId"    resultMap="BpmAuthDefExt">
+		SELECT a.*,b.NAME_,b.KEY_ FROM bpm_auth_def a,bpm_solution b   
+		WHERE 
+		a.SOL_ID_=b.SOL_ID_ and	SETTING_ID_=#{settingId}
+	</select>
+	<select id="defTreeGetBySettingId"    resultMap="BpmAuthDefExt">
+		SELECT a.*,b.NAME_,b.KEY_ FROM bpm_auth_def a,SYS_TREE b   
+		WHERE 
+		a.TREE_ID_=b.TREE_ID_ and	SETTING_ID_=#{settingId}
+	</select>
+	
+	<select id="getAllNotEmptyTreeId"    resultMap="BpmAuthDef">
+		SELECT a.SETTING_ID_  ,a.SOL_ID_ ,a.TREE_ID_,a.ID_,a.RIGHT_JSON_
+		FROM bpm_auth_def a,bpm_auth_setting s
+		WHERE 
+		a.TREE_ID_ is not null and  a.SETTING_ID_=s.ID_ and s.TYPE_ !='FORM'
+	</select>
+	
+	<select id="getUniqueByTreeIdAndSettingId"    resultMap="BpmAuthDef">
+		SELECT a.SETTING_ID_  ,a.SOL_ID_ ,a.TREE_ID_,a.ID_,a.RIGHT_JSON_
+		FROM bpm_auth_def a
+		WHERE 
+		a.TREE_ID_ =#{treeId} and  a.SETTING_ID_=#{settingId}
+	</select>
+	
+	
+</mapper>

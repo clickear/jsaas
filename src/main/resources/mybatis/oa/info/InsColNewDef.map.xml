@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsColNewDef">
+	<resultMap id="InsColNewDef" type="com.redxun.oa.info.entity.InsColNewDef">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="colId" column="COL_ID_" jdbcType="VARCHAR"/>
+		<result property="newId" column="NEW_ID_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsColNewDef">
+		INSERT INTO ins_col_new_def
+		(ID_,COL_ID_,NEW_ID_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{colId,jdbcType=VARCHAR}, #{newId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InsColNewDef">
+		SELECT * FROM ins_col_new_def 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InsColNewDef">
+		SELECT * FROM ins_col_new_def
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<select id="getByColId" parameterType="java.util.Map" resultMap="InsColNewDef">
+		SELECT * FROM ins_col_new_def 
+		WHERE
+		COL_ID_=#{colId}
+	</select>
+	
+		<select id="getByNewId" parameterType="java.util.Map" resultMap="InsColNewDef">
+		SELECT * FROM ins_col_new_def 
+		WHERE
+		NEW_ID_=#{newId}
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsColNewDef">
+		UPDATE ins_col_new_def SET
+		COL_ID_=#{colId,jdbcType=VARCHAR},
+		NEW_ID_=#{newId,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM ins_col_new_def 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delByNewId" parameterType="java.lang.String">
+		DELETE FROM ins_col_new_def
+		WHERE
+		NEW_ID_=#{newId}
+	</delete>
+	
+	
+</mapper>

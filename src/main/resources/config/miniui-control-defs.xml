@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+	<control id="mini-textbox">
+	<![CDATA[
+		 <input name="${name}" class="mini-textbox rxc" plugins="mini-textbox" vtype="rangeLength:${minlen},${maxlen}" label="${label}" minlen="${minlen}" maxlen="${maxlen}" rule="" required="${required}" allowinput="${allowinput}" value="" mwidth="90" wunit="%" mheight="0" hunit="px" style="${style}"/>
+	]]>
+	</control>
+	<control id="mini-textarea">
+	<![CDATA[
+		 <textarea name="${name}" class="mini-textarea rxc" plugins="mini-textarea" label="${label}" minlen="${minlen}" maxlen="${maxlen}" allowinput="${allowinput}" required="${required}" value="${value}" mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}" vtype="rangeLength:${minlen},${maxlen}" style="${style}">
+	]]>
+	</control>
+	<control id="mini-checkbox">
+		<![CDATA[
+			<input name="${name}" class="mini-checkbox rxc" plugins="mini-checkbox" label="${label}" value="${value}"/>
+		]]>
+	</control>
+	<control id="mini-radionlist">
+		<![CDATA[
+			<input name="${name}" class="mini-radiobuttonlist rxc" plugins="mini-radiobuttonlist" style="${style}" label="${label}" repeatitems="5" required="${required}" repeatdirection="flow" value="${value}" textfield="name" valuefield="key" mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}"/>
+		]]>
+	</control>
+	<control id="mini-checkboxlist">
+		<![CDATA[
+			<input name="${name}" class="mini-checkboxlist rxc" plugins="mini-checkboxlist" style="${style}" label="${label}" repeatdirection="none" repeatitems="5" required="${required}" value="${value}" textfield="name" valuefield="key" mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}"/>
+		]]>
+	</control>
+	<control id="mini-combobox">
+		<![CDATA[
+			<input name="${name}" class="mini-combobox rxc" plugins="mini-combobox" label="${label}" required="${required}" value="${value}" mwidth="120" wunit="px" mheight="${mheight}" hunit="${hunit}" style="width:120px;" data="" textfield="name" valuefield="key"/>
+		]]>
+	</control>
+	<control id="mini-datepicker">
+		<![CDATA[
+			<input name="${name}" class="mini-datepicker rxc" plugins="mini-datepicker" timeformat="H:mm:ss" label="${label}" format="yyyy-MM-dd" required="${required}" showtime="false" showokbutton="false" showclearbutton="false" allowinput="${allowinput}" value="${value}" mwidth="120" wunit="px" mheight="${mheight}" hunit="${hunit}" style="width:120px;"/>
+		]]>
+	</control>
+	<control id="mini-monthpicker">
+		<![CDATA[
+			<input name="${name}" class="mini-monthpicker rxc" plugins="mini-monthpicker" label="${label}" allowinput="${allowinput}" value="${value}" mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}" style="${style}"/>
+		]]>
+	</control>
+	<control id="mini-timespinner">
+		<![CDATA[
+			<input name="${name}" label="${label}" class="mini-timespinner rxc" plugins="mini-timespinner" format="HH:mm" label="timepicker" allowinput="true" value="20:00" mwidth="0" wunit="px" mheight="0" hunit="px" style=""/>
+		]]>
+	</control>
+	
+	<control id="mini-spinner">
+		<![CDATA[
+			<input name="${name}" label="${label}" class="mini-spinner rxc" plugins="mini-spinner" vtype="undefined;rangeLength:undefined,undefined"  minvalue="1" increment="1" required="false" ftype="n" fpattern="" fnums="5" allowinput="true" value="0" mwidth="0" wunit="px" mheight="0" hunit="px" style="" format="n5"/>
+		]]>
+	</control>
+	
+	<control id="mini-ueditor">
+		<![CDATA[
+			<textarea name="${name}" plugins="mini-ueditor" class="mini-ueditor mini-textarea rxc" style="width:98%;height:250px" label="${label}" required="${required}" mwidth="98" wunit="%" mheight="250" hunit="px"></textarea>
+		]]>
+	</control>
+	
+	<control id="mini-user">
+		<![CDATA[
+			<input name="${name}" class="mini-user mini-buttonedit icon-user-button rxc" plugins="mini-user" data-options="{single:&quot;true&quot;}" style="${style}" allowinput="${allowinput}" label="${label}" single="true" required="${required}" mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}"/>
+		]]>
+	</control>
+	
+	<control id="mini-group">
+		<![CDATA[
+			<input name="${name}" class="mini-group mini-buttonedit icon-group-button rxc" plugins="mini-group" data-options="{&quot;single&quot;:&quot;true&quot;}" style="${style}" allowinput="${allowinput}" label="${label}" single="true" required="${required}"  mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}"/>
+		]]>
+	</control>
+	<control id="upload-panel">
+		<![CDATA[
+			<input name="${name}" class="upload-panel rxc" plugins="upload-panel" style="${style}" allowupload="true" label="${label}" fname="fileNames" allowlink="true" zipdown="true" mwidth="${mwidth}" wunit="${wunit}" mheight="${mheight}" hunit="${hunit}"/>
+		]]>
+	</control>
+	
+	<control id="rx-grid">
+		<![CDATA[
+		
+			<div hunit="px" mheight="0" wunit="px" mwidth="0" initdata="" templateid="" edittype="inline" 
+				  label="${label}" name="${name}" style="border: dashed 1px #ccc;padding:4px;background-color:#F0F8C7;" plugins="rx-grid" class="rx-grid rxc">
+                    <div class="_initdata"></div>
+                    <table>
+                        <thead>
+                            <tr class="firstRow">
+	                            <#list subFields as subField>
+		                            <th class="header" width="100" format="" header="${subField.fieldName}">
+		                                ${subField.fieldLabel}
+		                            </th>
+		  						</#list>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                             <#list subFields as subField>
+	                            <td class="header" width="100" header="${subField.fieldName}">
+	                                ${subField.fieldLabel}
+	                            </td>
+	  						</#list>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+		]]>
+	</control>
+	
+</controls>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<context:annotation-config />
+
+	<bean id="configProperties" class="com.redxun.core.bean.PropertyPlaceholderConfigurerExt">
+		<property name="locations">
+			<list>
+				<value>classpath:config/app.properties</value>
+				<value>classpath:config/config.properties</value>
+			</list>
+		</property>
+	</bean>
+	    
+    <bean id="dataSource_Default" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	      <!-- 基本属性 url、user、password -->
+	      <property name="name" value="系统数据源" />
+	      <property name="url" value="${db.url}" />
+	      <property name="username" value="${db.username}" />
+	      <property name="password" value="${db.password}" />
+	
+	      <!-- 配置初始化大小、最小、最大 -->
+	      <property name="initialSize" value="${db.minimumConnectionCount}" />
+	      <property name="minIdle" value="${db.minimumConnectionCount}" /> 
+	      <property name="maxActive" value="${db.maximumConnectionCount}" />
+	
+	      <!-- 配置获取连接等待超时的时间 -->
+	      <property name="maxWait" value="60000" />
+	
+	      <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+	      <property name="timeBetweenEvictionRunsMillis" value="60000" />
+	
+	      <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+	      <property name="minEvictableIdleTimeMillis" value="300000" />
+	
+	      <property name="validationQuery" value="SELECT 1 from act_ge_property" />
+	      <property name="testWhileIdle" value="true" />
+	      <property name="testOnBorrow" value="false" />
+	      <property name="testOnReturn" value="false" />
+	
+	      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+	      <property name="poolPreparedStatements" value="true" />
+	      <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+	
+	      <!-- 配置监控统计拦截的filters -->
+	      <property name="filters" value="stat" /> 
+	  </bean>
+	  
+	 <bean id="dataSource" class="com.redxun.core.database.datasource.DynamicDataSource">
+		<property name="targetDataSources"  >
+			<map>
+    			<entry key="dataSource_Default" value-ref="dataSource_Default" />
+   			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSource_Default" />
+	 </bean>
+	 
+	 <!-- 数据源监听器，在启动时加载配置的数据源 -->
+	 <bean id="dataSourceInitListener" class="com.redxun.saweb.listener.DataSourceInitListener"></bean>
+	 <!-- openoffice监听器,启动时启动openoffice服务 
+	 <bean id="openofficeListener" class="com.redxun.saweb.listener.OpenofficeListener"></bean>
+	 -->
+	 
+    <bean id="sysInstListener" class="com.redxun.saweb.listener.SysInstInitListener"></bean>
+
+	<bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="resultSetLogEnabled" value="false" />
+		<!-- 输出可执行的SQL -->
+		<property name="statementExecutableSqlLogEnable" value="true" />
+	</bean>
+	
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.redxun.wx.*.*.entity</value>
+				<value>com.redxun.*.*.entity</value>
+			</list>
+		</property>
+		
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="false" />
+				<property name="databasePlatform" value="${db.jpaPlatform}" />
+			</bean>
+		</property>
+	</bean>
+
+
+
+	<bean id="jpaTranManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+		 <property name="globalRollbackOnParticipationFailure" value="true" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="jpaTranManager" proxy-target-class="true" />
+
+	
+	
+	<!-- 通用DAO -->
+	<bean id="commonDao" class="com.redxun.core.dao.mybatis.CommonDao"  />
+	
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+
+	<bean id="sqlSessionFactory" class="com.redxun.core.dao.mybatis.MyBatisSessionFactoryBean">
+		<property name="configLocation" value="classpath:/config/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingAllLocation" value="classpath*:config/mybatis-mappings.xml" />
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="logAspect" class="com.redxun.sys.log.LogAspect"></bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.redxun.core.manager.GenericManager..*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.redxun.bpm.activiti.listener..*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.redxun.bpm.script..*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.redxun.*.*.manager..*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.redxun.*.*.service..*(..))" />
+		
+		<aop:aspect ref="logAspect" >
+			<aop:pointcut expression="execution(* com.redxun.*.*.controller..*.*(..))" id="logPointcut"/>
+			<aop:around pointcut-ref="logPointcut" method="log"/>
+		</aop:aspect>
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="jpaTranManager">
+		<tx:attributes>
+			<tx:method name="genSequenceNo" propagation="REQUIRES_NEW" isolation="READ_COMMITTED"/>
+			<tx:method name="do*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="create*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="save*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="persist*" propagation="REQUIRED" 	isolation="READ_COMMITTED" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="remove*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="del*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="add*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="idGenerator" class="com.redxun.core.seq.DefaultIdGenerator">
+		<property name="machineName" value="${machine.name}" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="useGuid" value="false" />
+	</bean>
+
+	<!--JSON格式转化工具，不进行延迟加载 -->
+	<bean id="iJson" class="com.redxun.core.json.JacksonImpl">
+		<constructor-arg index="0" value="false" />
+		<constructor-arg index="1" value="yyyy-MM-dd" />
+	</bean>
+	<!--JSON格式化工具，进行延迟加载 -->
+	<bean id="iJsonLazy" class="com.redxun.core.json.JacksonImpl">
+		<constructor-arg index="0" value="true" />
+		<constructor-arg index="1" value="yyyy-MM-dd" />
+	</bean>
+
+	<util:properties id="entityPersistenceHandlers"
+		location="classpath:entityPersistenceHandler.properties" />
+
+	<!--默认缓存-->
+	<bean id="iCache" class="com.redxun.core.cache.MemoryCache" /> 
+	<!-- 
+	<bean id="iCache" class="com.redxun.core.cache.RedisCache" />
+	  -->
+	
+	<!--应用程序Bean获取工具类 -->
+	<bean id="appBeanUtil" class="com.redxun.core.util.AppBeanUtil" />
+	<!-- Web应用程序工具类 -->
+	<bean id="webAppUtil" class="com.redxun.saweb.util.WebAppUtil" />
+	<!-- 当前应用上下文 -->
+	<bean id="currentContext" class="com.redxun.saweb.context.DefaultCurrentContext" />
+	<!-- 菜单工具类 -->
+	<bean id="menuUtil" class="com.redxun.saweb.util.MenuUtil" />
+
+	<!--Freemark模板引擎，用于分页模板及其他模板解析 -->
+	<bean id="freemarkerConfiguration"
+		class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath" value="classpath:templates/" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<bean id="freemarkEngine" class="com.redxun.core.engine.FreemarkEngine">
+		<property name="configuration" ref="freemarkerConfiguration" />
+	</bean>
+	<!--基于表的视图方案生成表格的构建工具类 -->
+	<bean id="poiTableBuilder" class="com.redxun.saweb.export.PoiTableBuilder" />
+
+	<!--邮件发送类 -->
+	<bean id="mailConfig" class="com.redxun.core.mail.model.MailConfig">
+		<property name="sendHost" value="${mail.host}"/>
+		<property name="sendPort" value="${mail.port}"/>
+		<property name="SSL" value="${mail.ssl}"/>
+		<property name="protocal" value="smtp"/>
+		<property name="validate" value="true"/>
+		<property name="nickName" value="${mail.nickName}"/>
+		<property name="mailAddress" value="${mail.username}"/>
+		<property name="password" value="${mail.password}"/>
+	</bean>
+	
+	<bean id="mailTools" class="com.redxun.core.mail.MailTools">
+		<constructor-arg ref="mailConfig"></constructor-arg>
+	</bean>
+
+	<bean id="portalConfigService" class="com.redxun.oa.info.service.PortalConfigService" />
+	<bean id="jasperJrxmlConvertService" class="com.redxun.sys.core.service.JasperJrxmlConvertService" />
+
+	 <bean id="tableOperator" class="com.redxun.core.database.factory.TableOperatorFactoryBean">
+	 		<property name="dbType" value="${db.type}"/>
+	 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	 </bean>
+	 
+	 <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		lazy-init="false" destroy-method="destroy">
+		<property name="autoStartup" value="false" />
+		<property name="waitForJobsToCompleteOnShutdown" value="false" />
+		<property name="dataSource" ref="dataSource" />
+		
+		<property name="overwriteExistingJobs" value="true" />
+		<property name="startupDelay" value="60"></property>
+		<property name="jobFactory">  
+            <bean class="org.quartz.simpl.SimpleJobFactory"></bean>  
+        </property>  
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.scheduler.instanceName">ClusteredScheduler</prop>
+				<prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+				<prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+				
+				<prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+				<prop key="org.quartz.threadPool.threadCount">5</prop>
+				<prop key="org.quartz.threadPool.threadPriority">5</prop>
+				
+				<prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
+				<prop key="org.quartz.jobStore.driverDelegateClass">${quartz.jdbcjobstore}</prop>
+				<prop key="org.quartz.jobStore.misfireThreshold">60000</prop>
+				<prop key="org.quartz.jobStore.useProperties">false</prop>
+				<prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+				
+				<prop key="org.quartz.jobStore.isClustered">true</prop>
+				<prop key="org.quartz.jobStore.clusterCheckinInterval">20000</prop>
+				
+				<prop key="org.quartz.scheduler.classLoadHelper.class">org.quartz.simpl.CascadingClassLoadHelper</prop> 
+				<prop key="org.quartz.jobStore.lockHandler.class">org.quartz.impl.jdbcjobstore.UpdateLockRowSemaphore</prop> 
+				<prop key="org.quartz.jobStore.lockHandler.updateLockRowSQL">UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE LOCK_NAME = ?</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="schedulerService" class="com.redxun.core.scheduler.SchedulerService">
+		<property name="scheduler" ref="scheduler"></property>
+	</bean>
+	 
+</beans>

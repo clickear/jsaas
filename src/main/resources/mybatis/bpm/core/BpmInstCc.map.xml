@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmInstCc">
+	<resultMap id="BpmInstCc" type="com.redxun.bpm.core.entity.BpmInstCc">
+		<id property="ccId" column="CC_ID_" jdbcType="VARCHAR"/>
+		<result property="instId" column="INST_ID_" jdbcType="VARCHAR"/>
+		<result property="subject" column="SUBJECT_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+		<result property="fromUser" column="FROM_USER_" jdbcType="VARCHAR"/>
+		<result property="fromUserId" column="FROM_USER_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmInstCc">
+		INSERT INTO bpm_inst_cc
+		(CC_ID_,INST_ID_,SUBJECT_,NODE_ID_,NODE_NAME_,FROM_USER_,FROM_USER_ID_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,SOL_ID_,TREE_ID_)
+		VALUES 
+		(#{ccId,jdbcType=VARCHAR}, #{instId,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{fromUser,jdbcType=VARCHAR}, #{fromUserId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{solId,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmInstCc">
+		SELECT * FROM bpm_inst_cc 
+		WHERE 
+		CC_ID_=#{ccId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmInstCc">
+		SELECT * FROM bpm_inst_cc
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderByClause!=null">
+			ORDER BY ${orderByClause}
+		</if>
+		<if test="orderByClause==null">
+			ORDER BY CC_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmInstCc">
+		UPDATE bpm_inst_cc SET
+		INST_ID_=#{instId,jdbcType=VARCHAR},
+		SUBJECT_=#{subject,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		NODE_NAME_=#{nodeName,jdbcType=VARCHAR},
+		FROM_USER_=#{fromUser,jdbcType=VARCHAR},
+		FROM_USER_ID_=#{fromUserId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		CC_ID_=#{ccId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_inst_cc 
+		WHERE
+		CC_ID_=#{ccId}
+	</delete>
+	
+	<sql id="fieldsSql">
+	cc.CC_ID_,cc.INST_ID_,cc.SUBJECT_,
+  	cc.NODE_ID_,cc.NODE_NAME_,cc.FROM_USER_,
+  	cc.FROM_USER_ID_,cc.SOL_ID_,cc.TREE_ID_,
+  	cc.TENANT_ID_,cc.CREATE_BY_,cc.CREATE_TIME_,cc.UPDATE_BY_,
+  	cc.UPDATE_TIME_
+	</sql>
+	
+	
+	<!-- 按最新的实例ID获得审批节点及及状态 -->
+	<select id="getToMeCc" parameterType="java.util.Map" resultMap="BpmInstCc">
+		select distinct <include refid="fieldsSql"></include>,cp.IS_READ_ ISREAD,cp.ID_ CPID from bpm_inst inst, 
+			bpm_inst_cc cc , bpm_inst_cp cp  where inst.INST_ID_=cc.INST_ID_ and cc.CC_ID_=cp.CC_ID_
+		and cp.USER_ID_=#{userId}
+		<if test="@Ognl@isNotEmpty(supportMobile)">
+			and inst.SUPPORT_MOBILE_ =1
+		</if>
+		<if test="@Ognl@isNotEmpty(treeId)">
+			and cc.TREE_ID_ like #{treeId}
+		</if>
+		<if test="@Ognl@isNotEmpty(subject)">
+			and cc.SUBJECT_ like #{subject}
+		</if>
+		<if test="@Ognl@isNotEmpty(createtime_START)">
+			and cc.CREATE_TIME_ &gt;= #{createtime_START}
+		</if>
+		<if test="@Ognl@isNotEmpty(createtime_END)">
+			and cc.CREATE_TIME_ &lt;= #{createtime_END}
+		</if>
+		
+		<if test="@Ognl@isNotEmpty(nodeName)">
+			and cc.NODE_NAME_ like #{nodeName}
+		</if>
+		
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY cc.CC_ID_ DESC
+		</if>
+	</select>
+	
+	
+</mapper>

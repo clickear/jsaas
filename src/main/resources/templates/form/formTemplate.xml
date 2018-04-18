@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<mainTemplate>
+		<template id="oneColumn" name="一列模板"/>
+		<template id="twoColumns" name="两列模板"/>
+	</mainTemplate>
+	<detailTemplate>
+		<template id="dOneColumn" name="一列明细模板"/>
+		<template id="dTwoColumns" name="两列明细模板"/>
+	</detailTemplate>
+</templates>

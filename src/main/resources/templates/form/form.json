@@ -1,0 +1,11 @@
+[{type:"mobile",name:"字段控件模版",alias:"fieldCtrl",category:"field"},
+{type:"mobile",name:"主表模版(单列)",alias:"onecolumn",category:"main"},
+{type:"mobile",name:"主表模版(单行两列)",alias:"onecolumnrow",category:"main"},
+{type:"mobile",name:"子表模版(块)",alias:"subBlock",category:"sub"},
+{type:"mobile",name:"子表模版(行模式)",alias:"subRow",category:"sub"},
+{type:"print",name:"主表单列",alias:"oneColumn",category:"main"},
+{type:"print",name:"主表双列",alias:"twoColumn",category:"main"},
+{type:"print",name:"打印字段",alias:"field",category:"macro"},
+{type:"print",name:"打印意见",alias:"opinion",category:"opinion"},
+{type:"print",name:"意见渲染",alias:"renderOpinion",category:"other"},
+{type:"print",name:"子表行模式",alias:"dOneColumn",category:"sub"}]

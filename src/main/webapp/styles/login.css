@@ -1,0 +1,149 @@
+@charset "utf-8";
+/* CSS Document */
+/*重置样式*/
+body,dl,dd,p{margin:0;}
+ul{padding: 0;margin: 0}
+li{list-style:none;}
+a{text-decoration: none;}
+input{margin:0;padding:0;border:none;background-color:transparent;outline:none;}
+img{border:none;}
+h1{margin:0;font-size:16px;font-weight:normal;}
+
+
+/*通用*/
+*{font-family: "微软雅黑";font-size: 20px;color: #c4c4cc}
+.clearfix{clear: both;}
+
+
+body{
+	background: url(./images/login/Login_bg.png) repeat-y top 0 center ;
+	*background: url(./images/login/Login_bg.png) repeat-y center center ;
+	background: url(./images/login/Login_bg.png) no-repeat!important; 
+
+
+}
+
+.login_box{
+	width: 910px;
+	margin: 150px auto  40px auto;
+	background:rgba(255,255,255,0.500);
+	*background:url(./images/login/Login_box_bg.jpg.png);
+	_background:url(./images/login/Login_box_bg.jpg.png);
+	background:url(./images/login/Login_box_bg.jpg.png)\9;
+	padding: 40px;
+}
+
+.login_title{
+	display: block;width: 762px;
+	margin: 0 auto;
+}
+
+.login_title img{
+	float: left;
+}
+
+#login_title01{
+	float: right;
+	margin-top: 10px;
+}
+
+.login_content{
+	width: 520px;
+	margin: 0 auto;
+}
+
+.login_content span{
+	height: 48px;
+}
+
+.login_type{
+	display: block;
+	background: #fff;
+}
+
+#login_type00{
+	position: relative;
+}
+
+#login_type01{
+	text-align: left;
+	width: 120px;
+}
+
+.login_type ul{
+	width: 180px;
+	position: absolute;
+	right: 20px;
+	top: 48px;
+	z-index: 10;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	padding-right: 32px
+}
+
+.login_type li{
+	text-align: left;
+	cursor: pointer;
+	margin: 10px;
+}
+
+.login_type li:hover{
+	background: #008cd9;
+}
+
+.login_type img{
+	float: left;
+	margin: 12px 0 0 20px;
+}
+
+.login_type>p{
+	float: left;
+	line-height: 48px;
+	margin-left: 20px
+}
+
+.login_type>div{
+	float: right
+}
+
+.login_type>div p{
+	float:left;
+	margin-right: 60px;
+	line-height: 48px;
+}
+
+.login_type>div img{
+	float: left;
+	margin: 20px 20px 0 0;
+}
+
+.login_type input{
+	margin: 8px 0 0 20px;
+}
+
+#login_type02 {
+	width: 280px;
+	float: left;
+}
+
+.login_content img{
+	float: left;
+	margin-left: 10px
+}
+
+.replace{
+	color: #626266;
+	float: right;
+	background:#fff;
+	width: 90px;
+	height: 48px;
+	cursor: pointer;
+}
+
+.login_btn{
+	background:url(./images/login/Login_btn.png) no-repeat center center;
+	width: 520px;
+	height: 48px;
+	color: #fff;
+	cursor: pointer;
+}

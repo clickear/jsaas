@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<template id="bpmSolutionPortal" name="流程申请" service="bpmSolutionManager.getSolutionsByPortalParams"/>
+	<template id="bpmMyTasks" name="我的待办" service="bpmTaskManager.getPortalMyTasks"/>
+	<template id="news" name="公司公告" service="insNewsManager.getPortalNews"/>
+	<template id="msg" name="内部短消息" service="infInboxManager.getPortalMsg"/>
+	<template id="doc" name="个人文档" service="docManager.getPortalDoc"/>
+	<template id="inMail" name="内部邮件" service="innerMailManager.getPortalInMail"/>
+	<template id="outMail" name="外部邮件" service="outMailManager.getPortalOutMail"/>
+	<template id="kdDoc" name="知识文库" service="kdDocManager.getPortalKdDoc"/>
+</templates>

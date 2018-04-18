@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysBoList">
+	<resultMap id="SysBoList" type="com.redxun.sys.core.entity.SysBoList">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="idField" column="ID_FIELD_" jdbcType="VARCHAR"/>
+		<result property="textField" column="TEXT_FIELD_" jdbcType="VARCHAR"/>
+		<result property="parentField" column="PARENT_FIELD_" jdbcType="VARCHAR"/>
+		<result property="isTreeDlg" column="IS_TREE_DLG_" jdbcType="VARCHAR"/>
+		<result property="onlySelLeaf" column="ONLY_SEL_LEAF_" jdbcType="VARCHAR"/>
+		<result property="url" column="URL_" jdbcType="VARCHAR"/>
+		<result property="multiSelect" column="MULTI_SELECT_" jdbcType="VARCHAR"/>
+		<result property="descp" column="DESCP_" jdbcType="VARCHAR"/>
+		<result property="isLeftTree" column="IS_LEFT_TREE_" jdbcType="VARCHAR"/>
+		<result property="leftNav" column="LEFT_NAV_" jdbcType="VARCHAR"/>
+		<result property="showSummaryRow" column="SHOW_SUMMARY_ROW_" jdbcType="VARCHAR"/>
+		<result property="leftTreeJson" column="LEFT_TREE_JSON_" jdbcType="CLOB"/>
+		<result property="sql" column="SQL_" jdbcType="VARCHAR"/>
+		<result property="useCondSql" column="USE_COND_SQL_" jdbcType="VARCHAR"/>
+		<result property="condSqls" column="COND_SQLS_" jdbcType="VARCHAR"/>
+		<result property="dbAs" column="DB_AS_" jdbcType="VARCHAR"/>
+		<result property="colsJson" column="COLS_JSON_" jdbcType="CLOB"/>
+		<result property="fieldsJson" column="FIELDS_JSON_" jdbcType="CLOB"/>
+		<result property="listHtml" column="LIST_HTML_" jdbcType="CLOB"/>
+		<result property="bodyScript" column="BODY_SCRIPT_" jdbcType="CLOB"/>
+		<result property="searchJson" column="SEARCH_JSON_" jdbcType="CLOB"/>
+		<result property="bpmSolId" column="BPM_SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="formAlias" column="FORM_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="topBtnsJson" column="TOP_BTNS_JSON_" jdbcType="CLOB"/>
+		<result property="dataRightJson" column="DATA_RIGHT_JSON_" jdbcType="CLOB"/>
+		<result property="width" column="WIDTH_" jdbcType="NUMERIC"/>
+		<result property="height" column="HEIGHT_" jdbcType="NUMERIC"/>
+		<result property="isDialog" column="IS_DIALOG_" jdbcType="VARCHAR"/>
+		<result property="isPage" column="IS_PAGE_" jdbcType="VARCHAR"/>
+		<result property="isExport" column="IS_EXPORT_" jdbcType="VARCHAR"/>
+		<result property="isShare" column="IS_SHARE_" jdbcType="VARCHAR"/>
+		<result property="enableFlow" column="ENABLE_FLOW_" jdbcType="VARCHAR"/>
+		<result property="dataStyle" column="DATA_STYLE_" jdbcType="VARCHAR"/>
+		<result property="rowEdit" column="ROW_EDIT_" jdbcType="VARCHAR"/>
+		<result property="startFroCol" column="START_FRO_COL_" jdbcType="NUMERIC"/>
+		<result property="endFroCol" column="END_FRO_COL_" jdbcType="NUMERIC"/>
+		<result property="isGen" column="IS_GEN_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="drawCellScript" column="DRAW_CELL_SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="mobileHtml" column="MOBILE_HTML_" jdbcType="CLOB"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysBoList">
+		INSERT INTO SYS_BO_LIST
+		(ID_,SOL_ID_,NAME_,KEY_,ID_FIELD_,TEXT_FIELD_,PARENT_FIELD_,IS_TREE_DLG_,ONLY_SEL_LEAF_,URL_,MULTI_SELECT_,DESCP_,IS_LEFT_TREE_,LEFT_NAV_,LEFT_TREE_JSON_,SHOW_SUMMARY_ROW_,SQL_,USE_COND_SQL_,COND_SQLS_,DB_AS_,COLS_JSON_,FIELDS_JSON_,LIST_HTML_,BODY_SCRIPT_,SEARCH_JSON_,BPM_SOL_ID_,FORM_ALIAS_,TOP_BTNS_JSON_,WIDTH_,HEIGHT_,IS_DIALOG_,IS_PAGE_,IS_EXPORT_,ENABLE_FLOW_,IS_GEN_,TREE_ID_,DRAW_CELL_SCRIPT_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,IS_SHARE_,DATA_STYLE_,ROW_EDIT_,START_FRO_COL_,END_FRO_COL_,MOBILE_HTML_,DATA_RIGHT_JSON_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{idField,jdbcType=VARCHAR},#{textField,jdbcType=VARCHAR},#{parentField,jdbcType=VARCHAR},#{isTreeDlg,jdbcType=VARCHAR},#{onlySelLeaf,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{multiSelect,jdbcType=VARCHAR},#{descp,jdbcType=VARCHAR}, #{isLeftTree,jdbcType=VARCHAR}, #{leftNav,jdbcType=VARCHAR}, #{leftTreeJson,jdbcType=CLOB},#{showSummaryRow,jdbcType=VARCHAR},#{sql,jdbcType=VARCHAR},#{useCondSql,jdbcType=VARCHAR},#{condSqls,jdbcType=VARCHAR}, #{dbAs,jdbcType=VARCHAR}, #{colsJson,jdbcType=CLOB},#{fieldsJson,jdbcType=CLOB}, #{listHtml,jdbcType=CLOB},#{bodyScript,jdbcType=CLOB}, #{searchJson,jdbcType=CLOB}, #{bpmSolId,jdbcType=VARCHAR}, #{formAlias,jdbcType=VARCHAR}, #{topBtnsJson,jdbcType=CLOB}, #{width,jdbcType=NUMERIC},#{height,jdbcType=NUMERIC},#{isDialog,jdbcType=VARCHAR}, #{isPage,jdbcType=VARCHAR}, #{isExport,jdbcType=VARCHAR},#{enableFlow,jdbcType=VARCHAR},#{isGen,jdbcType=VARCHAR},#{treeId,jdbcType=VARCHAR}, #{drawCellScript,jdbcType=CLOB},#{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isShare,jdbcType=VARCHAR},#{dataStyle,jdbcType=VARCHAR},#{rowEdit,jdbcType=VARCHAR},#{startFroCol,jdbcType=NUMERIC},#{endFroCol,jdbcType=NUMERIC},#{mobileHtml,jdbcType=VARCHAR},#{dataRightJson,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get" parameterType="java.lang.String" resultMap="SysBoList">
+		SELECT * FROM SYS_BO_LIST 
+		WHERE 
+		ID_=#{id}
+	</select>
+
+	<select id="query" parameterType="java.util.Map" resultMap="SysBoList">
+		SELECT * FROM SYS_BO_LIST
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysBoList">
+		UPDATE SYS_BO_LIST SET
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		KEY_=#{key,jdbcType=VARCHAR},
+		ID_FIELD_=#{idField,jdbcType=VARCHAR},
+		TEXT_FIELD_=#{textField,jdbcType=VARCHAR},
+		PARENT_FIELD_=#{parentField,jdbcType=VARCHAR},
+		IS_TREE_DLG_=#{isTreeDlg,jdbcType=VARCHAR},
+		ONLY_SEL_LEAF_=#{onlySelLeaf,jdbcType=VARCHAR},
+		URL_=#{url,jdbcType=VARCHAR},
+		MULTI_SELECT_=#{multiSelect,jdbcType=VARCHAR},
+		DESCP_=#{descp,jdbcType=VARCHAR},
+		IS_LEFT_TREE_=#{isLeftTree,jdbcType=VARCHAR},
+		LEFT_NAV_=#{leftNav,jdbcType=VARCHAR},
+		LEFT_TREE_JSON_=#{leftTreeJson,jdbcType=CLOB},
+		SHOW_SUMMARY_ROW_=#{showSummaryRow,jdbcType=VARCHAR},
+		SQL_=#{sql,jdbcType=VARCHAR},
+		USE_COND_SQL_=#{useCondSql,jdbcType=VARCHAR},
+		COND_SQLS_=#{condSqls,jdbcType=VARCHAR},
+		DB_AS_=#{dbAs,jdbcType=VARCHAR},
+		COLS_JSON_=#{colsJson,jdbcType=CLOB},
+		FIELDS_JSON_=#{fieldsJson,jdbcType=CLOB},
+		LIST_HTML_=#{listHtml,jdbcType=CLOB},
+		BODY_SCRIPT_=#{bodyScript,jdbcType=CLOB},
+		SEARCH_JSON_=#{searchJson,jdbcType=CLOB},
+		BPM_SOL_ID_=#{bpmSolId,jdbcType=VARCHAR},
+		FORM_ALIAS_=#{formAlias,jdbcType=VARCHAR},
+		TOP_BTNS_JSON_=#{topBtnsJson,jdbcType=CLOB},
+		WIDTH_=#{width,jdbcType=NUMERIC},
+		HEIGHT_=#{height,jdbcType=NUMERIC},
+		START_FRO_COL_=#{startFroCol,jdbcType=NUMERIC},
+		END_FRO_COL_=#{endFroCol,jdbcType=NUMERIC},
+		IS_DIALOG_=#{isDialog,jdbcType=VARCHAR},
+		IS_PAGE_=#{isPage,jdbcType=VARCHAR},
+		ENABLE_FLOW_=#{enableFlow,jdbcType=VARCHAR},
+		IS_GEN_=#{isGen,jdbcType=VARCHAR},
+		IS_EXPORT_=#{isExport,jdbcType=VARCHAR},
+		IS_SHARE_=#{isShare,jdbcType=VARCHAR},
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		DRAW_CELL_SCRIPT_=#{drawCellScript,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		DATA_STYLE_=#{dataStyle,jdbcType=VARCHAR},
+		ROW_EDIT_=#{rowEdit,jdbcType=VARCHAR},
+		MOBILE_HTML_=#{mobileHtml,jdbcType=CLOB},
+		DATA_RIGHT_JSON_=#{dataRightJson,jdbcType=CLOB}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_BO_LIST 
+		WHERE
+		ID_=#{id}
+	</delete>
+</mapper>

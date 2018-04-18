@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.offdoc.core.entity.OdDocFlow">
+	<resultMap id="OdDocFlow" type="com.redxun.offdoc.core.entity.OdDocFlow">
+		<result property="depId" column="GROUP_ID_" jdbcType="VARCHAR"/>
+		<result property="schemeId" column="SCHEME_ID_" jdbcType="VARCHAR"/>
+		<result property="groupName" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="sendSolId" column="SEND_SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="sendSolName" column="SEND_SOL_NAME_" jdbcType="VARCHAR"/>
+		<result property="recSolId" column="REC_SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="recSolName" column="REC_SOL_NAME_" jdbcType="VARCHAR"/>
+		<result property="groupParent" column="PARENT_ID_" jdbcType="VARCHAR"/>
+
+	</resultMap>
+	
+	<select id="getOdDocFlowAndGroup" parameterType="java.util.Map" resultMap="OdDocFlow">
+	SELECT g.GROUP_ID_,g.PARENT_ID_,g.NAME_,o.* 
+	FROM  os_group AS g LEFT JOIN od_doc_flow AS o
+	ON g.GROUP_ID_=o.DEP_ID_
+	WHERE g.DIM_ID_=#{dimId}
+	AND g.TENANT_ID_=#{tenantId}
+	<if test="property!=null">
+	ORDER BY  ${property} ${direction}
+	 </if>
+	</select>
+	
+	
+</mapper>

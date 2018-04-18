@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InsMsgboxBoxDef">
+	<resultMap id="InsMsgboxBoxDef" type="com.redxun.oa.info.entity.InsMsgboxBoxDef">
+		<id property="id" column="ID_" jdbcType="VARCHAR" />
+		<result property="sn" column="SN_" jdbcType="VARCHAR" />
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP" />
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR" />
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP" />
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR" />
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR" />
+		<result property="msgId" column="MSG_ID_" jdbcType="VARCHAR" />
+		<result property="boxId" column="BOX_ID_" jdbcType="VARCHAR" />		
+	</resultMap>
+
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InsMsgboxBoxDef">
+		INSERT INTO INS_MSGBOX_BOX_DEF
+		(SN_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_,TENANT_ID_,MSG_ID_,BOX_ID_,ID_)
+		VALUES
+		(#{sn,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR},
+		#{tenantId,jdbcType=VARCHAR}, #{msgId,jdbcType=VARCHAR},
+		#{boxId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="get" parameterType="java.lang.String" resultMap="InsMsgboxBoxDef">
+		SELECT * FROM INS_MSGBOX_BOX_DEF
+		WHERE
+		ID_=#{id}
+	</select>
+
+	<select id="query" parameterType="java.util.Map" resultMap="InsMsgboxBoxDef">
+		SELECT * FROM INS_MSGBOX_BOX_DEF
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+
+	<update id="update" parameterType="com.redxun.oa.info.entity.InsMsgboxBoxDef">
+		UPDATE INS_MSGBOX_BOX_DEF SET
+		SN_=#{sn,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		MSG_ID_=#{msgId,jdbcType=VARCHAR},
+		BOX_ID_=#{boxId,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM INS_MSGBOX_BOX_DEF
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delByBoxId" parameterType="java.lang.String">
+		DELETE FROM INS_MSGBOX_BOX_DEF 
+		WHERE
+		BOX_ID_=#{boxId}
+	</delete>
+
+
+</mapper>

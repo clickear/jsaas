@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.article.entity.ProItem">
+	<resultMap id="ProItem" type="com.redxun.oa.article.entity.ProItem">
+		<id property="ID" column="ID" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="desc" column="DESC_" jdbcType="CLOB"/>
+		<result property="version" column="VERSION_" jdbcType="VARCHAR"/>
+		<result property="genSrc" column="GEN_SRC_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.article.entity.ProItem">
+		INSERT INTO PRO_ITEM
+		(ID,NAME_,DESC_,VERSION_,GEN_SRC_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{ID,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=CLOB}, #{version,jdbcType=VARCHAR}, #{genSrc,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="ProItem">
+		SELECT * FROM PRO_ITEM 
+		WHERE 
+		ID=#{ID}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="ProItem">
+		SELECT * FROM PRO_ITEM
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.article.entity.ProItem">
+		UPDATE PRO_ITEM SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		DESC_=#{desc,jdbcType=CLOB},
+		VERSION_=#{version,jdbcType=VARCHAR},
+		GEN_SRC_=#{genSrc,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM PRO_ITEM 
+		WHERE
+		ID=#{ID}
+	</delete>
+	
+	
+</mapper>

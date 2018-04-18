@@ -1,0 +1,208 @@
+/* CSS Document */
+/*dl,dt,dd,em,label{
+	margin:0;padding:0;border:0;
+}
+.selectBox{
+	margin:0;padding:0;border:0;
+	font-size:12px;
+	color:#333;
+	margin:0 auto;
+}
+.selectBox div{
+	margin:0;padding:0;border:0;
+}
+.selectBox a{ color:#333; text-decoration:none;}
+.selectBox a:hover{ text-decoration:none;}*/
+dl,dt,dd,label,em {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.selectBox {
+	text-align: left;
+}
+
+.selectNumberScreen {
+	width: 1000px;
+	margin-left: 50px;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 4px solid #ccc;
+}
+
+.screenBox dl {
+	border-bottom: #e6e6e6 1px dashed;
+	width: 1000px;
+	line-height:40px;
+	height:40px;
+	overflow: hidden;
+}
+
+.screenBox dl.noborder {
+	border-bottom: 0px;
+	border-left: 0px;
+	border-top: 0px;
+	border-right: 0px
+}
+
+.screenBox dl.goodstype {
+	border-bottom: #e6e6e6 1px dashed
+}
+
+.screenBox dl dt {
+	float: left;
+	height: 40px;
+	background-color: #E6E6FA;
+}
+
+.screenBox dl dt {
+	text-align: right;
+	width: 100px;
+	height: 40px;
+	font-weight: 600;
+	padding-top: 5px
+}
+
+.screenBox dl dd {
+	background-color: #E6E6FA;
+	position: relative;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	width: 850px;
+	padding-right: 48px;
+	float: left;
+	height: 40px;
+	overflow: hidden;
+	padding-top: 0px
+}
+
+.screenBox dl dd a {
+	line-height: 14px;
+	margin: 17px 25px 0px 0px;
+	display: inline-block;
+	color: #36c;
+	overflow: hidden;
+	text-decoration: none
+}
+
+.screenBox dl dd a:hover {
+	background: #39c;
+	color: #fff
+}
+
+.screenBox dl dd a.selected {
+	background: #39c;
+	color: #fff
+}
+
+.screenBox dl dd span.more {
+	position: absolute;
+	width: 39px;
+	display: block;
+	height: 14px;
+	top: 6px;
+	cursor: pointer;
+	right: 1px
+}
+
+.screenBox dl dd span.more label {
+	display: inline-block;
+	cursor: pointer
+}
+
+.hasBeenSelected {
+	border: #E6E6FA 1px solid;
+	padding: 2px;
+	width: 784px;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+.hasBeenSelected dl {
+	width: 784px;
+	background: #f6f8fd;
+	overflow: hidden
+}
+
+.hasBeenSelected dl dt {
+	float: left
+}
+
+.hasBeenSelected dl dd {
+	float: left
+}
+
+.hasBeenSelected dl dt {
+	text-align: right;
+	line-height: 30px;
+	width: 108px;
+	height: 30px;
+	font-weight: 600
+}
+
+.hasBeenSelected dl dd {
+	padding-bottom: 4px;
+	padding-left: 0px;
+	width: 676px;
+	padding-right: 0px;
+	padding-top: 0px
+}
+
+.selectedInfor {
+	vertical-align: middle;
+	border-bottom: #f60 1px solid;
+	position: relative;
+	border-left: #f60 1px solid;
+	padding-bottom: 5px;
+	margin: 1px 10px 0px 0px;
+	padding-left: 5px;
+	padding-right: 25px;
+	display: block;
+	white-space: nowrap;
+	background: #fff;
+	float: left;
+	height: 17px;
+	border-top: #f60 1px solid;
+	border-right: #f60 1px solid;
+	padding-top: 1px
+}
+
+.selectedInfor label {
+	padding-bottom: 2px;
+	color: #f60
+}
+
+.eliminateCriteria {
+	line-height: 21px;
+	margin-top: 4px;
+	width: 80px;
+	float: left;
+	color: #f60;
+	cursor: pointer;
+	font-weight: 600
+}
+
+.selectedInfor em {
+	background: url("../images/knowl/close.gif") no-repeat;
+	cursor: pointer;
+	display: block;
+	height: 13px;
+	overflow: hidden;
+	position: absolute;
+	right: 1px;
+	top: 6px;
+	width: 13px;
+}
+
+/*.hasBeenSelected {border:1px solid #b2d1ff;padding:2px;width: 784px; margin-top: 10px; overflow: hidden;}
+.hasBeenSelected dl {width: 784px; background: #f6f8fd; overflow: hidden}
+.hasBeenSelected dl dt {float: left}
+.hasBeenSelected dl dd {float: left}
+.hasBeenSelected dl dt {text-align: right; line-height: 28px; width: 108px; height: 28px; font-weight: 600}
+.hasBeenSelected dl dd {padding-bottom: 0px; padding-left: 0px; width: 676px; padding-right: 0px; padding-top: 3px}
+.selectedInfor {border-bottom: #FFF 1px solid; position: relative; border-left: #f60 1px solid; padding-bottom: 1px; margin: 4px 10px 0px 0px; padding-left: 5px; padding-right: 17px; display: block; white-space: nowrap; background: #fff; float: left; height: 17px; border-top: #f60 1px solid; border-right: #f60 1px solid; padding-top: 1px}
+.selectedInfor label {color: #f60}
+.eliminateCriteria {line-height: 21px; margin-top: 4px; width: 80px; float: left; color: #f60; cursor: pointer; font-weight: 600}
+.selectedInfor em {background: url("images/close.gif") no-repeat;cursor: pointer;display: block;height: 13px;overflow: hidden;position: absolute;right: -12px;top:6px;width: 13px;}*/

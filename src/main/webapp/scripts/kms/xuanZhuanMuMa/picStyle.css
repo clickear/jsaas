@@ -1,0 +1,167 @@
+SPAN {
+	BORDER-TOP-WIDTH: 0px;
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	BORDER-LEFT-WIDTH: 0px;
+	FONT-SIZE: 100%;
+	BACKGROUND: none transparent scroll repeat 0% 0%;
+	BORDER-BOTTOM-WIDTH: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	VERTICAL-ALIGN: baseline;
+	PADDING-TOP: 0px;
+	BORDER-RIGHT-WIDTH: 0px;
+	outline: 0
+}
+
+H2 {
+	BORDER-TOP-WIDTH: 0px;
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	BORDER-LEFT-WIDTH: 0px;
+	FONT-SIZE: 100%;
+	BACKGROUND: none transparent scroll repeat 0% 0%;
+	BORDER-BOTTOM-WIDTH: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	VERTICAL-ALIGN: baseline;
+	PADDING-TOP: 0px;
+	BORDER-RIGHT-WIDTH: 0px;
+	outline: 0;
+	text-align:center; 
+}
+
+A {
+	BORDER-TOP-WIDTH: 0px;
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	BORDER-LEFT-WIDTH: 0px;
+	FONT-SIZE: 100%;
+	BACKGROUND: none transparent scroll repeat 0% 0%;
+	BORDER-BOTTOM-WIDTH: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	VERTICAL-ALIGN: baseline;
+	PADDING-TOP: 0px;
+	BORDER-RIGHT-WIDTH: 0px;
+	outline: 0
+}
+
+IMG {
+	BORDER-TOP-WIDTH: 0px;
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	BORDER-LEFT-WIDTH: 0px;
+	FONT-SIZE: 100%;
+	BACKGROUND: none transparent scroll repeat 0% 0%;
+	BORDER-BOTTOM-WIDTH: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	VERTICAL-ALIGN: baseline;
+	PADDING-TOP: 0px;
+	BORDER-RIGHT-WIDTH: 0px;
+	outline: 0
+}
+
+H2 {
+	FONT-WEIGHT: normal
+}
+
+A {
+	COLOR: #ff0076;
+	TEXT-DECORATION: none
+}
+
+A:hover {
+	COLOR: #000
+}
+
+.stepcarousel {
+	MARGIN: 10px auto;
+	OVERFLOW: scroll;
+	WIDTH: 981px;
+	POSITION: relative;
+	HEIGHT: 200px
+}
+
+.stepcarousel .belt {
+	LEFT: 0px;
+	POSITION: absolute;
+	TOP: 0px
+}
+
+#displaycssbelt {
+	VISIBILITY: hidden
+}
+
+#stocklevels {
+	VISIBILITY: hidden
+}
+
+.stepcarousel .panel {
+	FLOAT: left;
+	MARGIN: 0px 41px 0px 25px;
+	OVERFLOW: hidden;
+	WIDTH: 202px
+}
+
+.stock {
+	CLEAR: both;
+	FONT-SIZE: 10px;
+	PADDING-BOTTOM: 5px;
+	MARGIN: 0px auto;
+	WIDTH: 929px;
+	COLOR: #000;
+	BORDER-BOTTOM: #000 1px dashed;
+	FONT-FAMILY: arial, verdana, sans-serif;
+	HEIGHT: 10px;
+	TEXT-ALIGN: right
+}
+
+.subfeature {
+	DISPLAY: block;
+	MARGIN: 0px;
+	OVERFLOW: hidden;
+	WIDTH: 202px
+}
+
+.subfeature-txt {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	FLOAT: left;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	WIDTH: 202px ! important;
+	LINE-HEIGHT: 17px;
+	PADDING-TOP: 3px;
+	POSITION: relative
+}
+
+.subfeature-txt H2 {
+	CLEAR: both;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 14px;
+	PADDING-BOTTOM: 3px
+}
+
+.subfeature-txt H2 A {
+	COLOR: #000
+}
+
+.subfeature-txt H2 A:hover {
+	COLOR: #ff0076
+}
+
+.subfeature A IMG {
+	BORDER-RIGHT: transparent 1px solid;
+	BORDER-TOP: transparent 1px solid;
+	BORDER-LEFT: transparent 1px solid;
+	BORDER-BOTTOM: transparent 1px solid
+}
+
+.subfeature A IMG:hover {
+	BORDER-RIGHT: #ff0076 1px dashed;
+	BORDER-TOP: #ff0076 1px dashed;
+	BORDER-LEFT: #ff0076 1px dashed;
+	BORDER-BOTTOM: #ff0076 1px dashed
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<mapping path="/kms/core/kdDoc/index.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdDoc/search.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdDoc/personal.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdQuestion/personal.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdQuestion/index.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdQuestion/get.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdQuestion/edit.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdQuestion/expertEdit.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdUser/personalGet.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdUser/personalEdit.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdQuestion/find.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdDoc/mapIndex.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdDoc/mapSearch.do" decorator="/decs/kdDocDecorator.jsp" />
+	<mapping path="/kms/core/kdDoc/mapPersonal.do" decorator="/decs/kdDocDecorator.jsp" />
+	<!-- <mapping path="/kms/core/kdDoc/home.do" decorator="/decs/kdDocDecorator.jsp" /> -->
+	<mapping path="/kms/core/kdQuestion/refreshList.do" decorator="/decs/kdDocDecorator.jsp" />
+
+	
+	<mapping path="/*" decorator="/decs/decorator.jsp" />
+	<!-- 配置多个渲染器. <mapping> <path>/articles/*</path> 
+		<decorator>/decorators/article.html</decorator> 
+		<decorator>/decorators/two-page-layout.html</decorator> 
+		<decorator>/decorators/common.html</decorator> 
+		</mapping> -->
+	<!-- 不被渲染的路径. -->
+	<mapping path="/sys/core/sysTemplate/edit*" exclue="true" />
+	<mapping path="/sys/core/sysReport/show.do" exclue="true" />
+	<mapping path="/oa/info/insPortal/getPortalHtml.do" exclude="true"/>
+	<mapping path="/oa/mail/outMail/getMailContentByMailId.do" exclude="true"/>
+	<mapping path="/oa/mail/innerMail/getInnerMailContentByMailId.do" exclude="true"/>
+	<mapping path="/index.do" exclue="true" />
+	<mapping path="/sys/core/file/upload.do" exclude="true"/>
+	<mapping path="/bpm/core/bpmTask/calUsers.do" exclude="true"/>
+	<mapping path="/getGrantMenus.do" exclude="true"/>
+	<mapping path="/oa/info/insPortalDef/editTmp.do" exclude="true"/>
+</sitemesh>

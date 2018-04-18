@@ -1,0 +1,1 @@
+<sitemesh:write property='body' />

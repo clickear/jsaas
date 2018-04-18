@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.core.entity.WxSubscribe">
+	<resultMap id="WxSubscribe" type="com.redxun.wx.core.entity.WxSubscribe">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="subscribe" column="SUBSCRIBE_" jdbcType="VARCHAR"/>
+		<result property="pubId" column="PUB_ID_" jdbcType="VARCHAR"/>
+		<result property="openId" column="OPEN_ID_" jdbcType="VARCHAR"/>
+		<result property="nickName" column="NICK_NAME_" jdbcType="VARCHAR"/>
+		<result property="language" column="LANGUAGE_" jdbcType="VARCHAR"/>
+		<result property="city" column="CITY_" jdbcType="VARCHAR"/>
+		<result property="province" column="PROVINCE_" jdbcType="VARCHAR"/>
+		<result property="country" column="COUNTRY_" jdbcType="VARCHAR"/>
+		<result property="unionid" column="UNIONID_" jdbcType="VARCHAR"/>
+		<result property="subscribeTime" column="SUBSCRIBE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="remark" column="REMARK_" jdbcType="VARCHAR"/>
+		<result property="groupid" column="GROUPID_" jdbcType="VARCHAR"/>
+		<result property="tagidList" column="TAGID_LIST_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.core.entity.WxSubscribe">
+		INSERT INTO WX_SUBSCRIBE_
+		(ID_,PUB_ID_,SUBSCRIBE_,OPEN_ID_,NICK_NAME_,LANGUAGE_,CITY_,PROVINCE_,COUNTRY_,UNIONID_,SUBSCRIBE_TIME_,REMARK_,GROUPID_,TAGID_LIST_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_,CREATE_TIME_,CREATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{pubId,jdbcType=VARCHAR},#{subscribe,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, #{tagidList,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxSubscribe">
+		SELECT * FROM WX_SUBSCRIBE_ 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxSubscribe">
+		SELECT * FROM WX_SUBSCRIBE_
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.core.entity.WxSubscribe">
+		UPDATE WX_SUBSCRIBE_ SET
+		SUBSCRIBE_=#{subscribe,jdbcType=VARCHAR},
+		PUB_ID_=#{pubId,jdbcType=VARCHAR},
+		OPEN_ID_=#{openId,jdbcType=VARCHAR},
+		NICK_NAME_=#{nickName,jdbcType=VARCHAR},
+		LANGUAGE_=#{language,jdbcType=VARCHAR},
+		CITY_=#{city,jdbcType=VARCHAR},
+		PROVINCE_=#{province,jdbcType=VARCHAR},
+		COUNTRY_=#{country,jdbcType=VARCHAR},
+		UNIONID_=#{unionid,jdbcType=VARCHAR},
+		SUBSCRIBE_TIME_=#{subscribeTime,jdbcType=TIMESTAMP},
+		REMARK_=#{remark,jdbcType=VARCHAR},
+		GROUPID_=#{groupid,jdbcType=VARCHAR},
+		TAGID_LIST_=#{tagidList,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM WX_SUBSCRIBE_ 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="getByTagId" parameterType="java.lang.String" resultMap="WxSubscribe">
+	SELECT WX_SUBSCRIBE_.ID_,WX_SUBSCRIBE_.PUB_ID_,WX_SUBSCRIBE_.SUBSCRIBE_,WX_SUBSCRIBE_.OPEN_ID_,WX_SUBSCRIBE_.NICK_NAME_,WX_SUBSCRIBE_.LANGUAGE_,WX_SUBSCRIBE_.CITY_,WX_SUBSCRIBE_.PROVINCE_,WX_SUBSCRIBE_.COUNTRY_,WX_SUBSCRIBE_.UNIONID_,WX_SUBSCRIBE_.SUBSCRIBE_TIME_,WX_SUBSCRIBE_.REMARK_,WX_SUBSCRIBE_.GROUPID_,WX_SUBSCRIBE_.TAGID_LIST_,WX_SUBSCRIBE_.TENANT_ID_,WX_SUBSCRIBE_.UPDATE_TIME_,WX_SUBSCRIBE_.UPDATE_BY_,WX_SUBSCRIBE_.CREATE_TIME_,WX_SUBSCRIBE_.CREATE_BY_
+	FROM WX_SUBSCRIBE_ ,WX_TAG_USER
+	WHERE WX_SUBSCRIBE_.PUB_ID_=WX_TAG_USER.PUB_ID_ AND WX_SUBSCRIBE_.ID_=WX_TAG_USER.USER_ID_ AND WX_TAG_USER.PUB_ID_=#{pubId} AND WX_TAG_USER.TAG_ID_ =#{tagId}
+	</select>
+	
+</mapper>

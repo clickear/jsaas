@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.db.entity.SysSqlCustomQuery">
+	<resultMap id="SysSqlCustomQuery" type="com.redxun.sys.db.entity.SysSqlCustomQuery">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="tableName" column="TABLE_NAME_" jdbcType="VARCHAR"/>
+		<result property="isPage" column="IS_PAGE_" jdbcType="NUMERIC"/>
+		<result property="pageSize" column="PAGE_SIZE_" jdbcType="NUMERIC"/>
+		<result property="whereField" column="WHERE_FIELD_" jdbcType="CLOB"/>
+		<result property="resultField" column="RESULT_FIELD_" jdbcType="VARCHAR"/>
+		<result property="orderField" column="ORDER_FIELD_" jdbcType="VARCHAR"/>
+		<result property="dsAlias" column="DS_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="table" column="TABLE_" jdbcType="NUMERIC"/>
+		<result property="sqlDiy" column="SQL_DIY_" jdbcType="VARCHAR"/>
+		<result property="sql" column="SQL_" jdbcType="VARCHAR"/>
+		<result property="sqlBuildType" column="SQL_BUILD_TYPE_" jdbcType="NUMERIC"/>
+		
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.db.entity.SysSqlCustomQuery">
+		INSERT INTO SYS_CUSTOM_QUERY
+		(ID_,NAME_,KEY_,TABLE_NAME_,IS_PAGE_,PAGE_SIZE_,WHERE_FIELD_,RESULT_FIELD_,ORDER_FIELD_,DS_ALIAS_,TABLE_,SQL_DIY_,SQL_,SQL_BUILD_TYPE_,TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
+		#{isPage,jdbcType=NUMERIC}, #{pageSize,jdbcType=NUMERIC}, #{whereField,jdbcType=CLOB}, #{resultField,jdbcType=VARCHAR}, 
+		#{orderField,jdbcType=VARCHAR}, #{dsAlias,jdbcType=VARCHAR}, #{table,jdbcType=NUMERIC}, #{sqlDiy,jdbcType=VARCHAR}, #{sql,jdbcType=VARCHAR}, 
+		#{sqlBuildType,jdbcType=NUMERIC},#{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysSqlCustomQuery">
+		SELECT * FROM SYS_CUSTOM_QUERY 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysSqlCustomQuery">
+		SELECT * FROM SYS_CUSTOM_QUERY
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.db.entity.SysSqlCustomQuery">
+		UPDATE SYS_CUSTOM_QUERY SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		KEY_=#{key,jdbcType=VARCHAR},
+		TABLE_NAME_=#{tableName,jdbcType=VARCHAR},
+		IS_PAGE_=#{isPage,jdbcType=NUMERIC},
+		PAGE_SIZE_=#{pageSize,jdbcType=NUMERIC},
+		WHERE_FIELD_=#{whereField,jdbcType=CLOB},
+		RESULT_FIELD_=#{resultField,jdbcType=VARCHAR},
+		ORDER_FIELD_=#{orderField,jdbcType=VARCHAR},
+		DS_ALIAS_=#{dsAlias,jdbcType=VARCHAR},
+		TABLE_=#{table,jdbcType=NUMERIC},
+		SQL_DIY_=#{sqlDiy,jdbcType=VARCHAR},
+		SQL_=#{sql,jdbcType=VARCHAR},
+		SQL_BUILD_TYPE_=#{sqlBuildType,jdbcType=NUMERIC},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM SYS_CUSTOM_QUERY 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<select id="getByTenantId"   parameterType="java.lang.String" resultMap="SysSqlCustomQuery">
+		SELECT * FROM SYS_CUSTOM_QUERY 
+		WHERE 
+		TENANT_ID_=#{tenantId}
+	</select>
+	
+</mapper>

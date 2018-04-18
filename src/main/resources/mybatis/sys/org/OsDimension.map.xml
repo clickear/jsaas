@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.org.entity.OsDimension">
+	<resultMap id="OsDimension" type="com.redxun.sys.org.entity.OsDimension">
+		<id property="dimId" column="DIM_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="dimKey" column="DIM_KEY_" jdbcType="VARCHAR"/>
+		<result property="isCompose" column="IS_COMPOSE_" jdbcType="VARCHAR"/>
+		<result property="isSystem" column="IS_SYSTEM_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="sn" column="SN_" jdbcType="NUMERIC"/>
+		<result property="showType" column="SHOW_TYPE_" jdbcType="VARCHAR"/>
+		<result property="isGrant" column="IS_GRANT_" jdbcType="VARCHAR"/>
+		<result property="desc" column="DESC_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.org.entity.OsDimension">
+		INSERT INTO os_dimension
+		(DIM_ID_,NAME_,DIM_KEY_,IS_COMPOSE_,IS_SYSTEM_,STATUS_,SN_,SHOW_TYPE_,IS_GRANT_,DESC_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{dimId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{dimKey,jdbcType=VARCHAR}, #{isCompose,jdbcType=VARCHAR}, #{isSystem,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{sn,jdbcType=NUMERIC}, #{showType,jdbcType=VARCHAR}, #{isGrant,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="OsDimension">
+		SELECT * FROM os_dimension 
+		WHERE 
+		DIM_ID_=#{dimId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="OsDimension">
+		SELECT * FROM os_dimension
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY DIM_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.org.entity.OsDimension">
+		UPDATE os_dimension SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		DIM_KEY_=#{dimKey,jdbcType=VARCHAR},
+		IS_COMPOSE_=#{isCompose,jdbcType=VARCHAR},
+		IS_SYSTEM_=#{isSystem,jdbcType=VARCHAR},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		SN_=#{sn,jdbcType=NUMERIC},
+		SHOW_TYPE_=#{showType,jdbcType=VARCHAR},
+		IS_GRANT_=#{isGrant,jdbcType=VARCHAR},
+		DESC_=#{desc,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		DIM_ID_=#{dimId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM os_dimension 
+		WHERE
+		DIM_ID_=#{dimId}
+	</delete>
+	
+	<select id="filterateAll" parameterType="java.lang.String" resultMap="OsDimension">
+	SELECT od.* 
+	FROM OS_DIMENSION od 
+	<choose>
+	<when test="filterSwitch=='YES' and isSuperAdmin=='NO'">
+		LEFT JOIN OS_DIMENSION_RIGHT odr
+		ON odr.DIM_ID_ =od.DIM_ID_
+		<where>
+			 <if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+			<if test="null != userIdSet and userIdSet.size > 0">
+			and
+			</if>
+			<foreach collection="userIdSet" item="userId"  separator=" OR " open="(" close=")">
+				 odr.USER_ID_ like '%${userId}%'
+			</foreach>
+			<if test="null != groupIdSet and groupIdSet.size > 0">
+			or 
+			</if>
+			<foreach collection="groupIdSet" item="groupId" separator=" OR " open="(" close=")">
+				 odr.GROUP_ID_ like '%${groupId}%'
+			</foreach>
+			<if test="TENANT_ID_!=null">
+				and (od.TENANT_ID_=#{TENANT_ID_} or od.TENANT_ID_=0)
+			</if>
+			
+		</where>
+	
+	</when>
+	<otherwise>
+		<where>
+			 <if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if> 
+			<if test="TENANT_ID_!=null">
+				and (od.TENANT_ID_=#{TENANT_ID_} or od.TENANT_ID_=0)
+			</if>
+			
+		</where>
+	</otherwise>
+	</choose>
+	<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			order by od.sn_ asc , od.create_time_ asc
+		</if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="codegen" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="config">
+		<xs:complexType>
+			<xs:sequence>
+			
+				<!--变量 -->
+				<xs:element name="variables" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="variable" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attributeGroup ref="variableAttr"></xs:attributeGroup>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<!--模板 -->
+				<xs:element name="templates" maxOccurs="1" minOccurs="1">
+					<xs:complexType>
+						<xs:sequence minOccurs="1" maxOccurs="unbounded">
+							<xs:element name="template">
+								<xs:complexType>
+									<xs:attributeGroup ref="templateAttr"></xs:attributeGroup>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="basepath" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>模板的基路径.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<!-- 生成文件模版 -->
+				<xs:element name="files" maxOccurs="1" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence minOccurs="1" maxOccurs="unbounded">
+							<xs:element name="file">
+								<xs:complexType>
+									<xs:attributeGroup ref="fileAttr"></xs:attributeGroup>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="baseDir" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>生成文件的基路径.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				
+				<!--表变量 -->
+				<xs:element name="table" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded" minOccurs="1">
+							<!--表级别变量 -->
+							<xs:element name="variable" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attributeGroup ref="variableAttr"></xs:attributeGroup>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="subtable" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+								<xs:sequence maxOccurs="unbounded" minOccurs="1">
+									<xs:element name="variable" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:attributeGroup ref="variableAttr"></xs:attributeGroup>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+									<xs:attributeGroup ref="tableAttr"></xs:attributeGroup>
+								</xs:complexType>
+								
+							</xs:element>
+							
+						</xs:sequence>
+						<xs:attribute name="tableName" type="xs:string" use="required">
+							<xs:annotation>
+								<xs:documentation>数据库表名.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="genAll" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded" minOccurs="1">
+							<xs:element name="file">
+								<xs:annotation>
+									<xs:documentation>需要生成的文件</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="variable" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attributeGroup ref="variableAttr"></xs:attributeGroup>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attributeGroup ref="batFleAttr"></xs:attributeGroup>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="tableNames" type="xs:string" use="optional">
+							<xs:annotation>
+								<xs:documentation>数据库表名,使用逗号分割.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!--模板属性 -->
+	<xs:attributeGroup name="templateAttr">
+
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					模版ID
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+
+		<xs:attribute name="path" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					模板路径
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<!--变量属性 -->
+	<xs:attributeGroup name="variableAttr">
+		<xs:attribute name="name" use="required" type="xs:string">
+		</xs:attribute>
+		<xs:attribute name="value" type="xs:string" use="required"></xs:attribute>
+	</xs:attributeGroup>
+	<!--文件属性-->
+	<xs:attributeGroup name="fileAttr">
+		<xs:attribute name="refTemplate" type="xs:string" use="required" >
+			<xs:annotation>
+				<xs:documentation>
+					引用的模板,引用模板的ID
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="filename" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					生成的文件名称.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="dir" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					生成的文件存放的目录.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		
+		<xs:attribute name="sub" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>
+					子表生成文件
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		
+		<xs:attribute name="override" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>
+					是否覆盖原有文件 默认为false
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		
+		<xs:attribute name="append" type="xs:boolean" use="optional">
+			<xs:annotation>
+					<xs:documentation>是否添加</xs:documentation>
+			</xs:annotation>
+			
+		</xs:attribute>
+		<xs:attribute name="insertTag" default="&lt;!--insertbefore--&gt;">
+			<xs:annotation>
+					<xs:documentation>标签功能，新增的内容插在之前</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="startTag" default="start{tabname}">
+			<xs:annotation>
+				<xs:documentation>起始标签</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="endTag" default="end{tabname}">
+			<xs:annotation>
+				<xs:documentation>结束标签</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	
+	<xs:attributeGroup name="tableAttr">
+		<xs:attribute name="tablename" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					表名
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="foreignKey" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					外键
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="batFleAttr">
+		<xs:attribute name="refTemplate" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					引用的模板,引用模板的ID
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="filename" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					生成的文件名称.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="extName" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					文件扩展名 如: .htm
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="dir" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					生成的文件存放的目录.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="genMode" type="GenModel" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					产生一个文件/产生多个文件
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		
+	</xs:attributeGroup>
+	<xs:simpleType name="GenModel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MultiFile">
+				<xs:annotation>
+					<xs:documentation>产生多个文件,这个时候需要填写扩展名属性</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SingleFile">
+				<xs:annotation>
+					<xs:documentation>产生一个文件,这个时候需要填写文件名称</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

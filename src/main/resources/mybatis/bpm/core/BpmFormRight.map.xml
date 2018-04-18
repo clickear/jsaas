@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmFormRight">
+	<resultMap id="BpmFormRight" type="com.redxun.bpm.core.entity.BpmFormRight">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="formAlias" column="FORM_ALIAS_" jdbcType="VARCHAR"/>
+		<result property="json" column="JSON_" jdbcType="CLOB"/>
+		<result property="boDefId" column="BODEF_ID_" jdbcType="VARCHAR"/>
+		
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmFormRight">
+		INSERT INTO BPM_FORM_RIGHT
+		(ID_,SOL_ID_,ACT_DEF_ID_,NODE_ID_,FORM_ALIAS_,JSON_,TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_BY_,UPDATE_TIME_,BODEF_ID_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR}, #{actDefId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{formAlias,jdbcType=VARCHAR}, #{json,jdbcType=CLOB}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{boDefId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmFormRight">
+		SELECT * FROM BPM_FORM_RIGHT 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmFormRight">
+		SELECT * FROM BPM_FORM_RIGHT
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmFormRight">
+		UPDATE BPM_FORM_RIGHT SET
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		FORM_ALIAS_=#{formAlias,jdbcType=VARCHAR},
+		JSON_=#{json,jdbcType=CLOB},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		BODEF_ID_=#{boDefId,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_FORM_RIGHT 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delBySolId" parameterType="java.lang.String">
+		DELETE FROM BPM_FORM_RIGHT 
+		WHERE
+		SOL_ID_=#{solId}
+	</delete>
+
+	<delete id="delBySolForm" parameterType="java.util.Map">
+		DELETE FROM BPM_FORM_RIGHT
+		<where>
+			TENANT_ID_=#{tenantId}
+			<if test="@Ognl@isNotEmpty(actDefId)">
+				and ACT_DEF_ID_=#{actDefId}
+			</if>
+			<if test="@Ognl@isNotEmpty(solId)">
+				and SOL_ID_=#{solId}
+			</if>
+			<if test="@Ognl@isNotEmpty(nodeId)">
+				and NODE_ID_=#{nodeId}
+			</if>
+			<if test="@Ognl@isNotEmpty(boDefId)">
+				and BODEF_ID_=#{boDefId}
+			</if>
+			<if test="@Ognl@isNotEmpty(formAlias)">
+				and FORM_ALIAS_=#{formAlias}
+			</if>
+		</where>
+		
+	</delete>
+	
+	
+	<select id="getBySolForm" parameterType="java.util.Map" resultMap="BpmFormRight">
+		SELECT * FROM BPM_FORM_RIGHT
+		<where>
+			TENANT_ID_=#{tenantId}
+			<if test="@Ognl@isNotEmpty(actDefId)">
+				and ACT_DEF_ID_=#{actDefId}
+			</if>
+			<if test="@Ognl@isNotEmpty(solId)">
+				and SOL_ID_=#{solId}
+			</if>
+			<if test="@Ognl@isNotEmpty(nodeId)">
+				and NODE_ID_=#{nodeId}
+			</if>
+			<if test="@Ognl@isNotEmpty(boDefId)">
+				and BODEF_ID_=#{boDefId}
+			</if>
+			<if test="@Ognl@isNotEmpty(formAlias)">
+				and FORM_ALIAS_=#{formAlias}
+			</if>
+		</where>
+		
+	</select>
+	
+	<delete id="delBySolAndBodefId" parameterType="java.util.Map">
+	    DELETE FROM bpm_form_right
+		WHERE
+		SOL_ID_=#{solId} AND
+		BODEF_ID_=#{aliasBindBodefId}
+	    
+	</delete>
+	
+</mapper>

@@ -1,0 +1,83 @@
+table.list {
+	border-collapse: separate;
+	border: solid 1px #bbb;
+	background: #ccc;
+	border-spacing: 2px;
+}
+
+table.list td {
+	border-width: 0;
+	border-right: solid 1px #999;
+	border-bottom: solid 1px #999;
+	background: #eee;
+	padding: 0.4em 1em;
+}
+
+table.list th {
+    border-width: 0;
+    border-right: solid 1px #555;
+    border-bottom: solid 1px #555;
+    background: #bbb;
+    padding: 0.4em 1em;	
+}
+
+p.code {
+	border: solid 1px #bbb;
+	border-right: solid 2px #999;
+    border-bottom: solid 2px #999;
+	background: #eee;
+	width: auto;
+}
+
+.demo {
+    background: #eef;
+    border: solid 2px #dde;
+    padding: 0.6em;
+}
+
+.demo p {
+	padding: 0.3em 0.6em;
+	margin: 0.3em auto;
+}
+
+.demo p.instructions {
+	font-family: serif;
+	font-style: italic;
+	xfont-size: 90%;
+	color: #666;
+	line-height: 130%;
+}
+
+ul.features {
+	color: #333;
+	line-height: 135%;
+}
+
+.demo table td {
+	xwidth: 6.5em;
+}
+
+.demo table td {
+	padding-left: 1em;
+}
+
+.demo table td input {
+	width: 4em;
+	text-align: right;
+}
+
+p.major {
+	color: #777;
+	font-size: 125%;
+	font-weight: bold;
+}
+
+p.major a, p.major a:visited {
+	color: #2073d1;
+}
+
+div.frame {
+	background: #fff;
+	padding: 0.8em;
+	border: solid 2px #ddd;
+}

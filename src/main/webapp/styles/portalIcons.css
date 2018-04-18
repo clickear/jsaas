@@ -1,0 +1,200 @@
+/**大图50--------------------------------------**/
+@font-face {
+	font-family: 'iconfont';
+	src: url('font/iconfont.eot');
+	src: url('font/iconfont.eot?#iefix') format('embedded-opentype'),
+		url('font/iconfont.woff') format('woff'), url('font/iconfont.ttf')
+		format('truetype'), url('font/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 12px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	/*-webkit-text-stroke-width: 0.2px; */
+	-moz-osx-font-smoothing: grayscale;
+
+}
+
+.icon-entform:before{
+	content: "\e65c";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-user-org-50:before{
+	content: "\ec4e";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-form-edit-50:before{
+	content: "\e71d";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-flow-design-50:before{
+	content: "\e781";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-mobile-50:before{
+	content: "\e778";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-solution-50:before{
+	content: "\e779";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-grant-50:before{
+	content: "\e775";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-list-50:before{
+	content: "\e77a";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-dialog-50:before{
+	content: "\e77b";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+.icon-search-50:before{
+	content: "\e68c";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-seq-no-50:before{
+	content: "\e77c";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-book-50:before{
+	content: "\e77d";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-database-50:before{
+	content: "\e77e";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-bpm-inst-50:before{
+	content: "\e780";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-bpm-task-50:before{
+	content: "\e783";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+.icon-form-sol-50:before{
+	content: "\e749";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-vpn-50:before{
+	content: "\e784";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-network-50:before{
+	content: "\e789";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-kancha-50:before{
+	content: "\e786";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-ele-50:before{
+	content: "\e788";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-data-50:before{
+	content: "\e78d";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-gdata-50:before{
+	content: "\e78b";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}
+
+.icon-centrex-50:before{
+	content: "\e78c";
+	color: #46aaf1;
+	padding-right: 8px;
+	font-size: 50px;
+	font-weight: 600;
+}

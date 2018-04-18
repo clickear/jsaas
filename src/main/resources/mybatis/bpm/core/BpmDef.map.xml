@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmDef">
+	<resultMap id="BpmDef" type="com.redxun.bpm.core.entity.BpmDef">
+		<id property="defId" column="DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="subject" column="SUBJECT_" jdbcType="VARCHAR"/>
+		<result property="descp" column="DESCP_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="actDepId" column="ACT_DEP_ID_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="version" column="VERSION_" jdbcType="NUMERIC"/>
+		<result property="isMain" column="IS_MAIN_" jdbcType="VARCHAR"/>
+		<result property="setting" column="SETTING_" jdbcType="CLOB"/>
+		<result property="modelId" column="MODEL_ID_" jdbcType="VARCHAR"/>
+		<result property="mainDefId" column="MAIN_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmDef">
+		INSERT INTO BPM_DEF
+		(DEF_ID_,TREE_ID_,SUBJECT_,DESCP_,KEY_,ACT_DEF_ID_,ACT_DEP_ID_,STATUS_,VERSION_,IS_MAIN_,SETTING_,MODEL_ID_,MAIN_DEF_ID_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{defId,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{descp,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{actDefId,jdbcType=VARCHAR}, #{actDepId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{version,jdbcType=NUMERIC}, #{isMain,jdbcType=VARCHAR}, #{setting,jdbcType=CLOB}, #{modelId,jdbcType=VARCHAR}, #{mainDefId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmDef">
+		SELECT * FROM BPM_DEF 
+		WHERE 
+		DEF_ID_=#{defId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmDef">
+		SELECT * FROM BPM_DEF
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY DEF_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmDef">
+		UPDATE BPM_DEF SET
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		SUBJECT_=#{subject,jdbcType=VARCHAR},
+		DESCP_=#{descp,jdbcType=VARCHAR},
+		KEY_=#{key,jdbcType=VARCHAR},
+		ACT_DEF_ID_=#{actDefId,jdbcType=VARCHAR},
+		ACT_DEP_ID_=#{actDepId,jdbcType=VARCHAR},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		VERSION_=#{version,jdbcType=NUMERIC},
+		IS_MAIN_=#{isMain,jdbcType=VARCHAR},
+		SETTING_=#{setting,jdbcType=CLOB},
+		MODEL_ID_=#{modelId,jdbcType=VARCHAR},
+		MAIN_DEF_ID_=#{mainDefId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		DEF_ID_=#{defId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_DEF 
+		WHERE
+		DEF_ID_=#{defId}
+	</delete>
+	
+	
+	<select id="getCountByKey"  resultType="java.lang.Integer">
+		SELECT count(*) FROM BPM_DEF WHERE KEY_=#{key,jdbcType=VARCHAR} 
+		and TENANT_ID_=#{tenantId,jdbcType=VARCHAR} 
+	</select>
+	
+	<select id="getCountByKeyAndId"  resultType="java.lang.Integer">
+		SELECT count(*) FROM BPM_DEF WHERE KEY_=#{key,jdbcType=VARCHAR} 
+		and DEF_ID_=#{defId} 
+	</select>
+	
+	
+	<select id="getByKey"  resultMap="BpmDef">
+		SELECT * FROM BPM_DEF WHERE KEY_=#{key,jdbcType=VARCHAR} 
+		and TENANT_ID_=#{tenantId,jdbcType=VARCHAR} and STATUS_='DEPLOYED'
+	</select>
+	
+</mapper>

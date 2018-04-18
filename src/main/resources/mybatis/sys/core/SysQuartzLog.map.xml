@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysQuartzLog">
+	<resultMap id="SysQuartzLog" type="com.redxun.sys.core.entity.SysQuartzLog">
+		<id property="logId" column="LOG_ID_" jdbcType="VARCHAR"/>
+		<result property="alias" column="ALIAS_" jdbcType="VARCHAR"/>
+		<result property="jobName" column="JOB_NAME_" jdbcType="VARCHAR"/>
+		<result property="triggerName" column="TRIGGER_NAME_" jdbcType="VARCHAR"/>
+		<result property="content" column="CONTENT_" jdbcType="CLOB"/>
+		<result property="startTime" column="START_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="endTime" column="END_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="runTime" column="RUN_TIME_" jdbcType="NUMERIC"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysQuartzLog">
+		INSERT INTO sys_quartz_log
+		(LOG_ID_,ALIAS_,JOB_NAME_,TRIGGER_NAME_,CONTENT_,START_TIME_,END_TIME_,RUN_TIME_,STATUS_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{logId,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{triggerName,jdbcType=VARCHAR}, #{content,jdbcType=CLOB}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{runTime,jdbcType=NUMERIC}, #{status,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysQuartzLog">
+		SELECT * FROM sys_quartz_log 
+		WHERE 
+		LOG_ID_=#{logId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysQuartzLog">
+		SELECT * FROM sys_quartz_log
+		
+		<where>
+			<if test="JOB_NAME_!=null">
+				and job_name_ like #{JOB_NAME_}
+			</if>
+			<if test="TRIGGER_NAME_!=null">
+				and TRIGGER_NAME_ like #{TRIGGER_NAME_}
+			</if>
+			<if test="START!=null">
+			<![CDATA[
+				and START_TIME_ >= #{START}
+			]]>
+			</if>
+			<if test="END!=null">
+				<![CDATA[
+				and START_TIME_ <= #{END}
+				]]>
+			</if>
+		</where>
+		
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY LOG_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysQuartzLog">
+		UPDATE sys_quartz_log SET
+		ALIAS_=#{alias,jdbcType=VARCHAR},
+		JOB_NAME_=#{jobName,jdbcType=VARCHAR},
+		TRIGGER_NAME_=#{triggerName,jdbcType=VARCHAR},
+		CONTENT_=#{content,jdbcType=CLOB},
+		START_TIME_=#{startTime,jdbcType=TIMESTAMP},
+		END_TIME_=#{endTime,jdbcType=TIMESTAMP},
+		RUN_TIME_=#{runTime,jdbcType=NUMERIC},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		LOG_ID_=#{logId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM sys_quartz_log 
+		WHERE
+		LOG_ID_=#{logId}
+	</delete>
+	
+	<delete id="cleanAll">
+		truncate table sys_quartz_log
+	</delete>
+	
+	
+</mapper>

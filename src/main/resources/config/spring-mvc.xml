@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <mvc:annotation-driven />
+    <!-- SpringMVC相关Bean配置 -->
+	<context:component-scan base-package="com.redxun.wx.*.*.controller" />
+	<context:component-scan base-package="com.redxun.pub.*.controller" /> 
+    <context:component-scan base-package="com.redxun.*.*.controller" />
+    <context:component-scan base-package="com.redxun.sys.view.controller" />
+    <context:component-scan base-package="com.redxun.saweb.controller" />
+    <context:component-scan base-package="com.redxun.ui.*.controller" />
+
+    <!--加入Spring Activiti-Modeler的运行配置-->
+    <context:component-scan base-package="com.redxun.bpm.rest.diagram"/>
+	<context:component-scan base-package="com.redxun.bpm.rest.editor"/>
+	
+    <!-- 国际化处理 开始 -->
+    <bean id="messageSource"
+              class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basename" value="classpath:message/i18n" />
+        <property name="fileEncodings" value="UTF-8" />
+        <property name="useCodeAsDefaultMessage" value="true" />
+        <property name="cacheSeconds" value="0" />
+    </bean>
+	
+    <bean id="localeChangeInterceptor"
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    <!-- 国际化处理 结束 -->
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors" ref="localeChangeInterceptor" />
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    	<property name="webBindingInitializer">
+			<bean class="com.redxun.saweb.mvc.bind.MvcDataBinding" />
+		</property>
+        <property name="messageConverters">
+            <list>
+                <bean class="com.redxun.saweb.json.JsonHttpMessageConverter">
+                	<property name="supportedMediaTypes">
+					   <list>
+					    	<value>text/html;charset=UTF-8</value>
+					    	<value>application/json;charset=UTF-8</value>
+					   </list>
+					  </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="redirectHttp10Compatible" value="false" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value="" />
+    </bean>
+    
+    <!--用于配置文件上传配置-->
+    <bean id="fileUploadConfig" class="com.redxun.saweb.config.upload.FileUploadConfig"/>
+    <!-- MiniUi的相关配置，如皮肤列表 -->
+    <bean id="uiConfig" class="com.redxun.saweb.config.ui.UiConfig"/>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="maxUploadSize" value="209715200" />
+        <property name="maxInMemorySize" value="1048576" />
+    </bean>
+	
+    <!--bean id="globalValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> 
+    <property name="validationMessageSource" ref="messageSource"/> </bean -->
+    <!--用于验生成证码-->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">no</prop>
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<prop key="kaptcha.textproducer.font.color">red</prop>
+						<prop key="kaptcha.image.width">250</prop>
+						<prop key="kaptcha.textproducer.font.size">90</prop>
+						<prop key="kaptcha.image.height">90</prop>
+						<prop key="kaptcha.session.key">code</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>

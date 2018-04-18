@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+   <tlib-version>1.0</tlib-version>
+   <short-name>imgAreaFun</short-name>
+   <uri>http://www.redxun.cn/imgAreaFun</uri>
+   <description>Add ImgArea Function Script</description>
+   <display-name>imgAreaFun script</display-name>
+
+  <tag>
+    <description>
+       添加图片热区的脚本
+    </description>
+    <name>imgAreaScript</name>
+    <tag-class>com.redxun.saweb.tag.ImgAreaScriptTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <description>actDefId</description>
+        <name>actDefId</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>actInstId</description>
+        <name>actInstId</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>taskId</description>
+        <name>taskId</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>instId</description>
+        <name>instId</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+  </tag>
+  
+ 
+</taglib>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysSeqId">
+	<resultMap id="SysSeqId" type="com.redxun.sys.core.entity.SysSeqId">
+		<id property="seqId" column="SEQ_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="alias" column="ALIAS_" jdbcType="VARCHAR"/>
+		<result property="curDate" column="CUR_DATE_" jdbcType="TIMESTAMP"/>
+		<result property="rule" column="RULE_" jdbcType="VARCHAR"/>
+		<result property="ruleConf" column="RULE_CONF_" jdbcType="VARCHAR"/>
+		<result property="initVal" column="INIT_VAL_" jdbcType="NUMERIC"/>
+		<result property="genType" column="GEN_TYPE_" jdbcType="VARCHAR"/>
+		<result property="len" column="LEN_" jdbcType="NUMERIC"/>
+		<result property="curVal" column="CUR_VAL" jdbcType="NUMERIC"/>
+		<result property="step" column="STEP_" jdbcType="NUMERIC"/>
+		<result property="memo" column="MEMO_" jdbcType="VARCHAR"/>
+		<result property="isDefault" column="IS_DEFAULT_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.sys.core.entity.SysSeqId">
+		INSERT INTO sys_seq_id
+		(SEQ_ID_,NAME_,ALIAS_,CUR_DATE_,RULE_,RULE_CONF_,INIT_VAL_,GEN_TYPE_,LEN_,CUR_VAL,STEP_,MEMO_,IS_DEFAULT_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{seqId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{curDate,jdbcType=TIMESTAMP}, #{rule,jdbcType=VARCHAR}, #{ruleConf,jdbcType=VARCHAR}, #{initVal,jdbcType=NUMERIC}, #{genType,jdbcType=VARCHAR}, #{len,jdbcType=NUMERIC}, #{curVal,jdbcType=NUMERIC}, #{step,jdbcType=NUMERIC}, #{memo,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="SysSeqId">
+		SELECT * FROM sys_seq_id 
+		WHERE 
+		SEQ_ID_=#{seqId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="SysSeqId">
+		SELECT * FROM sys_seq_id
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY SEQ_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.sys.core.entity.SysSeqId">
+		UPDATE sys_seq_id SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		ALIAS_=#{alias,jdbcType=VARCHAR},
+		CUR_DATE_=#{curDate,jdbcType=TIMESTAMP},
+		RULE_=#{rule,jdbcType=VARCHAR},
+		RULE_CONF_=#{ruleConf,jdbcType=VARCHAR},
+		INIT_VAL_=#{initVal,jdbcType=NUMERIC},
+		GEN_TYPE_=#{genType,jdbcType=VARCHAR},
+		LEN_=#{len,jdbcType=NUMERIC},
+		CUR_VAL=#{curVal,jdbcType=NUMERIC},
+		STEP_=#{step,jdbcType=NUMERIC},
+		MEMO_=#{memo,jdbcType=VARCHAR},
+		IS_DEFAULT_=#{isDefault,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		SEQ_ID_=#{seqId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM sys_seq_id 
+		WHERE
+		SEQ_ID_=#{seqId}
+	</delete>
+	
+	<select id="getByAlias" resultMap="SysSeqId">
+		SELECT * FROM sys_seq_id 
+		WHERE 
+		ALIAS_=#{alias,jdbcType=VARCHAR} and TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateVersion" parameterType="com.redxun.sys.core.entity.SysSeqId">
+		UPDATE sys_seq_id SET CUR_DATE_=#{curDate,jdbcType=TIMESTAMP},CUR_VAL=#{newVal,jdbcType=NUMERIC}
+		WHERE
+		SEQ_ID_=#{seqId} and CUR_VAL=#{curVal,jdbcType=NUMERIC}
+	</update>
+	
+</mapper>

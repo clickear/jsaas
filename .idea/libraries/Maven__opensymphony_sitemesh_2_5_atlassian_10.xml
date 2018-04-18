@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: opensymphony:sitemesh:2.5-atlassian-10">
+    <CLASSES>
+      <root url="jar://D:/maven_repo/opensymphony/sitemesh/2.5-atlassian-10/sitemesh-2.5-atlassian-10.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven_repo/opensymphony/sitemesh/2.5-atlassian-10/sitemesh-2.5-atlassian-10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven_repo/opensymphony/sitemesh/2.5-atlassian-10/sitemesh-2.5-atlassian-10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

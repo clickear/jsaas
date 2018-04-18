@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.pro.entity.Project">
+	<resultMap id="Project" type="com.redxun.oa.pro.entity.Project">
+		<result property="projectId" column="PROJECT_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="reporId" column="REPOR_ID_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="version" column="VERSION_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+	    <result property="startTime" column="START_TIME_" jdbcType="DATE"/>
+		<result property="endTime" column="END_TIME_" jdbcType="DATE"/>
+
+	</resultMap>
+	
+	<select id="getMyAttendProject" parameterType="java.util.Map" resultMap="Project">
+	SELECT * 
+	FROM  oa_project 
+	WHERE  PROJECT_ID_  IN 
+	(SELECT distinct PROJECT_ID_ 
+	FROM oa_pro_attend 
+	WHERE GROUP_ID_ IN 
+	(SELECT PARTY1_ 
+	FROM os_rel_inst 
+	WHERE REL_TYPE_KEY_='GROUP-USER-BELONG'
+	AND PARTY2_=#{userId}
+	 AND TENANT_ID_=#{tenantId})
+	 <if test="userId!=null">
+		OR USER_ID_=#{userId} 
+	</if>
+	 )
+	 <if test="property!=null">
+	ORDER BY  ${property} ${direction}
+	 </if>
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.ent.entity.WxEntAgent">
+	<resultMap id="WxEntAgent" type="com.redxun.wx.ent.entity.WxEntAgent">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="description" column="DESCRIPTION_" jdbcType="VARCHAR"/>
+		<result property="domain" column="DOMAIN_" jdbcType="VARCHAR"/>
+		<result property="homeUrl" column="HOME_URL_" jdbcType="VARCHAR"/>
+		<result property="entId" column="ENT_ID_" jdbcType="VARCHAR"/>
+		<result property="corpId" column="CORP_ID_" jdbcType="VARCHAR"/>
+		<result property="agentId" column="AGENT_ID_" jdbcType="VARCHAR"/>
+		<result property="secret" column="SECRET_" jdbcType="VARCHAR"/>
+		<result property="defaultAgent" column="DEFAULT_AGENT_" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.ent.entity.WxEntAgent">
+		INSERT INTO wx_ent_agent
+		(ID_,NAME_,DESCRIPTION_,DOMAIN_,HOME_URL_,ENT_ID_,CORP_ID_,AGENT_ID_,SECRET_,DEFAULT_AGENT_,TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, #{homeUrl,jdbcType=VARCHAR}, #{entId,jdbcType=VARCHAR}, #{corpId,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, #{secret,jdbcType=VARCHAR}, #{defaultAgent,jdbcType=NUMERIC}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxEntAgent">
+		SELECT * FROM wx_ent_agent 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="getByAgent"   parameterType="java.lang.String" resultMap="WxEntAgent">
+		SELECT * FROM wx_ent_agent 
+		WHERE  AGENT_ID_=#{agentId} and TENANT_ID_=#{tenantId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxEntAgent">
+		SELECT * FROM wx_ent_agent
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.ent.entity.WxEntAgent">
+		UPDATE wx_ent_agent SET
+		NAME_=#{name,jdbcType=VARCHAR},
+		DESCRIPTION_=#{description,jdbcType=VARCHAR},
+		DOMAIN_=#{domain,jdbcType=VARCHAR},
+		HOME_URL_=#{homeUrl,jdbcType=VARCHAR},
+		ENT_ID_=#{entId,jdbcType=VARCHAR},
+		CORP_ID_=#{corpId,jdbcType=VARCHAR},
+		AGENT_ID_=#{agentId,jdbcType=VARCHAR},
+		SECRET_=#{secret,jdbcType=VARCHAR},
+		DEFAULT_AGENT_=#{defaultAgent,jdbcType=NUMERIC},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<select id="getByTenantId"   parameterType="java.lang.String" resultMap="WxEntAgent">
+		SELECT * FROM wx_ent_agent 
+		WHERE  TENANT_ID_=#{tenantId} 
+	</select>
+	
+	
+	<update id="updNotDefault"  >
+		UPDATE wx_ent_agent SET DEFAULT_AGENT_=0 where TENANT_ID_=#{tenantId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM wx_ent_agent 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

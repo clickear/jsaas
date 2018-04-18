@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmRemindInst">
+	<resultMap id="BpmRemindInst" type="com.redxun.bpm.core.entity.BpmRemindInst">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="taskId" column="TASK_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="action" column="ACTION_" jdbcType="VARCHAR"/>
+		<result property="expireDate" column="EXPIRE_DATE_" jdbcType="TIMESTAMP"/>
+		<result property="script" column="SCRIPT_" jdbcType="VARCHAR"/>
+		<result property="notifyType" column="NOTIFY_TYPE_" jdbcType="VARCHAR"/>
+		<result property="timeToSend" column="TIME_TO_SEND_" jdbcType="TIMESTAMP"/>
+		<result property="sendTimes" column="SEND_TIMES_" jdbcType="NUMERIC"/>
+		<result property="sendInterval" column="SEND_INTERVAL_" jdbcType="NUMERIC"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="solutionName" column="SOLUTION_NAME_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+		<result property="actInstId" column="ACT_INST_ID_" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmRemindInst">
+		INSERT INTO BPM_REMIND_INST
+		(ID_,SOL_ID_,NODE_ID_,TASK_ID_,NAME_,ACTION_,EXPIRE_DATE_,SCRIPT_,NOTIFY_TYPE_,TIME_TO_SEND_,SEND_TIMES_,SEND_INTERVAL_,STATUS_,TENANT_ID_,CREATE_TIME_,
+		CREATE_BY_,UPDATE_BY_,UPDATE_TIME_,SOLUTION_NAME_,NODE_NAME_,ACT_INST_ID_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{solId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, 
+		#{expireDate,jdbcType=TIMESTAMP}, #{script,jdbcType=VARCHAR}, #{notifyType,jdbcType=VARCHAR}, #{timeToSend,jdbcType=TIMESTAMP}, #{sendTimes,jdbcType=NUMERIC}, 
+		#{sendInterval,jdbcType=NUMERIC}, #{status,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+		#{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{solutionName,jdbcType=VARCHAR},#{nodeName,jdbcType=VARCHAR},#{actInstId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmRemindInst">
+		SELECT * FROM BPM_REMIND_INST 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmRemindInst">
+		SELECT * FROM BPM_REMIND_INST
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmRemindInst">
+		UPDATE BPM_REMIND_INST SET
+		SOL_ID_=#{solId,jdbcType=VARCHAR},
+		NODE_ID_=#{nodeId,jdbcType=VARCHAR},
+		TASK_ID_=#{taskId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		ACTION_=#{action,jdbcType=VARCHAR},
+		EXPIRE_DATE_=#{expireDate,jdbcType=TIMESTAMP},
+		SCRIPT_=#{script,jdbcType=VARCHAR},
+		NOTIFY_TYPE_=#{notifyType,jdbcType=VARCHAR},
+		TIME_TO_SEND_=#{timeToSend,jdbcType=TIMESTAMP},
+		SEND_TIMES_=#{sendTimes,jdbcType=NUMERIC},
+		SEND_INTERVAL_=#{sendInterval,jdbcType=NUMERIC},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_REMIND_INST 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+	<select id="getRemindInst"  resultMap="BpmRemindInst">
+		SELECT * FROM BPM_REMIND_INST where 
+		<choose>  
+            <when test="isExpire"> 
+				EXPIRE_DATE_ &lt;= #{newDate} 
+			</when>
+			<otherwise>
+				EXPIRE_DATE_ > #{newDate} 
+			</otherwise>
+		</choose>
+		and STATUS_!='finish'
+	</select>
+	
+	<select id="getByTaskIds" resultMap="BpmRemindInst">
+		SELECT * FROM BPM_REMIND_INST 
+		WHERE 
+		TASK_ID_ in <foreach collection="tasks"  item="id" separator="," open="(" close=")">#{id}</foreach>
+	</select>
+	
+	
+	<delete id="removeByInst" parameterType="java.lang.String">
+		DELETE FROM BPM_REMIND_INST 
+		WHERE
+		ACT_INST_ID_=#{actInstId}
+	</delete>
+	
+</mapper>

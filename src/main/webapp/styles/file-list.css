@@ -1,0 +1,109 @@
+.filesView::after{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.filesDataView{
+	
+}
+
+.file-block{
+	width:107px;
+	height:140px;
+	display:inline;
+	float:left;
+	text-align: center;
+	margin: 16px 8px 0;
+	box-sizing: border-box;
+	background: #fff;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+
+.file-ext{
+	color: #666;
+	
+}
+
+.icon{
+	cursor: pointer;
+	clear:both;
+	padding:4px 4px 4px 4px;
+}
+
+.icon-outer{
+	cursor:pointer;
+	width:40px;
+	clear:both;
+	height:30px;	
+}
+
+.icon-block{
+	width:40px;
+	height:40px;
+	border:border 1px #ccc;
+	display:inline;
+	float:left;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+.icon-check{
+	text-align: right;
+	vertical-align: bottom;
+	width:50px;
+	height:15px;
+	border:solid 1 red;
+}
+
+.file {
+    width:100%;
+    margin-bottom:4px;
+    border:solid 1px white;
+    display:inline;
+    float:left;
+    text-align:center;
+    text-decoration:none;
+    outline:none;
+}
+
+.imageBox{
+	width: 90%;
+	height:70px;
+	display: block;
+	margin: 20px auto 0;
+}
+
+.file-image
+{
+    width:100%;
+    height:auto;
+    background:url(images/file.png) no-repeat 50% 50%;
+    border:0;
+    display:block;
+    margin: 0;
+    border: none;
+}
+
+
+.file-text
+{
+    text-align:center;
+    color:#2E3139;
+    line-height:14px;
+    font-size:9pt;
+    font-family:Tahoma,Verdana,宋体;
+}
+
+/* a:hover.file
+{
+    border:1px solid #A9ACB5;
+    background:#dde6fe url(images/hover.png) repeat-x 0 0;  
+} */
+.file-selected, a:hover.file-selected
+{
+    border:1px solid #A9ACB5;
+    background:#EBEDF2 url(images/button.png) repeat-x 0 0;
+}

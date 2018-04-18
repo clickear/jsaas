@@ -1,0 +1,12 @@
+@charset "utf-8";
+/*可以在这里添加你自己的css*/
+@IMPORT url("../../../../styles/iframe.css");
+*{
+	font-family: "微软雅黑";
+	color: #666;
+}
+
+*::-webkit-scrollbar {width: 8px;height: 8px;}
+*::-webkit-scrollbar-thumb {border-radius: 4px;background: #d4d5d9;}
+*::-webkit-scrollbar-track {background: #b3b3b3;border-radius: 4px;}
+*::-webkit-scrollbar-corner {background:#fff;}

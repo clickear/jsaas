@@ -1,0 +1,131 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+a,img {
+	border: 0;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #3366cc;
+	text-decoration: underline;
+}
+/* demo */
+.demo {
+	width: 600px;
+	margin-top: 40px;
+	position: relative;
+}
+
+.demo h2 {
+	font-size: 16px;
+	height: 44px;
+	color: #3366cc;
+	margin-top: 20px;
+}
+
+.demo dl dt {
+	font-size: 14px;
+	color: #ff6600;
+	margin-top: 30px;
+	font-weight: 800;
+}
+
+.demo dl dt,.demo dl dd {
+	line-height: 22px;
+}
+/* tabbtn */
+.tabbtn {
+	height: 30px;
+	background: #E8EAEB;
+	border-left: solid 1px #ddd;
+	border-right: solid 1px #ddd;
+}
+
+.tabbtn li {
+	float: left;
+	position: relative;
+	margin: 0 0 0 -1px;
+}
+
+.tabbtn li a {
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+	width: 108px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	clear: both;
+}
+
+.tabbtn li.current {
+	border-left: solid 1px #d5d5d5;
+	border-right: solid 1px #d5d5d5;
+	border-top: solid 1px #c5c5c5;
+}
+
+.tabbtn li.current a {
+	border-top: solid 2px #CCC;
+	height: 27px;
+	line-height: 27px;
+	background: #fff;
+	color: #3366cc;
+	font-weight: 800;
+}
+/* tabcon */
+.tabcon {
+	border-width: 0 1px 1px 1px;
+	border-color: #ddd;
+	border-style: solid;
+	position: relative; /*必要元素*/
+	height: 180px;
+	overflow: hidden;
+}
+
+.tabcon .subbox {
+	position: absolute; /*必要元素*/
+	left: 0;
+	top: 0;
+}
+
+.tabcon .sublist {
+	padding: 5px 10px;
+	height: 170px;
+}
+/* leftcon */
+#leftcon .subbox {
+	width: 9999em;
+}
+
+#leftcon .subbox .sublist {
+	float: left;
+	width: 664px;
+}
+/* sublist */
+.sublist {
+	padding: 10px;
+}
+
+.sublist li {
+	height: 28px;
+	line-height: 28px;
+	font-size: 12px;
+}
+
+.sublist li span {
+	margin: 0 5px 0 0;
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: 400;
+	color: #ddd;
+}

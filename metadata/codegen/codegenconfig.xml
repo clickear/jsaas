@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="codegen.xsd">
+	<variables>
+		<variable name="developer" value="ray" />
+		<variable name="company" value="广州红迅软件" />
+		<variable name="system" value="project"/>
+		<variable name="domain" value="com.redxun"/>
+		<variable name="email" value="ray@redxun.com"/>
+	</variables>
+	
+	<templates>
+		<template id="dao" path="dao.ftl"/>
+		<template id="queryDao" path="queryDao.ftl"/>
+		<template id="manager"  path="manager.ftl"/>
+		<template id="mapping"  path="mapping.ftl"/>
+		<template id="entity"  path="entity.ftl"/>
+		<template id="controller" path="controller.ftl" />
+		<template id="formController" path="FormController.ftl" />
+		<template id="edit" path="edit.ftl" />
+		<template id="list" path="list.ftl" />
+		<template id="get" path="get.ftl" />
+		<template id="editform" path="editform.ftl" />
+	</templates>
+	
+	
+	<files baseDir="E:\work\redxun\jsaas" >
+		<file refTemplate="mapping" filename="{class}.map.xml" dir="src\main\resources\mybatis\{system}\{package}"  sub="true"  override="true"/>
+		
+		<file refTemplate="queryDao" filename="{class}QueryDao.java" dir="src\main\java\com\redxun\{system}\{package}\dao" sub="true"  override="true"/>
+		
+		<file refTemplate="entity" filename="{class}.java" dir="src\main\java\com\redxun\{system}\{package}\entity" sub="true"  override="true"/>
+		<file refTemplate="manager" filename="{class}Manager.java" dir="src\main\java\com\redxun\{system}\{package}\manager" sub="false"  override="true"/>
+	
+		<file refTemplate="controller" filename="{class}Controller.java" dir="src\main\java\com\redxun\{system}\{package}\controller" sub="false"  override="true"/>
+		<file refTemplate="edit" override="true" filename="{classVar}Edit.jsp" dir="src/main/webapp/WEB-INF/jsp/{system}/{package}"/>
+		<file refTemplate="get" override="true" filename="{classVar}Get.jsp" dir="src/main/webapp/WEB-INF/jsp/{system}/{package}"/>
+		<file refTemplate="list" override="true" filename="{classVar}List.jsp" dir="src/main/webapp/WEB-INF/jsp/{system}/{package}"/>
+		
+		<file refTemplate="editform" override="true" filename="{classVar}Form.jsp" dir="src/main/webapp/WEB-INF/jsp/{system}/{package}"/>
+		 
+	</files>
+	
+
+	<table tableName="PROJECT_INFO">
+		<variable name="class" value="ProjectInfo" />
+		<variable name="package" value="core" />
+		<subtable tablename="PROJECT_OWNER" foreignKey="PROJECT_ID_">
+			<variable name="mappingmode" value="one2one" />
+			<variable name="class" value="ProjectOwner" />
+			<variable name="package" value="core" />
+		</subtable>
+	</table>
+	
+
+
+</config>

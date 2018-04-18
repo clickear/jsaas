@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.form.entity.BpmFormView">
+	<resultMap id="bpmFormView" type="com.redxun.bpm.form.entity.BpmFormView">
+		<id property="viewId" column="VIEW_ID_" jdbcType="VARCHAR"/>
+		<result property="treeId" column="TREE_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+		<result property="renderUrl" column="RENDER_URL_" jdbcType="VARCHAR"/>
+		<result property="version" column="VERSION_" jdbcType="NUMERIC"/>
+		<result property="title" column="TITLE_" jdbcType="VARCHAR"/>
+		<result property="isMain" column="IS_MAIN_" jdbcType="VARCHAR"/>
+		<result property="mainViewId" column="MAIN_VIEW_ID_" jdbcType="VARCHAR"/>
+		<result property="descp" column="DESCP_" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS_" jdbcType="VARCHAR"/>
+		<result property="isBindMd" column="IS_BIND_MD_" jdbcType="VARCHAR"/>
+		<result property="templateView" column="TEMPLATE_VIEW_" jdbcType="CLOB"/>
+		<result property="template" column="TEMPLATE_" jdbcType="CLOB"/>
+		<result property="templateId" column="TEMPLATE_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="boDefId" column="BO_DEFID_" jdbcType="VARCHAR"/>
+		<result property="buttonDef" column="BUTTON_DEF_" jdbcType="VARCHAR"/>
+		<result property="displayType" column="DISPLAY_TYPE_" jdbcType="VARCHAR"/>
+		<result property="pdfTemp" column="PDF_TEMP_" jdbcType="CLOB"/>
+		
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.form.entity.BpmFormView">
+		INSERT INTO bpm_form_view
+		(VIEW_ID_,TREE_ID_,NAME_,KEY_,TYPE_,RENDER_URL_,VERSION_,IS_MAIN_,MAIN_VIEW_ID_,DESCP_,STATUS_,IS_BIND_MD_,TEMPLATE_VIEW_,TEMPLATE_,
+		TEMPLATE_ID_,TENANT_ID_,CREATE_BY_,CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,BO_DEFID_,TITLE_,BUTTON_DEF_,DISPLAY_TYPE_,PDF_TEMP_)
+		VALUES 
+		(#{viewId,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR},  #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{renderUrl,jdbcType=VARCHAR},
+		 #{version,jdbcType=NUMERIC}, #{isMain,jdbcType=VARCHAR}, #{mainViewId,jdbcType=VARCHAR}, #{descp,jdbcType=CLOB}, #{status,jdbcType=VARCHAR}, 
+		 #{isBindMd,jdbcType=VARCHAR}, #{templateView,jdbcType=CLOB},#{template,jdbcType=CLOB}, #{templateId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
+		  #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{boDefId,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{buttonDef,jdbcType=VARCHAR},#{displayType,jdbcType=VARCHAR},#{pdfTemp,jdbcType=CLOB})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="bpmFormView">
+		SELECT * FROM bpm_form_view 
+		WHERE 
+		VIEW_ID_=#{viewId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="bpmFormView">
+		SELECT VIEW_ID_,TREE_ID_,NAME_,KEY_,TYPE_,RENDER_URL_,VERSION_,IS_MAIN_,MAIN_VIEW_ID_,
+		DESCP_,STATUS_,IS_BIND_MD_,TEMPLATE_ID_,TENANT_ID_,CREATE_BY_,
+		CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,BO_DEFID_,BUTTON_DEF_,DISPLAY_TYPE_ FROM bpm_form_view
+		<where>
+			<if test="whereSql!=null">
+			  and ${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY VIEW_ID_ DESC
+		</if>
+	</select>
+	
+	<select id="getByFilter" parameterType="java.util.Map" resultMap="bpmFormView">
+		SELECT VIEW_ID_,TREE_ID_,NAME_,KEY_,TYPE_,RENDER_URL_,VERSION_,IS_MAIN_,MAIN_VIEW_ID_,
+		DESCP_,STATUS_,IS_BIND_MD_,TEMPLATE_ID_,TENANT_ID_,CREATE_BY_,
+		CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,BO_DEFID_,BUTTON_DEF_,DISPLAY_TYPE_,PDF_TEMP_ FROM bpm_form_view
+		where TENANT_ID_=#{tenantId}
+		
+		<choose>
+			<when test="@Ognl@isNotEmpty(boDefIds)">
+				and (BO_DEFID_ in <foreach collection="boDefIds" index="index" item="item"
+		            open="(" separator="," close=")">
+		            #{item}
+		        </foreach>
+		        	or TYPE_='SEL-DEV'
+		        )
+			</when>
+			<otherwise>
+				and TYPE_='SEL-DEV'
+			</otherwise>
+		</choose>
+					
+		
+		<if test="@Ognl@isNotEmpty(STATUS_)">
+			and STATUS_=#{STATUS_}
+		</if>
+		
+		<if test="@Ognl@isNotEmpty(NAME_)">
+			and NAME_ like #{NAME_}
+		</if>
+		
+		<if test="@Ognl@isNotEmpty(KEY_)">
+			and KEY_ like #{KEY_}
+		</if>
+		
+		and IS_MAIN_='YES'
+		
+			
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY VIEW_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.form.entity.BpmFormView">
+		UPDATE bpm_form_view SET
+		TREE_ID_=#{treeId,jdbcType=VARCHAR},
+		NAME_=#{name,jdbcType=VARCHAR},
+		TITLE_=#{title,jdbcType=VARCHAR},
+		KEY_=#{key,jdbcType=VARCHAR},
+		TYPE_=#{type,jdbcType=VARCHAR},
+		RENDER_URL_=#{renderUrl,jdbcType=VARCHAR},
+		VERSION_=#{version,jdbcType=NUMERIC},
+		IS_MAIN_=#{isMain,jdbcType=VARCHAR},
+		MAIN_VIEW_ID_=#{mainViewId,jdbcType=VARCHAR},
+		DESCP_=#{descp,jdbcType=CLOB},
+		STATUS_=#{status,jdbcType=VARCHAR},
+		IS_BIND_MD_=#{isBindMd,jdbcType=VARCHAR},
+		TEMPLATE_VIEW_=#{templateView,jdbcType=CLOB},
+		TEMPLATE_=#{template,jdbcType=CLOB},
+		TEMPLATE_ID_=#{templateId,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		BO_DEFID_=#{boDefId,jdbcType=VARCHAR},
+		BUTTON_DEF_=#{buttonDef,jdbcType=VARCHAR},
+		DISPLAY_TYPE_=#{displayType,jdbcType=VARCHAR},
+		PDF_TEMP_=#{pdfTemp,jdbcType=CLOB}
+		WHERE
+		VIEW_ID_=#{viewId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_form_view 
+		WHERE
+		VIEW_ID_=#{viewId}
+	</delete>
+	
+	<select id="getCountByAlias"  resultType="java.lang.Integer"  >
+		SELECT count(*) FROM bpm_form_view 
+		WHERE KEY_=#{key,jdbcType=VARCHAR}
+		and TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		
+	</select>
+	
+	<select id="getByAlias" resultMap="bpmFormView"  >
+		SELECT * FROM bpm_form_view 
+		WHERE KEY_=#{key,jdbcType=VARCHAR}
+		and IS_MAIN_=#{isMain,jdbcType=VARCHAR}
+		and TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getByTreeFilter" resultMap="bpmFormView">
+	SELECT VIEW_ID_,TREE_ID_,NAME_,KEY_,TYPE_,RENDER_URL_,VERSION_,IS_MAIN_,MAIN_VIEW_ID_,
+		DESCP_,STATUS_,IS_BIND_MD_,TEMPLATE_ID_,TENANT_ID_,CREATE_BY_,
+		CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,BO_DEFID_,BUTTON_DEF_,DISPLAY_TYPE_
+		FROM BPM_FORM_VIEW
+		<where>
+			<if test="whereSql!=null">
+			  and ${whereSql}
+			</if>
+			and TREE_ID_ in <foreach collection="list" item="treeId" separator=","  open="(" close=")">#{treeId}</foreach>
+		</where>
+
+	
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY CREATE_TIME_ DESC
+		</if>
+	</select>
+	
+	<select id="getByBoId" resultMap="bpmFormView">
+	SELECT VIEW_ID_,TREE_ID_,NAME_,KEY_,TYPE_,RENDER_URL_,VERSION_,IS_MAIN_,MAIN_VIEW_ID_,
+		DESCP_,STATUS_,IS_BIND_MD_,TEMPLATE_ID_,TENANT_ID_,CREATE_BY_,
+		CREATE_TIME_,UPDATE_BY_,UPDATE_TIME_,BO_DEFID_,DISPLAY_TYPE_
+	FROM bpm_form_view
+	WHERE BO_DEFID_=#{boDefId}
+	</select>
+	
+	<update id="removeBoDef"  >
+		UPDATE bpm_form_view SET BO_DEFID_=null WHERE  BO_DEFID_=#{boDefId}
+	</update>
+	
+	<select id="getAll" resultMap="bpmFormView">
+		select * from bpm_form_view
+	</select>
+	
+	
+	<select id="getAliasByBoId" resultType="java.lang.String">
+	    select KEY_ from bpm_form_view where BO_DEFID_ = #{boDefId}
+	    
+	</select>
+	
+</mapper>

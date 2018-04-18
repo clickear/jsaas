@@ -1,0 +1,132 @@
+.main-container{
+	border:1px solid #d1e1ef;
+	margin:0 auto;
+	width:978px;
+}
+
+.main-container .left-container{
+	float: left;
+    font-size: 12px;
+	padding-bottom: 0px;
+	padding-left: 42px;
+	padding-right: 0px;
+	padding-top: 30px;
+	width: 161px;
+}
+
+.main-container .left-container .left-box{
+	width: 118px;
+}
+
+.main-container .left-container .left-box .user-pic{
+	padding:4px;
+	position: relative;
+	width: 110px;
+	text-align: center;
+}
+
+.main-container .left-container .left-box .user-name{
+	margin-top:8px;
+	text-align: center;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+.main-container .left-container .left-box .user-name .link{
+	color:#2c76c0;
+	padding-bottom: 8px;
+	padding-left: 0px;
+	padding-right: 0px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.main-container .right-box{
+	float: left;
+	font-size: 12px;
+	min-height: 200px;
+	padding-bottom: 30px;
+	padding-left: 20px;
+	padding-right: 0px;
+	padding-top: 20px;
+	width: 754px;
+}
+.main-container .right-box .edit{
+	color: #2c76c0;
+	cursor: pointer;
+	display: block;
+	float: right;
+	line-height: 20px;
+	margin-right: 20px;
+	padding-left: 20px;
+	text-decoration: none;
+}
+
+.main-container .right-box .line{
+	display: block;
+	height: 1px;
+	margin-bottom: 14px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	width: 734px;
+}
+
+.main-container .right-box  .profile-box{
+	width: 734px;
+}
+
+.main-container .right-box  .profile-box .title{
+	color: #666;
+	display: block;
+	font-size: 20px;
+	height: 22px;
+	margin-bottom: 13px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 20px;
+	padding-right: 0px;
+	padding-top: 0px;
+	width: 300px;
+}
+
+.main-container .right-box  .profile-box  .info-box{
+	clear:both;
+	line-height: 24px;
+	padding-bottom: 0px;
+	padding-left: 20px;
+	padding-right: 0px;
+	padding-top: 0px;
+}
+
+.main-container .right-box  .profile-box  .info-box .value-key{
+	color: #999;
+	display: block;
+	float: left;
+	font-size: 12px;
+	line-height: 24px;
+	max-width: 645px;
+	padding-right: 10px;
+	text-align: right;
+	width: 50px;
+}
+
+.main-container .right-box  .profile-box  .info-box .value-data{
+	color: #666;
+	display: block;
+	float: left;
+	font-size: 12px;
+	line-height: 24px;
+	max-width: 645px;
+	padding-left: 3px;
+	word-wrap: break-word;
+}
+
+
+
+
+

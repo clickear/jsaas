@@ -1,0 +1,40 @@
+@charset "utf-8";
+/*这个里是IE8专用样式*/
+
+body .mini-checkbox .mini-checkbox-check,
+body .mini-checkbox .mini-checkbox-icon{
+	background: url(images/icons/checkbox.png) no-repeat 0 0;
+    width: 13px;
+    height: 13px;
+    border:none;
+}
+
+body .mini-checkbox .mini-checkbox-icon:before,
+body .mini-checkbox .mini-checkbox-icon:after{
+	display: none;
+}
+
+body .mini-checkbox-checked .mini-checkbox-icon{
+    background-position: 0 -13px;
+}
+
+.mini-grid-rows-content{
+	border-bottom: 1px solid #ececec;
+}
+
+.ops_btn{
+	background: url(images/icons/ops_btn.png) no-repeat center center;
+}
+
+.searchSelectionBtn{
+	background: #f7f7f7 url(images/icons/sc_lower.png) no-repeat center center !important;
+}
+
+._open{
+	background: #f7f7f7 url(images/icons/scLower.png) no-repeat center center !important;
+}
+
+.searchSelectionBtn .icon-sc-lower:before{
+	display: none !important;
+}
+

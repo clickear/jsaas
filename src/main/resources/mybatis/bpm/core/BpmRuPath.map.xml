@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmRuPath">
+	<resultMap id="BpmRuPath" type="com.redxun.bpm.core.entity.BpmRuPath">
+		<id property="pathId" column="PATH_ID_" jdbcType="VARCHAR"/>
+		<result property="instId" column="INST_ID_" jdbcType="VARCHAR"/>
+		<result property="actDefId" column="ACT_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="actInstId" column="ACT_INST_ID_" jdbcType="VARCHAR"/>
+		<result property="solId" column="SOL_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeId" column="NODE_ID_" jdbcType="VARCHAR"/>
+		<result property="nodeName" column="NODE_NAME_" jdbcType="VARCHAR"/>
+		<result property="nodeType" column="NODE_TYPE_" jdbcType="VARCHAR"/>
+		<result property="startTime" column="START_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="endTime" column="END_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="duration" column="DURATION_" jdbcType="NUMERIC"/>
+		<result property="durationVal" column="DURATION_VAL_" jdbcType="NUMERIC"/>
+		<result property="assignee" column="ASSIGNEE_" jdbcType="VARCHAR"/>
+		<result property="toUserId" column="TO_USER_ID_" jdbcType="VARCHAR"/>
+		<result property="isMultiple" column="IS_MULTIPLE_" jdbcType="VARCHAR"/>
+		<result property="executionId" column="EXECUTEION_ID_" jdbcType="VARCHAR"/>
+		<result property="userIds" column="USER_IDS" jdbcType="VARCHAR"/>
+		<result property="level" column="LEVEL_" jdbcType="NUMERIC"/>
+		<result property="token" column="TOKEN_" jdbcType="VARCHAR"/>
+		<result property="jumpType" column="JUMP_TYPE_" jdbcType="VARCHAR"/>
+		<result property="nextJumpType" column="NEXT_JUMP_TYPE_" jdbcType="VARCHAR"/>
+		<result property="opinion" column="OPINION_" jdbcType="VARCHAR"/>
+		<result property="refPathId" column="REF_PATH_ID_" jdbcType="VARCHAR"/>
+		<result property="timeoutStatus" column="TIMEOUT_STATUS_" jdbcType="VARCHAR"/>
+		<result property="parentId" column="PARENT_ID_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<!-- 按最新的实例ID获得审批节点及及状态 -->
+	<select id="getLatestByActInstId" parameterType="java.util.Map" resultMap="BpmRuPath">
+		select * from bpm_ru_path a where a.act_inst_id_=#{actInstId} and exists(
+		select 1 from (select act_inst_id_, NODE_ID_,max(CREATE_TIME_) as CREATE_TIME_ FROM BPM_RU_PATH where act_inst_id_=#{actInstId}  group by act_inst_id_, node_id_) x
+		where a.act_inst_id_=x.act_inst_id_ and x.node_id_=a.node_id_ and a.create_time_=x.create_time_) 
+	</select>
+	
+	<select id="getLastPathByNode" resultMap="BpmRuPath">
+		select * from bpm_ru_path a where a.act_inst_id_=#{actInstId} 
+		and NODE_ID_=#{nodeId} and JUMP_TYPE_='AGREE' and LEVEL_=(select max(LEVEL_) from bpm_ru_path b where b.act_inst_id_=#{actInstId} 
+		and b.NODE_ID_=#{nodeId} and JUMP_TYPE_='AGREE')
+	</select>
+	
+	<delete id="removeByInst" >
+		delete from bpm_ru_path where INST_ID_=#{instId}
+	</delete>
+	
+	<select id="getByExecutionNode" parameterType="java.util.Map" resultMap="BpmRuPath" >
+		SELECT * from bpm_ru_path  where EXECUTION_ID_=#{executionId} and NODE_ID_=#{nodeId} ORDER BY CREATE_TIME_ DESC;
+	</select>
+	
+</mapper>

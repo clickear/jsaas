@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmInstData">
+	<resultMap id="BpmInstData" type="com.redxun.bpm.core.entity.BpmInstData">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="boDefId" column="BO_DEF_ID_" jdbcType="VARCHAR"/>
+		<result property="instId" column="INST_ID_" jdbcType="VARCHAR"/>
+		<result property="pk" column="PK_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmInstData">
+		INSERT INTO BPM_INST_DATA
+		(ID_,BO_DEF_ID_,INST_ID_,PK_,TENANT_ID_,CREATE_TIME_,CREATE_BY_,UPDATE_BY_,UPDATE_TIME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{boDefId,jdbcType=VARCHAR}, #{instId,jdbcType=VARCHAR}, #{pk,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmInstData">
+		SELECT * FROM BPM_INST_DATA 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmInstData">
+		SELECT * FROM BPM_INST_DATA
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmInstData">
+		UPDATE BPM_INST_DATA SET
+		BO_DEF_ID_=#{boDefId,jdbcType=VARCHAR},
+		INST_ID_=#{instId,jdbcType=VARCHAR},
+		PK_=#{pk,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM BPM_INST_DATA 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="removeByInstId" parameterType="java.lang.String">
+		DELETE FROM BPM_INST_DATA 
+		WHERE INST_ID_=#{instId,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="getByInstId"   parameterType="java.lang.String" resultMap="BpmInstData">
+		SELECT * FROM BPM_INST_DATA 
+		WHERE 
+		INST_ID_=#{instId}
+	</select>
+	
+	
+</mapper>

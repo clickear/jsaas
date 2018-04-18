@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="com.redxun.bpm.core.entity.BpmExecution">
+   <resultMap id="bpmExecutionMap" type="com.redxun.bpm.core.entity.BpmExecution">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="revision" column="REV_" jdbcType="INTEGER" />
+    <result property="processInstanceId" column="PROC_INST_ID_" jdbcType="VARCHAR" />
+    <result property="businessKey" column="BUSINESS_KEY_" jdbcType="VARCHAR" />
+    <result property="processDefinitionId" column="PROC_DEF_ID_" jdbcType="VARCHAR" />
+    <result property="activityId" column="ACT_ID_" jdbcType="VARCHAR" />
+    <result property="isActive" column="IS_ACTIVE_" jdbcType="BOOLEAN" />
+    <result property="isConcurrent" column="IS_CONCURRENT_" jdbcType="BOOLEAN" />
+    <result property="isScope" column="IS_SCOPE_" jdbcType="BOOLEAN" />
+    <result property="parentId" column="PARENT_ID_" jdbcType="VARCHAR" />
+    <result property="superExecutionId" column="SUPER_EXEC_" jdbcType="VARCHAR" />
+    <result property="isEventScope" column="IS_EVENT_SCOPE_" jdbcType="NUMERIC" />
+    <result property="suspensionState" column="SUSPENSION_STATE_" jdbcType="NUMERIC" />
+    <result property="cachedEntityState" column="CACHED_ENT_STATE_" jdbcType="NUMERIC" />
+    <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <insert id="create" parameterType="com.redxun.bpm.core.entity.BpmExecution">
+    insert into ACT_RU_EXECUTION (ID_, REV_, PROC_INST_ID_, BUSINESS_KEY_, PROC_DEF_ID_, ACT_ID_, IS_ACTIVE_, IS_CONCURRENT_, IS_SCOPE_, PARENT_ID_, SUPER_EXEC_,IS_EVENT_SCOPE_,SUSPENSION_STATE_,CACHED_ENT_STATE_,TENANT_ID_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1,
+      #{processInstanceId, jdbcType=VARCHAR},
+      #{businessKey, jdbcType=VARCHAR},
+      #{processDefinitionId ,jdbcType=VARCHAR},
+      #{activityId ,jdbcType=VARCHAR},
+      #{isActive ,jdbcType=BOOLEAN},
+      #{isConcurrent ,jdbcType=BOOLEAN},
+      #{isScope ,jdbcType=BOOLEAN},
+      #{parentId, jdbcType=VARCHAR},
+      #{superExecutionId, jdbcType=VARCHAR},
+      #{isEventScope,jdbcType=NUMERIC},
+      #{suspensionState,jdbcType=NUMERIC},
+      #{cachedEntityState,jdbcType=NUMERIC},
+      #{tenantId,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <update id="update" parameterType="com.redxun.bpm.core.entity.BpmExecution">
+		UPDATE act_ru_execution SET
+		REV_=#{revision,jdbcType=NUMERIC},
+		PROC_INST_ID_=#{processInstanceId,jdbcType=VARCHAR},
+		BUSINESS_KEY_=#{businessKey,jdbcType=VARCHAR},
+		PARENT_ID_=#{parentId,jdbcType=VARCHAR},
+		PROC_DEF_ID_=#{processDefinitionId,jdbcType=VARCHAR},
+		SUPER_EXEC_=#{superExecutionId,jdbcType=VARCHAR},
+		ACT_ID_=#{activityId,jdbcType=VARCHAR},
+		IS_ACTIVE_=#{isActive,jdbcType=NUMERIC},
+		IS_CONCURRENT_=#{isConcurrent,jdbcType=NUMERIC},
+		IS_SCOPE_=#{isScope,jdbcType=NUMERIC},
+		IS_EVENT_SCOPE_=#{isEventScope,jdbcType=NUMERIC},
+		SUSPENSION_STATE_=#{suspensionState,jdbcType=NUMERIC},
+		CACHED_ENT_STATE_=#{cachedEntityState,jdbcType=NUMERIC}
+		WHERE
+		ID_=#{id}
+	</update>
+
+   <select id="get"   parameterType="java.lang.String" resultMap="bpmExecutionMap">
+		SELECT * FROM ACT_RU_EXECUTION 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+  
+  
+  <select id="getExecutionBySuperId" resultMap="bpmExecutionMap">
+  	select * from ACT_RU_EXECUTION where SUPER_EXEC_ = #{id}
+  </select>
+  
+  <delete id="remove" parameterType="String">
+  	delete from  ACT_RU_EXECUTION  where ID_=#{executionId}
+  </delete>
+  
+  <delete id="delExecutionByProcInstId" parameterType="java.lang.String" >
+  	delete from  ACT_RU_EXECUTION  where PROC_INST_ID_=#{procInstId}
+  </delete>
+  
+  <delete id="delSubExecutionByProcInstId" parameterType="java.lang.String" >
+  	delete from  ACT_RU_EXECUTION  where PROC_INST_ID_=#{procInstId} and id_ !=#{procInstId}
+  </delete>
+  
+  <delete id="delAssigneeByExecutionId" parameterType="java.lang.String">
+  	delete from ACT_RU_VARIABLE where EXECUTION_ID_=#{exeuctionId} and NAME_='assignee'
+  </delete>
+  
+  <delete id="delLoopCounterByExecutionId" parameterType="java.lang.String">
+  	delete from ACT_RU_VARIABLE where EXECUTION_ID_=#{exeuctionId} and NAME_='loopCounter'
+  </delete>
+  
+  <delete id="delVariableByProcInstId" parameterType="java.lang.String">
+  	delete from ACT_RU_VARIABLE  where PROC_INST_ID_=#{procInstId}
+  </delete>
+  
+  <delete id="delTokenVarByTaskId" parameterType="Map">
+  	delete from ACT_RU_VARIABLE  where TASK_ID_=#{taskId} and NAME_=#{name}
+  </delete>
+  
+  <delete id="delVarsByExecutionId" parameterType="String">
+  	delete from ACT_RU_VARIABLE where  EXECUTION_ID_=#{exeuctionId}
+  </delete>
+  
+  <delete id="delNotMainThread">
+  	delete from ACT_RU_EXECUTION where proc_inst_id_=#{procInstId} and parent_id_ is not null
+  </delete>
+  
+  <update id="updateMainThread">
+  	update ACT_RU_EXECUTION set parent_id_=null ,act_id_=#{nodeId},is_concurrent_=0,is_active_=1, is_scope_=1 where ID_=#{executionId}
+  </update>
+  
+   <update id="updateTaskToMainThreadId">
+  	update ACT_RU_TASK set execution_id_=#{executionId}  where ID_=#{taskId}
+  </update>
+
+  <select id="getSubExecutionByProcInstId" parameterType="string" resultMap="bpmExecutionMap">
+    select * from ACT_RU_EXECUTION where PROC_INST_ID_ = #{procInstId} and ID_!=#{procInstId}
+  </select>
+  
+  <delete id="delSubVarByProcInstId" parameterType="java.lang.String">
+  	delete from ACT_RU_VARIABLE where  PROC_INST_ID_=#{procInstId} and EXECUTION_ID_!=#{procInstId}
+  </delete>
+  
+   <delete id="delSubInstByProcInstId" parameterType="java.lang.String">
+  	delete from ACT_RU_EXECUTION where  PROC_INST_ID_=#{procInstId} and ID_!=#{procInstId}
+  </delete>
+  
+  <select id="getSubExecutionBySuperId" parameterType="string" resultMap="bpmExecutionMap">
+    select * from ACT_RU_EXECUTION where super_exec_=#{procInstId}
+  </select>
+  
+  <delete id="delCandidateByProcInstId" parameterType="java.lang.String">
+		delete from act_ru_identitylink  where proc_inst_id_=#{procInstId}
+	</delete>
+
+  <select id="getByProcInstId" parameterType="java.lang.String" resultMap="bpmExecutionMap">
+  	select * from ACT_RU_EXECUTION where PROC_INST_ID_=#{procInstId}
+  </select>
+  
+  
+  <delete id="delVarByInstIdAndVarName" >
+  	delete from ACT_RU_VARIABLE  where PROC_INST_ID_=#{procInstId} and name_=#{name}
+  </delete>
+  
+  
+  <delete id="delIdentityByExecution">
+  	delete  from act_ru_identitylink   
+	where exists  (  
+	     select 1 from act_ru_task  
+	     Where act_ru_task.id_ = act_ru_identitylink.TASK_ID_  and act_ru_task.EXECUTION_ID_=#{executionId}
+	)  
+  </delete>
+  
+  <delete id="delTaskByExecution">
+  	delete  from act_ru_task  where EXECUTION_ID_=#{executionId}
+  </delete>
+  
+  <delete id="delVarsByExecution">
+  	delete  from act_ru_variable  where EXECUTION_ID_=#{executionId}
+  </delete>
+  
+  
+  <select id="getByParentId" parameterType="java.lang.String" resultMap="bpmExecutionMap">
+  	select * from ACT_RU_EXECUTION where PARENT_ID_=#{parentId}
+  </select>
+  
+</mapper>

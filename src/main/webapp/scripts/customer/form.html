@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html >
+<head>
+    <title></title>
+    <script type="text/javascript">
+		var  __rootPath="/jsaas";
+	</script>
+    <script src="/jsaas/scripts/mini/boot.js" type="text/javascript"></script>
+    <script src="/jsaas/scripts/ueditor/form-design/ueditor-ext.js" type="text/javascript"></script>
+    <script src="/jsaas/scripts/share.js" type="text/javascript"></script>
+    <script src="/jsaas/scripts/common/baiduTemplate.js" type="text/javascript"></script>
+    
+    <script src="mini-custom.js" type="text/javascript"></script>
+    
+</head>
+<body>  
+   <div id="form1">
+    <a class="mini-button" onclick="onClick" >获取数据</a>
+    <a class="mini-button" onclick="reqireClk" >设置必填</a>   
+    <div name="user" class="mini-form"   style="height:200px" value=""  >
+    	姓名:<input id="name" name="name" class="mini-textbox"/>
+    	性别:<input id="sex" name="sex" class="mini-textbox" />
+    </div>   
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+mini.parse();
+
+var frm = new mini.Form("#form1"); 
+ function onClick(e){
+	 frm.validate();
+	 if(frm.isValid()){
+		 alert("validate")
+	 }
+	 else{
+		 alert("not validate")
+	 }
+ }
+ 
+ function reqireClk(e){
+	 var obj=mini.get("name");
+	 var required=obj.required?false:true;
+	 console.info(required);
+	 obj.setRequired(required);
+ }
+
+</script>

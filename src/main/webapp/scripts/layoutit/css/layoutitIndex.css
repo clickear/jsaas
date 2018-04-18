@@ -1,0 +1,563 @@
+@charset "utf-8";
+dl,dt,dd,p{;margin: 0}	
+h1,h2,h3,h4,h5,h6,th{margin:0;font-size:16px;font-weight:normal;font-family: "微软雅黑";}
+ul{margin: 0;padding: 0;}
+li{list-style: none;}
+a{text-decoration: none;outline:none; color: #666;}
+input{margin:0;padding:0;border:none;background-color:transparent;outline:none;}
+img{border:none;}
+.clearfix{clear: both;}
+*{font-family: "微软雅黑"}
+.P_top{
+	position: relative;
+}
+
+/*滚动条样式*/
+*::-webkit-scrollbar {
+	height:8px;
+	width: 8px
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: #d4d5d9;
+}
+
+*::-webkit-scrollbar-track {
+	background: #b3b3b3;
+	border-radius: 4px
+}
+
+*::-webkit-scrollbar-corner {
+	background:#fff;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+#editPort{
+	position:absolute;
+	top:0;
+	right:10px;	
+	z-index:10;
+	border:none;
+	background-color:transparent;
+	outline:none;
+	color:#ccc;
+}
+
+.container-fluid{
+	padding:0;
+}
+
+.row-fluid{
+	margin-top:20px;
+}
+
+.row-fluid>div{
+	border-radius: 8px;
+}
+
+/*首页*/
+
+.widget-box{
+	position: relative;
+}
+
+.widget-box .Load{
+	display:none;
+	background:#fff;
+	position: absolute;
+	top:50%;
+	margin-top:-40px;
+	left: 50%;
+	margin-left:-100px;
+	width: 200px;
+	height: 80px;
+	border-radius:8px;
+ 	box-shadow: 0px 5px 16px 0px rgba(79, 79, 79, 0.15);	
+ 	z-index: 2;
+}
+
+.Load span{
+	float: left;
+	width: 40px;
+	height: 40px;
+	margin:20px 0 0 30px;
+	background: url(../../mini/miniui/themes/default/images/grid/loading.gif) no-repeat center center;
+}
+
+.Load h1{
+	float: left;
+	line-height: 80px;
+    margin-left: 12px;
+}
+
+.Load h1::after{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#ldbbtChart{
+	border-radius:8px;
+}
+
+.modularBox dt{
+	background:#fff;
+	height: 40px;
+}
+
+.modularBox dt h1{
+	float: left;
+	font-size: 18px;
+	color:#666;
+	line-height: 38px;
+	margin-left:10px;
+}
+
+#modularTitle{
+	border-bottom:1px solid #ccc;
+}
+
+#modularTitle span{
+	float:left;
+}
+
+#modularTitle span p{
+	float:left;
+	line-height: 40px;
+	font-size: 16px;
+	color: #666;
+	width: 95%;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	cursor:default;
+}
+
+.modularBox dd span{
+	float:left;
+}
+
+.modularBox dd span a{
+	width:100%;
+	float:left;
+	color:#666;
+	font-size:14px;
+	line-height:40px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.icon{
+	float:right;
+	margin: 7px 6px 0 0 ;
+	padding-left: 6px;
+}
+
+.icon input{
+	float:left;
+}
+
+
+.icon input{
+	float:left;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	margin-left:12px;
+}
+
+#Edit{
+	
+}
+
+#More{
+	background: url(../img/content_p_title_01.png) no-repeat center center;	
+}
+
+
+#Refresh{
+	position:relative;
+	background: url(../img/content_p_title_02.png) no-repeat center center;
+}
+
+.modularBox{
+	height:350px;
+	border-radius:8px;
+	overflow: hidden;
+	background:#fff;
+	width:calc(100% - 20px);
+	padding:10px 10px 0 10px;
+}
+
+
+.project_01{
+	width:15%;
+}
+
+.project_02{
+	width:53%;
+}
+
+.project_03{
+	width:16%;
+}
+
+.project_04{
+	width:8%;
+}
+
+.modularBox>dd>span{
+	margin-left:2%;
+}
+
+.modularBox .project_04 > a{
+	transition:.2s color;
+}
+
+.modularBox .project_04 > a:hover{
+	color:#0daaf6;
+}
+
+.modularBox dd{
+	background:#fff;
+	border-bottom: none \9;
+	border-bottom-color:#ccc;
+	border-bottom-width:1px;
+	border-bottom-style:dashed;
+	position: relative;
+}
+
+.modularBox > .p_top:hover{
+	border-bottom:1px solid #fff;
+	border-radius:8px;
+	box-shadow: 0px 3px 13px 0px rgba(79, 79, 79, 0.15);
+	z-index: 1;
+}
+
+.modularBox dd>p{
+	display:inline-block;
+	font-size: 14px;
+	padding: 0 0 0 28px;
+	margin: 12px 0 12px 12px;
+	background:url(../img/index_nav_l_erji_01_03_03.png) no-repeat center left 0;
+}
+
+.modularBox dd>p>a{
+	color:#999;
+}
+
+.card ul,
+.cardmini ul{
+	margin-top:-20px;
+	
+}
+
+.card ul::after,
+.cardmini ul::afterr{
+	display: block;
+	clear: both;
+	content: '';
+}
+
+
+.card ul li{
+	width: calc(100% / 8 - 20px);
+	width: calc(100% / 8 - 20.5px) \9;
+	height:240px;
+	border-radius: 12px;
+	background: #fff;
+	float: left;
+	cursor: pointer;
+	margin:20px 10px 0 10px;
+	position:relative;
+	box-shadow:none;
+	transition:box-shadow .3s;
+}
+
+.cardmini ul li{
+	float: left;
+	border-radius: 12px;
+	background: #fff;
+	margin:20px 10px 0 10px;
+	width: calc(100% / 6 - 20px);
+	width: calc(100% / 6 - 20.5px) \9;
+	position: relative;
+	box-shadow:none;
+	transition:box-shadow .3s;
+}
+
+.cardmini ul li .cardBox span{
+	float: left;
+}
+.cardmini ul li .card_text{
+	width: calc(100% - 98px)
+}
+
+.cardmini ul li .card_text h2{
+	width: 100%;
+}
+/*阴影*/
+.card ul li:hover,
+.cardmini ul li:hover{
+	box-shadow: 0 6px 18px 2px #e0e5e7;
+}
+
+.cardBox,.cardInfo{
+	width: 90%;
+	margin: 0 auto ;
+}
+
+.cardBox img{
+	width: 50px;
+	float: left;
+}
+.cardBox img02{
+	float:none;
+	display:block;
+	margin:auto;
+	width:70px;
+}
+
+
+.cardBox span{
+	display:block;
+	text-align: center;
+}
+
+.cardBox .iconfont{
+	margin-top: 26px;
+}
+
+.cardmini .cardBox{
+	padding: 20px 0;
+}
+
+.cardmini .cardBox .iconfont{
+	margin:0;
+}
+
+.cardBox .iconfont:before{
+	font-weight:normal;
+	font-size:80px;
+	float: none;
+}
+
+.cardmini .cardBox .iconfont:before{
+	font-size: 65px;
+}
+
+.card_text{
+	margin-top:30px;
+}
+
+.cardmini .card_text{
+	margin-top: 12px;
+}
+
+.card_text h2{
+	text-align: center;
+	font-size: 14px;
+	line-height:14px;
+	color: #808080;
+	margin:24px 0 0 0;
+	white-space:nowrap;/*文字不换行*/
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.cardmini .card_text h2{
+	margin-top:10px;
+}
+
+.card_text h3{
+	font-family:'宋体';
+	font-size:28px;
+	text-align: center;
+	line-height:14px;
+	color: #808080;
+}
+
+.cardmini .card_text h3{
+	line-height:  inherit;
+}
+
+.card_msg ul{
+	margin-top: -20px;
+}
+
+
+.card_msg ul li{
+	height:120px;
+	border-radius: 12px;
+	background: #fff;
+	float: left;
+	cursor: pointer;
+	margin:20px 10px 0 10px;
+	position:relative;
+	box-shadow:none;
+	transition:box-shadow .3s;
+}
+
+.card_msg ul li:hover{
+	box-shadow: 0 6px 18px 2px #e0e5e7;
+}
+
+.card_msg .cardInfo{
+	margin-top:30px;
+}
+
+.cardInfo{
+	
+}
+
+.cardInfo h3{
+	text-align:center;
+	font-size:16px;
+	color:#666;
+}
+
+.cardInfo h2{
+	text-align:center;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	font-size:14px;
+	color:#808080;
+	margin-top:10px;
+}
+/*设备自适应*/
+	/*小于1600*/
+.winW1600 .card ul li{
+	height:220px;
+}
+.winW1600 .card_text{
+	margin-top:20px;
+}
+
+.winW1600 .cardBox .iconfont{
+	margin-top: 12px;
+}
+
+
+.winW1600 .cardmini ul li{
+	width: calc(100% / 4 - 20px);
+}
+
+	/*小于1400*/
+.winW1400 .card ul li{
+	height:200px;
+}
+
+.winW1400 .cardBox .iconfont {
+    margin-top: 25px;
+}
+
+.winW1400 .cardBox .iconfont{
+	margin-top: 6px;
+}
+
+.winW1400 .cardmini ul li{
+	width: calc(100% / 4 - 20px);
+}
+
+	/*小于1260*/
+.winW1260 .card ul li{
+/* 	height:180px; */
+}
+
+.winW1260 .cardBox .iconfont {
+    margin-top: 6px;
+}
+
+ .winW1260 .card_text {
+    margin-top: 0;
+}
+.winW1260 .card_text h2 {
+    margin: 20px 0 0 0;
+}
+
+.winW1260 .cardmini ul li{
+	width: calc(100% / 4 - 20px);
+}
+
+
+	/*小于1190*/
+.winW1190 .card ul li{
+	width: calc(100% / 6 - 20px);
+}
+.winW1190 .cardmini ul li{
+	width: calc(100% / 4 - 20px);
+}
+
+
+	/*小于1000*/
+.winW1000 .card ul li{
+	width: calc(100% / 4 - 20px);
+}
+
+.winW1000 .cardmini .cardBox{
+	width: 100%;
+}
+
+
+/* @media screen and (max-width: 1574px) {
+	.card ul li{
+		height:220px;
+	}
+	.card_text{
+		margin-top:20px;
+	}
+	
+	.cardBox .iconfont{
+		margin-top: 12px;
+	}
+	
+} */
+
+/* @media screen and (max-width: 1416px) {
+	.card ul li{
+		height:200px;
+	}
+	.cardBox .iconfont {
+	    margin-top: 25px;
+	}
+	
+	.cardBox .iconfont{
+		margin-top: 6px;
+	}
+} */
+
+
+/* @media screen and (max-width: 1268px){
+	.card ul li{
+		height:180px;
+	}
+	.cardBox .iconfont {
+	    margin-top: 6px;
+	}
+	
+	.card_text {
+	    margin-top: 0;
+	}
+	.card_text h2 {
+	    margin: 20px 0 0 0;
+	}
+} */
+
+/* @media screen and (max-width: 1190px){	
+	.card ul li{
+		width: calc(100% / 6 - 20px);
+	}
+} */
+
+/* @media screen and (max-width: 850px){
+	.card ul li{
+		width: calc(100% / 4 - 20px);
+	}
+} */
+
+

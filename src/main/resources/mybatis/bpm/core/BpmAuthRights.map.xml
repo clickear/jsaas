@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.bpm.core.entity.BpmAuthRights">
+	<resultMap id="BpmAuthRights" type="com.redxun.bpm.core.entity.BpmAuthRights">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="settingId" column="SETTING_ID_" jdbcType="VARCHAR"/>
+		<result property="rightType" column="RIGHT_TYPE_" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE_" jdbcType="VARCHAR"/>
+		<result property="authId" column="AUTH_ID_" jdbcType="VARCHAR"/>
+		<result property="authName" column="AUTH_NAME_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.bpm.core.entity.BpmAuthRights">
+		INSERT INTO bpm_auth_rights
+		(ID_,SETTING_ID_,RIGHT_TYPE_,TYPE_,AUTH_ID_,AUTH_NAME_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{settingId,jdbcType=VARCHAR}, #{rightType,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{authId,jdbcType=VARCHAR}, #{authName,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="BpmAuthRights">
+		SELECT * FROM bpm_auth_rights 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BpmAuthRights">
+		SELECT * FROM bpm_auth_rights
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.bpm.core.entity.BpmAuthRights">
+		UPDATE bpm_auth_rights SET
+		SETTING_ID_=#{settingId,jdbcType=VARCHAR},
+		RIGHT_TYPE_=#{rightType,jdbcType=VARCHAR},
+		TYPE_=#{type,jdbcType=VARCHAR},
+		AUTH_ID_=#{authId,jdbcType=VARCHAR},
+		AUTH_NAME_=#{authName,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM bpm_auth_rights 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	<delete id="delBySettingId" parameterType="java.lang.String">
+		DELETE FROM bpm_auth_rights 
+		WHERE
+		SETTING_ID_=#{settingId}
+	</delete>
+	
+	<select id="getBySettingId"   resultMap="BpmAuthRights">
+		SELECT * FROM bpm_auth_rights 
+		WHERE 
+		SETTING_ID_=#{settingId}
+	</select>
+	
+</mapper>

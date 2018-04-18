@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.oa.info.entity.InfInnerMsg">
+	<resultMap id="InfInnerMsg" type="com.redxun.oa.info.entity.InfInnerMsg">
+		<id property="msgId" column="MSG_ID_" jdbcType="VARCHAR"/>
+		<result property="content" column="CONTENT_" jdbcType="VARCHAR"/>
+		<result property="linkMsg" column="LINK_MSG_" jdbcType="VARCHAR"/>
+		<result property="category" column="CATEGORY_" jdbcType="VARCHAR"/>
+		<result property="senderId" column="SENDER_ID_" jdbcType="VARCHAR"/>
+		<result property="sender" column="SENDER_" jdbcType="VARCHAR"/>
+		<result property="delFlag" column="DEL_FLAG_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<!-- <collection property="infInboxs" javaType="com.redxun.oa.info.entity.InfInbox">
+		    <id property="recId" column="REC_ID_" jdbcType="VARCHAR"/>
+		    <result property="recUserId" column="REC_USER_ID_" jdbcType="VARCHAR"/>		    
+		</collection> -->
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.oa.info.entity.InfInnerMsg">
+		INSERT INTO inf_inner_msg
+		(MSG_ID_,CONTENT_,LINK_MSG_,CATEGORY_,SENDER_ID_,SENDER_,DEL_FLAG_,CREATE_TIME_,CREATE_BY_,UPDATE_TIME_,UPDATE_BY_,TENANT_ID_)
+		VALUES 
+		(#{msgId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{linkMsg,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{senderId,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="InfInnerMsg">
+		SELECT * FROM inf_inner_msg 
+		WHERE 
+		MSG_ID_=#{msgId}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="InfInnerMsg">
+		SELECT * FROM inf_inner_msg
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY MSG_ID_ DESC
+		</if>
+	</select>
+	
+	<update id="update" parameterType="com.redxun.oa.info.entity.InfInnerMsg">
+		UPDATE inf_inner_msg SET
+		CONTENT_=#{content,jdbcType=VARCHAR},
+		LINK_MSG_=#{linkMsg,jdbcType=VARCHAR},
+		CATEGORY_=#{category,jdbcType=VARCHAR},
+		SENDER_ID_=#{senderId,jdbcType=VARCHAR},
+		SENDER_=#{sender,jdbcType=VARCHAR},
+		DEL_FLAG_=#{delFlag,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR}
+		WHERE
+		MSG_ID_=#{msgId}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM inf_inner_msg 
+		WHERE
+		MSG_ID_=#{msgId}
+	</delete>
+	
+	<select id="getUnreadMsgList" resultMap="InfInnerMsg">
+	    SELECT
+			inf_inbox.REC_ID_,inf_inbox.REC_USER_ID_,inf_inner_msg.CONTENT_,inf_inner_msg.SENDER_,inf_inner_msg.CREATE_TIME_
+		FROM
+			inf_inner_msg
+		LEFT JOIN inf_inbox ON inf_inner_msg.MSG_ID_ = inf_inbox.MSG_ID_
+		where IS_READ_ = 'no' and inf_inbox.REC_USER_ID_ = #{userId} ORDER BY inf_inner_msg.CREATE_TIME_ DESC
+		
+	    
+	    
+	</select>
+	
+	
+</mapper>

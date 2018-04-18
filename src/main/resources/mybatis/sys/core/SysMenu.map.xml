@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.sys.core.entity.SysMenu">
+	<resultMap id="SysMenu" type="com.redxun.sys.core.entity.SysMenu">
+		<id property="menuId" column="MENU_ID_" jdbcType="VARCHAR"/>
+		<result property="name" column="NAME_" jdbcType="VARCHAR"/>
+		<result property="key" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="form" column="FORM_" jdbcType="NUMERIC"/>
+		<result property="entityName" column="ENTITY_NAME_" jdbcType="VARCHAR"/>
+		<result property="iconCls" column="ICON_CLS_" jdbcType="VARCHAR"/>
+		<result property="img" column="IMG_" jdbcType="VARCHAR"/>
+		<result property="parentId" column="PARENT_ID_" jdbcType="VARCHAR"/>
+		<result property="depth" column="DEPTH_" jdbcType="NUMERIC"/>
+		<result property="path" column="PATH_" jdbcType="VARCHAR"/>
+		<result property="sn" column="SN_" jdbcType="NUMERIC"/>
+		<result property="url" column="URL_" jdbcType="VARCHAR"/>
+		<result property="showType" column="SHOW_TYPE_" jdbcType="VARCHAR"/>
+		<result property="isBtnMenu" column="IS_BTN_MENU_" jdbcType="VARCHAR"/>
+		<result property="childs" column="_CHILDS" jdbcType="NUMERIC"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="boListId" column="BO_LIST_ID_" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	<resultMap id="MenuGroupModel" type="com.redxun.saweb.security.metadata.MenuGroupModel">
+		<result property="menuId" column="MENU_ID_" jdbcType="VARCHAR"/>
+		<result property="groupKey" column="KEY_" jdbcType="VARCHAR"/>
+		<result property="groupId" column="GROUP_ID_" jdbcType="VARCHAR"/>
+		<result property="url" column="URL_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<select id="get" parameterType="java.lang.String" resultMap="SysMenu">
+		SELECT * FROM SYS_MENU where MENU_ID_=#{menuId}
+	</select>
+
+	<select id="query" parameterType="java.util.Map" resultMap="SysMenu">
+		SELECT * FROM SYS_MENU
+		<where>
+			<if test="whereSql!=null">
+				${whereSql}
+			</if>
+		</where>
+		<if test="orderBySql!=null">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="orderBySql==null">
+			ORDER BY MENU_ID_ DESC
+		</if>
+	</select>
+	<select id="getGrantMenusByGroupId" parameterType="java.util.Map" resultMap="SysMenu">
+		SELECT sm.* FROM SYS_MENU sm RIGHT JOIN OS_GROUP_MENU gm on sm.MENU_ID_=gm.MENU_ID_ WHERE  
+		gm.GROUP_ID_=#{groupId} ORDER BY sm.SN_ ASC
+	</select>
+	
+	<select id="getGrantMenusBySysIdGroupId" parameterType="java.util.Map" resultMap="SysMenu">
+		SELECT sm.* FROM SYS_MENU sm RIGHT JOIN OS_GROUP_MENU gm on sm.MENU_ID_=gm.MENU_ID_ WHERE
+		 sm.SYS_ID_=#{sysId} and gm.GROUP_ID_=#{groupId} AND sm.IS_BTN_MENU_='NO' ORDER BY sm.SN_ ASC
+	</select>
+	
+	<select id="getGrantMenusBySysIdUserId" parameterType="java.util.Map" resultMap="SysMenu">
+		SELECT distinct sm.* FROM SYS_MENU sm , OS_GROUP_MENU gm,OS_REL_INST rel where 
+		 sm.MENU_ID_=gm.MENU_ID_ and sm.SYS_ID_=#{sysId} and 
+		 gm.GROUP_ID_=rel.PARTY1_   and rel.REL_TYPE_KEY_='GROUP-USER-BELONG'
+		 and rel.PARTY2_=#{userId} and rel.TENANT_ID_=#{tenantId} AND sm.IS_BTN_MENU_=#{isBtnMenu}
+		 ORDER BY sm.SN_ ASC
+	</select>
+	
+	<select id="getMenuGroupUrlMap" resultMap="MenuGroupModel">
+	select o.group_id_,og.KEY_,m.menu_id_,m.url_
+	from sys_menu m
+	left join os_group_menu o on m.MENU_ID_=o.MENU_ID_
+	left join os_group og on og.GROUP_ID_=o.GROUP_ID_
+	where m.url_ is not null ;
+	</select>
+	
+	<select id="getBySysIdIsBtnMenu"  parameterType="java.util.Map"   resultMap="SysMenu">
+	select * from SYS_MENU sm where sm.SYS_ID_=#{sysId} and sm.IS_BTN_MENU_=#{isBtnMenu} order by sm.SN_ asc
+	</select>
+	
+	<select id="getGroupsByKey" resultType="java.lang.String">
+		SELECT g.KEY_ FROM SYS_MENU sm , OS_GROUP_MENU gm,os_group g WHERE 
+		sm.MENU_ID_=gm.MENU_ID_ and gm.GROUP_ID_=g.GROUP_ID_  and sm.KEY_=#{key}
+	</select>
+	
+	
+	<select id="getByInstType" resultMap="SysMenu">
+		select m.* from sys_menu m, sys_type_sub_ref a, SYS_INST_TYPE t 
+			where m.SYS_ID_=a.SUB_SYS_ID_ and a.INST_TYPE_ID_=t.type_id_ and t.type_code_=#{instType} 
+			ORDER BY SN_ ASC
+	</select>
+	
+	<select id="getBySysId" parameterType="java.util.Map" resultMap="SysMenu">
+		select * from SYS_MENU sm where sm.SYS_ID_=#{sysId}  order by sm.SN_ asc
+	</select>
+	
+	<select id="getByUserMenuId" parameterType="java.util.Map" resultMap="SysMenu">
+	    SELECT distinct sys_menu.* FROM os_group_menu
+		LEFT JOIN os_rel_inst ON os_group_menu.GROUP_ID_ = os_rel_inst.PARTY1_
+		LEFT JOIN sys_menu ON os_group_menu.MENU_ID_ = sys_menu.MENU_ID_
+		where os_rel_inst.PARTY2_ =#{userId} and os_group_menu.MENU_ID_ =#{menuId}  
+	    
+	</select>
+	
+	
+	
+	<select id="getBoMenuByUserId" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select m.MENU_ID_ MENUID,m.PARENT_ID_ ,m.NAME_,m.BO_LIST_ID_,boList.KEY_ from sys_menu m, os_group_menu om,SYS_BO_LIST boList,
+		os_rel_inst i where 
+		m.MENU_ID_=om.MENU_ID_
+		and om.GROUP_ID_= i.PARTY1_
+		and m.BO_LIST_ID_ is not null
+		and m.BO_LIST_ID_=boList.ID_
+		and i.PARTY2_=#{userId} and i.TENANT_ID_=#{tenantId}
+	</select>
+	
+	<select id="isBoListExist" parameterType="java.util.Map" resultType="java.lang.Integer">
+	   select count(*) from sys_menu where BO_LIST_ID_=#{boListId}
+	   <if test="@Ognl@isNotEmpty(menuId)">
+	   	and MENU_ID_!=#{menuId}
+	   </if>
+	</select>
+	
+	<select id="getGrantMenusByTypeId" resultMap="SysMenu">
+	    SELECT sm.* FROM SYS_MENU sm RIGHT JOIN SYS_INST_TYPE_MENU gm on sm.MENU_ID_=gm.MENU_ID_ WHERE  
+		sm.IS_BTN_MENU_='NO' AND gm.INST_TYPE_ID_=#{typeId} ORDER BY sm.SN_ ASC	    
+	</select>
+	
+	<select id="getUrlMenuByTenantMgr" parameterType="java.util.Map" resultMap="SysMenu">
+	    SELECT
+			sys_menu.*
+		FROM
+			sys_menu
+		LEFT JOIN sys_inst_type_menu ON sys_inst_type_menu.MENU_ID_ = sys_menu.MENU_ID_
+		LEFT JOIN sys_inst_type on sys_inst_type_menu.INST_TYPE_ID_ = sys_inst_type.TYPE_ID_
+		LEFT JOIN sys_inst on sys_inst_type.TYPE_CODE_ = sys_inst.INST_TYPE_
+		WHERE
+			sys_inst_type_menu.sys_id_ =#{sysId}
+			and sys_inst.INST_ID_ =#{tenantId}
+			and sys_menu.IS_BTN_MENU_ =#{isBtnMenu}
+		
+			
+	</select>
+	
+	<select id="getMenusByTenantUser" resultMap="SysMenu">
+	    select sys_menu.* from sys_menu where PARENT_ID_ = #{parentId} and MENU_ID_ in (
+		SELECT
+			sys_menu.MENU_ID_
+		FROM
+			os_user
+		LEFT JOIN sys_inst ON os_user.TENANT_ID_ = sys_inst.INST_ID_
+		LEFT JOIN sys_inst_type ON sys_inst.INST_TYPE_ = sys_inst_type.TYPE_CODE_
+		LEFT JOIN sys_inst_type_menu ON sys_inst_type.TYPE_ID_ = sys_inst_type_menu.INST_TYPE_ID_
+		LEFT JOIN sys_menu ON sys_inst_type_menu.MENU_ID_ = sys_menu.MENU_ID_
+		WHERE
+			USER_ID_ =#{userId}
+		AND sys_menu.IS_BTN_MENU_ =#{isBtnMenu})
+ 
+	</select>
+	
+	<select id="getByTenantType" resultMap="SysMenu">
+	    SELECT
+			sys_menu.*
+		FROM
+			sys_inst_type_menu sm
+		LEFT JOIN sys_inst_type ON sm.inst_type_id_ = sys_inst_type.TYPE_ID_
+		LEFT JOIN sys_menu ON sm.MENU_ID_ = sys_menu.MENU_ID_
+		WHERE
+			sm.sys_id_ = #{sysId}
+		AND sys_inst_type.TYPE_CODE_ =#{instType}
+	    
+	</select>
+	
+	
+	<select id="isKeyExist" parameterType="java.util.Map" resultType="java.lang.Integer">
+	   select count(*) from sys_menu where KEY_=#{key}
+	   <if test="@Ognl@isNotEmpty(menuId)">
+	   	and MENU_ID_!=#{menuId}
+	   </if>
+	</select>
+</mapper>

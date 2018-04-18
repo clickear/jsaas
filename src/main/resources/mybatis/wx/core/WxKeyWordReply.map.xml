@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redxun.wx.core.entity.WxKeyWordReply">
+	<resultMap id="WxKeyWordReply" type="com.redxun.wx.core.entity.WxKeyWordReply">
+		<id property="id" column="ID_" jdbcType="VARCHAR"/>
+		<result property="pubId" column="PUB_ID_" jdbcType="VARCHAR"/>
+		<result property="keyWord" column="KEY_WORD_" jdbcType="VARCHAR"/>
+		<result property="replyType" column="REPLY_TYPE_" jdbcType="VARCHAR"/>
+		<result property="replyContent" column="REPLY_CONTENT_" jdbcType="VARCHAR"/>
+		<result property="createTime" column="CREATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="createBy" column="CREATE_BY_" jdbcType="VARCHAR"/>
+		<result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+		<result property="updateTime" column="UPDATE_TIME_" jdbcType="TIMESTAMP"/>
+		<result property="updateBy" column="UPDATE_BY_" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="create" parameterType="com.redxun.wx.core.entity.WxKeyWordReply">
+		INSERT INTO WX_KEY_WORD_REPLY
+		(ID_,PUB_ID_,KEY_WORD_,REPLY_TYPE_,REPLY_CONTENT_,CREATE_TIME_,CREATE_BY_,TENANT_ID_,UPDATE_TIME_,UPDATE_BY_)
+		VALUES 
+		(#{id,jdbcType=VARCHAR}, #{pubId,jdbcType=VARCHAR}, #{keyWord,jdbcType=VARCHAR}, #{replyType,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="get"   parameterType="java.lang.String" resultMap="WxKeyWordReply">
+		SELECT * FROM WX_KEY_WORD_REPLY 
+		WHERE 
+		ID_=#{id}
+	</select>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="WxKeyWordReply">
+		SELECT * FROM WX_KEY_WORD_REPLY
+		<where>
+			<if test="@Ognl@isNotEmpty(whereSql)">
+				${whereSql}
+			</if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderBySql)">
+			ORDER BY ${orderBySql}
+		</if>
+		<if test="@Ognl@isEmpty(orderBySql)">
+			ORDER BY ID_ DESC
+		</if>
+	</select>
+	<select id="getWxKeyWordReplyByKeyWord"  parameterType="java.lang.String" resultMap="WxKeyWordReply">
+		SELECT * FROM WX_KEY_WORD_REPLY 
+		WHERE PUB_ID_=#{pubId} AND KEY_WORD_=#{keyWord}
+	</select>
+	
+	<update id="update" parameterType="com.redxun.wx.core.entity.WxKeyWordReply">
+		UPDATE WX_KEY_WORD_REPLY SET
+		PUB_ID_=#{pubId,jdbcType=VARCHAR},
+		KEY_WORD_=#{keyWord,jdbcType=VARCHAR},
+		REPLY_TYPE_=#{replyType,jdbcType=VARCHAR},
+		REPLY_CONTENT_=#{replyContent,jdbcType=VARCHAR},
+		CREATE_TIME_=#{createTime,jdbcType=TIMESTAMP},
+		CREATE_BY_=#{createBy,jdbcType=VARCHAR},
+		TENANT_ID_=#{tenantId,jdbcType=VARCHAR},
+		UPDATE_TIME_=#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_BY_=#{updateBy,jdbcType=VARCHAR}
+		WHERE
+		ID_=#{id}
+	</update>
+	
+	<delete id="remove" parameterType="java.lang.String">
+		DELETE FROM WX_KEY_WORD_REPLY 
+		WHERE
+		ID_=#{id}
+	</delete>
+	
+	
+</mapper>

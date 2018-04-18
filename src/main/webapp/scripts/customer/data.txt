@@ -1,0 +1,37 @@
+[{
+    "UID": "1",
+    "Name": "项目范围规划A",
+    "Duration": 8,
+    "ParentTaskUID": -1
+},
+{
+    "UID": "2",
+    "Name": "确定项目范围1",
+    "Duration": 1,
+    "ParentTaskUID": "1"
+},
+{
+    "UID": "5",
+    "Name": "确定项目范围2",
+    "Duration": 1,
+    "ParentTaskUID": "1"
+},
+{
+    "UID": "3",
+    "Name": "项目范围规划B",
+    "Duration": 8,
+    "ParentTaskUID": -1
+},
+{
+    "UID": "4",
+    "Name": "确定项目范围3",
+    "Duration": 1,
+    "ParentTaskUID": "3"
+},
+{
+    "UID": "6",
+    "Name": "确定项目范围4",
+    "Duration": 1,
+    "ParentTaskUID": "3"
+}
+]
